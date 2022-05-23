@@ -65,8 +65,14 @@ def download_mods(urls):
         with open(mods_path, 'wb') as f:
             f.write(response.content)
 
-    print('以下模组校验失败，可能存在问题：\n' + '\n'.join(failed_mods))
-    showwarning('校验失败', f'{len(failed_mods)} 个模组校验失败，请查看控制台获取详情')
+    # 提示校验结果
+    failed_count = len(failed_mods)
+    if failed_count > 0:
+        logger.info(f'{failed_count} 个模组校验失败\n' + '\n'.join(failed_mods))
+        showwarning(
+            '校验失败',
+            f'{len(failed_mods)} 个模组校验失败，可能存在问题，请查看控制台获取详细信息'
+        )
 
 
 def write_mmc_files():
