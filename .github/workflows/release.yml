@@ -37,27 +37,12 @@ jobs:
       - name: Make
         run: pyinstaller -F main.py --clean
 
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload to Github Actions Artifact
+        uses: actions/upload-artifact@v2
         with:
-          tag_name: ${{ github.event.inputs.version }}
-          release_name: ${{ env.NAME }}
-          draft: false
-          prerelease: ${{ github.event.inputs.pre_release }}
-
-      - name: Upload Release Asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: dist\main.exe
-          asset_name: ${{ env.NAME }}.exe
-          asset_content_type: application/zip
-
+          name: MCMPD-win
+          path: dist\
+  
   linuxbuild:
     runs-on: ubuntu-latest
     name: Build Package for Linux
@@ -78,7 +63,30 @@ jobs:
 
       - name: Make
         run: python -m PyInstaller -F main.py --clean
+        
+      - name: Upload to Github Actions Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: MCMPD-linux
+          path: dist\
 
+  publish: 
+    runs-on: ubuntu-latest
+    name: publish
+    needs: [windowsbuild, linuxbuild]
+    steps:
+      - name: Check Out
+        uses: actions/checkout@v3
+      - name: Download Windows Build
+        uses: actions/upload-artifact@v2
+        with:
+          name: MCMPD-win
+          path: dist\
+      - name: Download Linux Build
+        uses: actions/upload-artifact@v2
+        with:
+          name: MCMPD-linux
+          path: dist\
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
