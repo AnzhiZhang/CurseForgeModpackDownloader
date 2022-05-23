@@ -89,7 +89,7 @@ jobs:
           path: dist/
       
       - name: Compress Packages
-        run: cd ./dist && tar zcvf linux.tar.gz main && zip -r main.exe windows.zip
+        run: cd ./dist && tar zcvf linux.tar.gz main && zip -r windows.zip main.exe
      
       - name: Create Release
         id: create_release
