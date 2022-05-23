@@ -12,7 +12,7 @@
 
 ## 鸣谢
 
-感谢 [安逸菌](http://anyijun.com) 和 [安逸汉化组](https://github.com/ShaBaiTianCN) 在本软件开发过程中提供的建议和帮助。
+感谢 [安逸菌](http://anyijun.com)、[Cyl18](https://github.com/Cyl18)、[安逸汉化组](https://github.com/ShaBaiTianCN) 在本软件开发过程中提供的建议和帮助。
 
 ## 版权声明
 
