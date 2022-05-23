@@ -9,3 +9,7 @@
 ## 使用方式
 
 自己研究
+
+## 鸣谢
+
+感谢 [安逸菌](anyijun.com) 和 [安逸汉化组](https://github.com/ShaBaiTianCN) 在本软件开发过程中提供的建议和帮助。
