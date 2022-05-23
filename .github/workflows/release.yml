@@ -76,7 +76,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Make
-        run: python -m pyinstaller -F main.py --clean
+        run: python -m PyInstaller -F main.py --clean
 
       #- name: Create Release
       #  id: create_release
