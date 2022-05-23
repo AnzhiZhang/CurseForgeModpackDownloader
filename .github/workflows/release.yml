@@ -78,16 +78,16 @@ jobs:
       - name: Make
         run: python -m PyInstaller -F main.py --clean
 
-      #- name: Create Release
-      #  id: create_release
-      #  uses: actions/create-release@v1
-      #  env:
-      #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #  with:
-      #    tag_name: ${{ github.event.inputs.version }}
-      #    release_name: ${{ env.NAME }}
-      #    draft: false
-      #    prerelease: ${{ github.event.inputs.pre_release }}
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.event.inputs.version }}
+          release_name: ${{ env.NAME }}
+          draft: false
+          prerelease: ${{ github.event.inputs.pre_release }}
 
       - name: Upload Release Asset
         uses: actions/upload-release-asset@v1
