@@ -1,12 +1,13 @@
 import os
+import re
 import json
 import shutil
-import time
-import webbrowser
-import zipfile
-from zipfile import ZipFile
+import hashlib
+from zipfile import ZipFile, ZIP_STORED
+from tkinter.filedialog import askopenfilename
+from tkinter.messagebox import showinfo, showwarning
 
-from lxml import html
+import requests
 
 
 def unzip():
@@ -15,33 +16,57 @@ def unzip():
             zf.extract(i, dir_path)
 
 
-def get_combine_download_urls():
-    def get_file_ids():
-        with open(manifest_path) as f:
-            data = json.load(f)
-            return [i['fileID'] for i in data['files']]
+def get_download_urls():
+    # 获取下载链接 API
+    urls = []
+    project_ids = []
+    with open(manifest_path) as f:
+        data = json.load(f)
+        for i in data['files']:
+            project_ids.append(i["projectID"])
+            urls.append(
+                f'https://addons-ecs.forgesvc.net/api/v2/addon/'
+                f'{i["projectID"]}/file/{i["fileID"]}/download-url'
+            )
 
-    def get_mod_urls():
-        root = html.parse(modlist_path)
-        return root.xpath('//li/a/@href')
-
-    file_ids = get_file_ids()
-    mod_urls = get_mod_urls()
-
+    count = len(urls)
     result = []
-    for i in range(len(file_ids)):
-        result.append(f'{mod_urls[i]}/download/{file_ids[i]}/file')
+    for i, url in enumerate(urls):
+        print(f'获取模组下载链接（{i + 1}/{count}）')
+        result.append(session.get(url).text)
     return result
 
 
 def download_mods(urls):
-    mods_path = os.path.join(overrides_dir_path, 'mods')
-    if not os.path.isdir(mods_path):
-        os.makedirs(mods_path)
-    print(urls)
-    for i in urls:
-        webbrowser.open(i)
-        time.sleep(0.2)
+    # 检查模组文件夹
+    mods_dir_path = os.path.join(overrides_dir_path, 'mods')
+    if not os.path.isdir(mods_dir_path):
+        os.makedirs(mods_dir_path)
+
+    # 下载模组
+    count = len(urls)
+    failed_mods = []
+    pattern = re.compile('"|-[0-9]')
+    for i, url in enumerate(urls):
+        # 计算路径
+        mod_name = os.path.basename(url)
+        mods_path = os.path.join(mods_dir_path, mod_name)
+
+        # 下载
+        response = session.get(url)
+        print(f'下载模组（{i + 1}/{count}）：{mod_name}')
+
+        # 校验
+        md5 = hashlib.md5(response.content).hexdigest()
+        if md5 != pattern.sub('', response.headers['ETag']):
+            failed_mods.append(f'{mod_name}（{url}）')
+
+        # 写入文件
+        with open(mods_path, 'wb') as f:
+            f.write(response.content)
+
+    print('以下模组校验失败，可能存在问题：\n' + '\n'.join(failed_mods))
+    showwarning('校验失败', f'{len(failed_mods)} 个模组校验失败，请查看控制台获取详情')
 
 
 def write_mmc_files():
@@ -81,7 +106,7 @@ def clean_file():
     os.rename(overrides_dir_path, os.path.join(dir_path, '.minecraft'))
 
     # 压缩
-    with ZipFile(file_path, mode='w', compression=zipfile.ZIP_STORED) as zf:
+    with ZipFile(file_path, mode='w', compression=ZIP_STORED) as zf:
         for dirpath, dirnames, filenames in os.walk(dir_path):
             for filename in filenames:
                 zf_path = os.path.join(dirpath, filename)
@@ -93,16 +118,21 @@ def clean_file():
 
 
 # 计算路径
-file_path = input('文件路径：')
+file_path = askopenfilename().replace('/', os.sep)
 dir_path = file_path.replace('.zip', '')
 overrides_dir_path = os.path.join(dir_path, 'overrides')
 manifest_path = os.path.join(dir_path, 'manifest.json')
 modlist_path = os.path.join(dir_path, 'modlist.html')
 
+# 爬虫
+session = requests.session()
+session.headers = {
+    'user-agent': ''
+}
+
 unzip()
-download_urls = get_combine_download_urls()
-print(f'开始下载 {len(download_urls)} 个模组')
+download_urls = get_download_urls()
 download_mods(download_urls)
-input('请下载完成后手动移动文件，然后按回车继续')
 write_mmc_files()
 clean_file()
+showinfo('下载完成', '下载完成！请导入 MultiMC')
