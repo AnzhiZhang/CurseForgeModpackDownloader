@@ -90,6 +90,9 @@ jobs:
       
       - name: Compress Packages
         run: cd ./dist && tar zcvf linux.tar.gz main && zip -r windows.zip main.exe
+      
+      - name: DEBUG
+        run: ls ./dist
      
       - name: Create Release
         id: create_release
