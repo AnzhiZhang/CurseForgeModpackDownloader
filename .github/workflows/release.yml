@@ -57,10 +57,11 @@ jobs:
           asset_path: dist\main.exe
           asset_name: ${{ env.NAME }}.exe
           asset_content_type: application/zip
+
   linuxbuild:
     runs-on: ubuntu-latest
     name: Build Package for Linux
-    
+
     steps:
       - name: Check Out
         uses: actions/checkout@v3
