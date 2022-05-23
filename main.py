@@ -112,8 +112,10 @@ def clean_file():
     logger.close()
 
     # 清理 CF 文件
+    modlist_path = os.path.join(dir_path, 'modlist.html')
+    if os.path.isfile(modlist_path):
+        os.remove(modlist_path)
     os.remove(manifest_path)
-    os.remove(modlist_path)
     os.rename(overrides_dir_path, os.path.join(dir_path, '.minecraft'))
 
     # 压缩
@@ -147,7 +149,6 @@ dir_path = file_path.replace('.zip', '')
 log_file_path = os.path.join(dir_path, f'{NAME}.log')
 overrides_dir_path = os.path.join(dir_path, 'overrides')
 manifest_path = os.path.join(dir_path, 'manifest.json')
-modlist_path = os.path.join(dir_path, 'modlist.html')
 
 unzip()
 logger = Logger(log_file_path)
