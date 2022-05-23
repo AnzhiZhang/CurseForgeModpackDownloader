@@ -57,7 +57,7 @@ jobs:
           asset_path: dist\main.exe
           asset_name: ${{ env.NAME }}.exe
           asset_content_type: application/zip
-  linux-bild:
+  linux-build:
     runs-on: ubuntu-latest
     name: Build Package for Linux
     
