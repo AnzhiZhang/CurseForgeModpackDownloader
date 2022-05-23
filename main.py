@@ -125,7 +125,7 @@ def clean_file():
 
 # 计算路径
 file_path = askopenfilename().replace('/', os.sep)
-if file_path is None:
+if file_path == '':
     exit()
 dir_path = file_path.replace('.zip', '')
 log_file_path = os.path.join(dir_path, f'{NAME}.log')
