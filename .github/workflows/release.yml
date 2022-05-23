@@ -127,5 +127,5 @@ jobs:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: dist/windows.zip
           #我恨斜杠 又得放工
-          asset_name: ${{ env.NAME }}.zip
+          asset_name: ${{ env.NAME }}-WINDOWS.zip
           asset_content_type: application/zip
