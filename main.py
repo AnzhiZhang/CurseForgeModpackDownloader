@@ -102,7 +102,6 @@ def write_mmc_files():
 def clean_file():
     # 清理 CF 文件
     os.remove(manifest_path)
-    os.remove(modlist_path)
     os.rename(overrides_dir_path, os.path.join(dir_path, '.minecraft'))
 
     # 压缩
@@ -122,7 +121,6 @@ file_path = askopenfilename().replace('/', os.sep)
 dir_path = file_path.replace('.zip', '')
 overrides_dir_path = os.path.join(dir_path, 'overrides')
 manifest_path = os.path.join(dir_path, 'manifest.json')
-modlist_path = os.path.join(dir_path, 'modlist.html')
 
 # 爬虫
 session = requests.session()
