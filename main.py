@@ -3,49 +3,14 @@ import re
 import json
 import shutil
 import hashlib
-import logging
 from zipfile import ZipFile, ZIP_STORED
 from tkinter.filedialog import askopenfilename
 from tkinter.messagebox import showinfo, showwarning
 
-import requests
+from utils.session import Session
+from utils.logger import Logger
 
 NAME = 'MinecraftModpackDownloader'
-
-
-class Logger:
-    format = logging.Formatter(
-        '[%(asctime)s] [%(levelname)s]: %(message)s',
-        datefmt='%H:%M:%S'
-    )
-
-    def __init__(self):
-        # Logger
-        self.logger = logging.getLogger('MinecraftModpackDownloader')
-        self.logger.setLevel(logging.INFO)
-
-        # Console Handler
-        self.ch = logging.StreamHandler()
-        self.ch.setLevel(logging.INFO)
-        self.ch.setFormatter(self.format)
-        self.logger.addHandler(self.ch)
-
-        # File handler
-        self.fh = logging.FileHandler(log_file_path, encoding='utf-8')
-        self.fh.setLevel(logging.INFO)
-        self.fh.setFormatter(self.format)
-        self.logger.addHandler(self.fh)
-
-        self.debug = self.logger.debug
-        self.info = self.logger.info
-        self.warning = self.logger.warning
-        self.error = self.logger.error
-        self.critical = self.logger.critical
-        self.exception = self.logger.exception
-
-    def close(self):
-        self.fh.close()
-        self.logger.removeHandler(self.fh)
 
 
 def unzip():
@@ -56,22 +21,16 @@ def unzip():
 
 def get_download_urls():
     # 获取下载链接 API
-    urls = []
-    project_ids = []
+    result = []
     with open(manifest_path) as f:
         data = json.load(f)
-        for i in data['files']:
-            project_ids.append(i["projectID"])
-            urls.append(
-                f'https://addons-ecs.forgesvc.net/api/v2/addon/'
-                f'{i["projectID"]}/file/{i["fileID"]}/download-url'
+        files = data['files']
+        count = len(files)
+        for i, file in enumerate(files):
+            logger.info(f'获取模组下载链接（{i + 1}/{count}）')
+            result.append(
+                session.get_download_url(file["projectID"], file["fileID"])
             )
-
-    count = len(urls)
-    result = []
-    for i, url in enumerate(urls):
-        logger.info(f'获取模组下载链接（{i + 1}/{count}）')
-        result.append(session.get(url).text)
     return result
 
 
@@ -172,14 +131,10 @@ log_file_path = os.path.join(dir_path, f'{NAME}.log')
 overrides_dir_path = os.path.join(dir_path, 'overrides')
 manifest_path = os.path.join(dir_path, 'manifest.json')
 
-# 爬虫
-session = requests.session()
-session.headers = {
-    'user-agent': ''
-}
 
 unzip()
-logger = Logger()
+logger = Logger(log_file_path)
+session = Session()
 download_urls = get_download_urls()
 download_mods(download_urls)
 write_mmc_files()
