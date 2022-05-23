@@ -133,7 +133,6 @@ overrides_dir_path = os.path.join(dir_path, 'overrides')
 manifest_path = os.path.join(dir_path, 'manifest.json')
 modlist_path = os.path.join(dir_path, 'modlist.html')
 
-
 unzip()
 logger = Logger(log_file_path)
 session = Session()
@@ -141,4 +140,9 @@ download_urls = get_download_urls()
 download_mods(download_urls)
 write_mmc_files()
 clean_file()
-showinfo('下载完成', '下载完成！请导入 MultiMC')
+showinfo(
+    '下载完成',
+    '请直接导入启动器\n'
+    '软件已开源，下载地址及问题反馈：\n'
+    'https://github.com/AnzhiZhang/MinecraftModpackDownloader'
+)
