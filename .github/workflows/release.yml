@@ -68,7 +68,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: MCMPD-linux
-          path: dist\
+          path: ./dist/
 
   publish: 
     runs-on: ubuntu-latest
@@ -78,15 +78,15 @@ jobs:
       - name: Check Out
         uses: actions/checkout@v3
       - name: Download Windows Build
-        uses: actions/upload-artifact@v2
+        uses: actions/download-artifact@v2
         with:
           name: MCMPD-win
-          path: dist\
+          path: dist/
       - name: Download Linux Build
-        uses: actions/upload-artifact@v2
+        uses: actions/download-artifact@v2
         with:
           name: MCMPD-linux
-          path: dist\
+          path: dist/
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
