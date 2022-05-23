@@ -109,7 +109,8 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: dist/linux.tar.gz
-          asset_name: ${{ env.NAME }}
+          asset_name: ${{ env.NAME }}.tar.gz
+          #忘加后缀名系列 现已开播
           asset_content_type: application/x-gtar
       - name: Upload Windows Package
         uses: actions/upload-release-asset@v1
@@ -119,5 +120,5 @@ jobs:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: dist\windows.zip
           #我恨斜杠 又得放工
-          asset_name: ${{ env.NAME }}
+          asset_name: ${{ env.NAME }}.zip
           asset_content_type: application/zip
