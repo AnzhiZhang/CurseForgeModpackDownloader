@@ -111,17 +111,21 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: dist/linux.tar.gz
-          asset_name: ${{ env.NAME }}.tar.gz
+          asset_path: |
+            dist/linux.tar.gz
+            dist/windows.zip
+          asset_name: |
+            ${{ env.NAME }}-LINUX.tar.gz
+            ${{ env.NAME }}-WINDOWS.zip
           #忘加后缀名系列 现已开播
           asset_content_type: application/x-gtar
-      - name: Upload Windows Package
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: dist\windows.zip
-          #我恨斜杠 又得放工
-          asset_name: ${{ env.NAME }}.zip
-          asset_content_type: application/zip
+      #- name: Upload Windows Package
+      #  uses: actions/upload-release-asset@v1
+      #  env:
+      #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #  with:
+      #    upload_url: ${{ steps.create_release.outputs.upload_url }}
+      #    asset_path: dist\windows.zip
+      #    #我恨斜杠 又得放工
+      #    asset_name: ${{ env.NAME }}.zip
+      #    asset_content_type: application/zip
