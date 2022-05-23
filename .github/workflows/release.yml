@@ -91,8 +91,8 @@ jobs:
       - name: Compress Packages
         run: cd ./dist && tar zcvf linux.tar.gz main && zip -r windows.zip main.exe
       
-      - name: DEBUG
-        run: ls ./dist
+      #- name: DEBUG
+      #  run: ls ./dist
      
       - name: Create Release
         id: create_release
@@ -116,8 +116,8 @@ jobs:
           #忘加后缀名系列 现已开播
           asset_content_type: application/x-gtar
       
-      - name: DEBUG2
-        run: ls ./dist
+      #- name: DEBUG2
+      #  run: ls ./dist
       
       - name: Upload Windows Package
         uses: actions/upload-release-asset@v1
