@@ -1,5 +1,4 @@
 import os
-import re
 import json
 import shutil
 import hashlib
@@ -43,7 +42,6 @@ def download_mods(urls):
     # 下载模组
     count = len(urls)
     failed_mods = []
-    pattern = re.compile('"|-[0-9]')
     for i, url in enumerate(urls):
         # 计算路径
         mod_name = os.path.basename(url)
@@ -55,7 +53,7 @@ def download_mods(urls):
 
         # 校验
         md5 = hashlib.md5(response.content).hexdigest()
-        if md5 != pattern.sub('', response.headers['ETag']):
+        if md5 != response.headers['ETag'].replace('"', ''):
             failed_mods.append(f'{mod_name}（{url}）')
 
         # 写入文件
