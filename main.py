@@ -3,11 +3,49 @@ import re
 import json
 import shutil
 import hashlib
+import logging
 from zipfile import ZipFile, ZIP_STORED
 from tkinter.filedialog import askopenfilename
 from tkinter.messagebox import showinfo, showwarning
 
 import requests
+
+NAME = 'MinecraftModpackDownloader'
+
+
+class Logger:
+    format = logging.Formatter(
+        '[%(asctime)s] [%(levelname)s]: %(message)s',
+        datefmt='%H:%M:%S'
+    )
+
+    def __init__(self):
+        # Logger
+        self.logger = logging.getLogger('MinecraftModpackDownloader')
+        self.logger.setLevel(logging.INFO)
+
+        # Console Handler
+        self.ch = logging.StreamHandler()
+        self.ch.setLevel(logging.INFO)
+        self.ch.setFormatter(self.format)
+        self.logger.addHandler(self.ch)
+
+        # File handler
+        self.fh = logging.FileHandler(log_file_path, encoding='utf-8')
+        self.fh.setLevel(logging.INFO)
+        self.fh.setFormatter(self.format)
+        self.logger.addHandler(self.fh)
+
+        self.debug = self.logger.debug
+        self.info = self.logger.info
+        self.warning = self.logger.warning
+        self.error = self.logger.error
+        self.critical = self.logger.critical
+        self.exception = self.logger.exception
+
+    def close(self):
+        self.fh.close()
+        self.logger.removeHandler(self.fh)
 
 
 def unzip():
@@ -32,7 +70,7 @@ def get_download_urls():
     count = len(urls)
     result = []
     for i, url in enumerate(urls):
-        print(f'获取模组下载链接（{i + 1}/{count}）')
+        logger.info(f'获取模组下载链接（{i + 1}/{count}）')
         result.append(session.get(url).text)
     return result
 
@@ -54,7 +92,7 @@ def download_mods(urls):
 
         # 下载
         response = session.get(url)
-        print(f'下载模组（{i + 1}/{count}）：{mod_name}')
+        logger.info(f'下载模组（{i + 1}/{count}）：{mod_name}')
 
         # 校验
         md5 = hashlib.md5(response.content).hexdigest()
@@ -106,6 +144,9 @@ def write_mmc_files():
 
 
 def clean_file():
+    # 关闭日志
+    logger.close()
+
     # 清理 CF 文件
     os.remove(manifest_path)
     os.rename(overrides_dir_path, os.path.join(dir_path, '.minecraft'))
@@ -127,6 +168,7 @@ file_path = askopenfilename().replace('/', os.sep)
 if file_path is None:
     exit()
 dir_path = file_path.replace('.zip', '')
+log_file_path = os.path.join(dir_path, f'{NAME}.log')
 overrides_dir_path = os.path.join(dir_path, 'overrides')
 manifest_path = os.path.join(dir_path, 'manifest.json')
 
@@ -137,6 +179,7 @@ session.headers = {
 }
 
 unzip()
+logger = Logger()
 download_urls = get_download_urls()
 download_mods(download_urls)
 write_mmc_files()
