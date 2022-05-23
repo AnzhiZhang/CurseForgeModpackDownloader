@@ -16,7 +16,7 @@ env:
   NAME: MinecraftModpackDownloader-${{ github.event.inputs.version }}
 
 jobs:
-  windows-build:
+  windowsbuild:
     runs-on: windows-latest
     name: Build Package for Windows
 
@@ -57,7 +57,7 @@ jobs:
           asset_path: dist\main.exe
           asset_name: ${{ env.NAME }}.exe
           asset_content_type: application/zip
-  linux-build:
+  linuxbuild:
     runs-on: ubuntu-latest
     name: Build Package for Linux
     
