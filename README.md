@@ -8,8 +8,8 @@
 
 ## 使用方式
 
-自己研究
+[CurseForge 整合包第三方下载器 MinecraftModpackDownloader 教程](https://www.bilibili.com/read/cv16750614)
 
 ## 鸣谢
 
-感谢 [安逸菌](anyijun.com) 和 [安逸汉化组](https://github.com/ShaBaiTianCN) 在本软件开发过程中提供的建议和帮助。
+感谢 [安逸菌](http://anyijun.com) 和 [安逸汉化组](https://github.com/ShaBaiTianCN) 在本软件开发过程中提供的建议和帮助。
