@@ -118,6 +118,8 @@ def clean_file():
 
 # 计算路径
 file_path = askopenfilename().replace('/', os.sep)
+if file_path is None:
+    exit()
 dir_path = file_path.replace('.zip', '')
 overrides_dir_path = os.path.join(dir_path, 'overrides')
 manifest_path = os.path.join(dir_path, 'manifest.json')
