@@ -13,7 +13,7 @@ from zipfile import ZipFile, ZIP_STORED
 from tkinter.filedialog import askopenfilename
 from tkinter.messagebox import showinfo, showwarning, askokcancel
 
-from utils.session import Session
+from utils.requester import Requester
 from utils.logger import Logger
 
 NAME = 'MinecraftModpackDownloader'
@@ -35,7 +35,7 @@ def get_download_urls():
         for i, file in enumerate(files):
             logger.info(f'获取模组下载链接（{i + 1}/{count}）')
             result.append(
-                session.get_download_url(file["projectID"], file["fileID"])
+                Requester.download_url(file["projectID"], file["fileID"]).text
             )
     return result
 
@@ -55,7 +55,7 @@ def download_mods(urls):
         mods_path = os.path.join(mods_dir_path, mod_name)
 
         # 下载
-        response = session.get(url)
+        response = Requester.get(url)
         logger.info(f'下载模组（{i + 1}/{count}）：{mod_name}')
 
         # 校验
@@ -152,7 +152,6 @@ manifest_path = os.path.join(dir_path, 'manifest.json')
 
 unzip()
 logger = Logger(log_file_path)
-session = Session()
 download_urls = get_download_urls()
 download_mods(download_urls)
 write_mmc_files()
