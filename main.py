@@ -10,6 +10,7 @@ import json
 import shutil
 import hashlib
 from zipfile import ZipFile, ZIP_STORED
+from concurrent.futures import ThreadPoolExecutor
 from tkinter.filedialog import askopenfilename
 from tkinter.messagebox import showinfo, showwarning, askokcancel
 
@@ -41,17 +42,24 @@ def get_download_urls():
 
 
 def download_mods(urls):
-    def download(download_url, path):
-        response = Requester.get(download_url)
+    def download(url):
+        # 计算路径
+        mod_name = os.path.basename(url)
+        mod_path = os.path.join(mods_dir_path, mod_name)
+
+        # 下载
+        response = Requester.get(url)
 
         # 校验
         md5 = hashlib.md5(response.content).hexdigest()
         if md5 != response.headers['ETag'].replace('"', ''):
-            failed_mods.append(f'{mod_name}（{download_url}）')
+            failed_mods.append(f'{mod_name}（{url}）')
 
         # 写入文件
-        with open(path, 'wb') as f:
+        with open(mod_path, 'wb') as f:
             f.write(response.content)
+
+        return mod_name
 
     # 检查模组文件夹
     mods_dir_path = os.path.join(overrides_dir_path, 'mods')
@@ -61,14 +69,10 @@ def download_mods(urls):
     # 下载模组
     count = len(urls)
     failed_mods = []
-    for i, url in enumerate(urls):
-        # 计算路径
-        mod_name = os.path.basename(url)
-        mod_path = os.path.join(mods_dir_path, mod_name)
-
-        # 发起下载
-        logger.info(f'下载模组（{i + 1}/{count}）：{mod_name}')
-        download(url, mod_path)
+    i = 0
+    for name in thread_pool.map(download, urls):
+        i += 1
+        logger.info(f'下载模组（{i}/{count}）：{name}')
 
     # 提示校验结果
     failed_count = len(failed_mods)
@@ -158,8 +162,14 @@ log_file_path = os.path.join(dir_path, f'{NAME}.log')
 overrides_dir_path = os.path.join(dir_path, 'overrides')
 manifest_path = os.path.join(dir_path, 'manifest.json')
 
+# 准备文件
 unzip()
+
+# 工具
 logger = Logger(log_file_path)
+thread_pool = ThreadPoolExecutor(4)
+
+# 脚本
 download_urls = get_download_urls()
 download_mods(download_urls)
 write_mmc_files()
