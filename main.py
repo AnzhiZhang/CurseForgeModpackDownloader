@@ -41,6 +41,18 @@ def get_download_urls():
 
 
 def download_mods(urls):
+    def download(download_url, path):
+        response = Requester.get(download_url)
+
+        # 校验
+        md5 = hashlib.md5(response.content).hexdigest()
+        if md5 != response.headers['ETag'].replace('"', ''):
+            failed_mods.append(f'{mod_name}（{download_url}）')
+
+        # 写入文件
+        with open(path, 'wb') as f:
+            f.write(response.content)
+
     # 检查模组文件夹
     mods_dir_path = os.path.join(overrides_dir_path, 'mods')
     if not os.path.isdir(mods_dir_path):
@@ -52,20 +64,11 @@ def download_mods(urls):
     for i, url in enumerate(urls):
         # 计算路径
         mod_name = os.path.basename(url)
-        mods_path = os.path.join(mods_dir_path, mod_name)
+        mod_path = os.path.join(mods_dir_path, mod_name)
 
-        # 下载
-        response = Requester.get(url)
+        # 发起下载
         logger.info(f'下载模组（{i + 1}/{count}）：{mod_name}')
-
-        # 校验
-        md5 = hashlib.md5(response.content).hexdigest()
-        if md5 != response.headers['ETag'].replace('"', ''):
-            failed_mods.append(f'{mod_name}（{url}）')
-
-        # 写入文件
-        with open(mods_path, 'wb') as f:
-            f.write(response.content)
+        download(url, mod_path)
 
     # 提示校验结果
     failed_count = len(failed_mods)
