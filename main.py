@@ -82,23 +82,28 @@ def write_mmc_files():
     with open(manifest_path) as f:
         data = json.load(f)['minecraft']
         minecraft_version = data['version']
-        forge_version = data['modLoaders'][0]['id'].replace('forge-', '')
+        mod_loader = data['modLoaders'][0]['id']
+        if mod_loader.startswith('forge'):
+            mod_loader_uid = 'net.minecraftforge'
+        elif mod_loader.startswith('fabric'):
+            mod_loader_uid = 'net.fabricmc.fabric-loader'
+        mod_loader_version = mod_loader.split('-')[-1]
 
     # 写入 mmc-pack.json
     mmc_pack_path = os.path.join(dir_path, 'mmc-pack.json')
     with open(mmc_pack_path, 'w', encoding='utf-8') as f:
         json.dump({
-            "components": [
+            'components': [
                 {
-                    "uid": "net.minecraft",
-                    "version": minecraft_version
+                    'uid': 'net.minecraft',
+                    'version': minecraft_version
                 },
                 {
-                    "uid": "net.minecraftforge",
-                    "version": forge_version
+                    'uid': mod_loader_uid,
+                    'version': mod_loader_version
                 }
             ],
-            "formatVersion": 1
+            'formatVersion': 1
         }, f, indent=4)
 
     # 写入 instance.cfg
