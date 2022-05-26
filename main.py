@@ -28,16 +28,22 @@ def unzip():
 
 def get_download_urls():
     # 获取下载链接 API
-    result = []
     with open(manifest_path) as f:
         data = json.load(f)
         files = data['files']
-        count = len(files)
-        for i, file in enumerate(files):
-            logger.info(f'获取模组下载链接（{i + 1}/{count}）')
-            result.append(
-                Requester.download_url(file["projectID"], file["fileID"]).text
-            )
+
+    count = len(files)
+    result = []
+    i = 0
+    for r in thread_pool.map(
+            lambda file: Requester.download_url(
+                file["projectID"],
+                file["fileID"]
+            ), files
+    ):
+        i += 1
+        logger.info(f'获取模组下载链接（{i}/{count}）')
+        result.append(r.text)
     return result
 
 
