@@ -20,7 +20,7 @@
 
 <https://github.com/Gaz492/CurseforgeAPI/blob/master/apiary.apib>
 
-## 版权声明
+## 许可
 
 Copyright © 2022 Andy Zhang
 
