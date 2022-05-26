@@ -35,7 +35,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Make
-        run: pyinstaller -F main.py --clean
+        run: pyinstaller -i curseforge.ico --clean -F main.py
 
       - name: Create Release
         id: create_release
