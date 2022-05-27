@@ -148,10 +148,7 @@ def write_mmc_files():
         f.write('InstanceType=OneSix\n')
 
 
-def clean_file():
-    # 关闭日志
-    logger.close()
-
+def make_zip():
     # 清理 CF 文件
     modlist_path = os.path.join(dir_path, 'modlist.html')
     if os.path.isfile(modlist_path):
@@ -166,6 +163,11 @@ def clean_file():
                 zf_path = os.path.join(dirpath, filename)
                 arcname = zf_path.replace(dir_path, dir_path.split(os.sep)[-1])
                 zf.write(zf_path, arcname=arcname)
+
+
+def clean_file():
+    # 关闭日志
+    logger.close()
 
     # 删除文件夹
     shutil.rmtree(dir_path)
@@ -207,6 +209,7 @@ except:
 else:
     download_mods(download_urls)
     write_mmc_files()
+    make_zip()
     clean_file()
     showinfo(
         '下载完成',
