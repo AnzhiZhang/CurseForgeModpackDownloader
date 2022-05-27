@@ -53,17 +53,21 @@ def download_mods(urls):
         mod_name = os.path.basename(url)
         mod_path = os.path.join(mods_dir_path, mod_name)
 
-        # 下载
-        response = Requester.get(url)
+        try:
+            # 下载
+            response = Requester.get(url)
 
-        # 校验
-        md5 = hashlib.md5(response.content).hexdigest()
-        if md5 != response.headers['ETag'].replace('"', ''):
-            failed_mods.append(f'{mod_name}（{url}）')
+            # 校验
+            md5 = hashlib.md5(response.content).hexdigest()
+            if md5 != response.headers['ETag'].replace('"', ''):
+                failed_mods['verify'].append(f'{mod_name}（{url}）')
 
-        # 写入文件
-        with open(mod_path, 'wb') as f:
-            f.write(response.content)
+            # 写入文件
+            with open(mod_path, 'wb') as f:
+                f.write(response.content)
+        except Exception as e:
+            failed_mods['download'].append(f'{mod_name}（{url}）')
+            logger.error(f'下载 {mod_name} 失败：{repr(e)}')
 
         return mod_name
 
@@ -74,20 +78,39 @@ def download_mods(urls):
 
     # 下载模组
     count = len(urls)
-    failed_mods = []
+    failed_mods = {
+        'download': [],
+        'verify': []
+    }
     i = 0
     for name in thread_pool.map(download, urls):
         i += 1
         logger.info(f'下载模组（{i}/{count}）：{name}')
 
-    # 提示校验结果
-    failed_count = len(failed_mods)
-    if failed_count > 0:
-        logger.info(f'{failed_count} 个模组校验失败\n' + '\n'.join(failed_mods))
-        showwarning(
-            '校验失败',
-            f'{len(failed_mods)} 个模组校验失败，可能存在问题，请查看控制台获取详细信息'
+    # 提示结果
+    warning_text = ''
+
+    # 下载失败日志
+    failed_download_count = len(failed_mods['download'])
+    if failed_download_count > 0:
+        warning_text += f'{failed_download_count} 个模组下载失败，请手动下载！\n'
+        logger.error(
+            f'{failed_download_count} 个模组下载失败，请手动下载：\n' +
+            '\n'.join(failed_mods['download'])
         )
+
+    # 验证失败日志
+    failed_verify_count = len(failed_mods['verify'])
+    if failed_verify_count > 0:
+        warning_text += f'{failed_verify_count} 个模组校验失败，可能存在问题\n'
+        logger.warning(
+            f'{failed_verify_count} 个模组校验失败，一般无需手动下载：\n' +
+            '\n'.join(failed_mods['verify'])
+        )
+
+    # 弹窗提示
+    if warning_text:
+        showwarning('警告', warning_text + '请查看控制台或日志获取详细信息')
 
 
 def write_mmc_files():
