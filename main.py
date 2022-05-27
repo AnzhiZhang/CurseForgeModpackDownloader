@@ -199,13 +199,18 @@ logger = Logger(log_file_path)
 thread_pool = ThreadPoolExecutor(4)
 
 # 脚本
-download_urls = get_download_urls()
-download_mods(download_urls)
-write_mmc_files()
-clean_file()
-showinfo(
-    '下载完成',
-    '请直接导入启动器\n'
-    '下载地址及问题反馈：\n'
-    'https://github.com/AnzhiZhang/MinecraftModpackDownloader'
-)
+try:
+    download_urls = get_download_urls()
+except:
+    clean_file()
+    showwarning('警告', '获取模组下载地址失败，这可能是由于网络不稳定，请重试')
+else:
+    download_mods(download_urls)
+    write_mmc_files()
+    clean_file()
+    showinfo(
+        '下载完成',
+        '请直接导入启动器\n'
+        '下载地址及问题反馈：\n'
+        'https://github.com/AnzhiZhang/MinecraftModpackDownloader'
+    )
