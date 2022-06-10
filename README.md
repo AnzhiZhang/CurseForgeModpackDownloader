@@ -1,4 +1,4 @@
-# CurseForge Modpack Downloader12
+# CurseForge Modpack Downloader
 
 [![License](https://shields.io/github/license/AnzhiZhang/CurseForgeModpackDownloader?label=License)](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/blob/master/LICENSE)
 [![Downloads](https://shields.io/github/downloads/AnzhiZhang/CurseForgeModpackDownloader/total?label=Downloads)](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/releases)
