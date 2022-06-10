@@ -8,11 +8,11 @@
 
 ## 使用方式
 
-[CurseForge 整合包第三方下载器 MinecraftModpackDownloader 教程](https://blog.zhanganzhi.com/2022/06/09/CurseForge-%E6%95%B4%E5%90%88%E5%8C%85%E7%AC%AC%E4%B8%89%E6%96%B9%E4%B8%8B%E8%BD%BD%E5%99%A8-Minecraf-Modpack-Downloader-%E6%95%99%E7%A8%8B/)
+[CurseForge 整合包下载器教程](https://blog.zhanganzhi.com/2022/06/09/b583a6838537/)
 
 ## 鸣谢
 
-感谢 [安逸菌](http://anyijun.com)、[Cyl18](https://github.com/Cyl18)、[安逸汉化组](https://github.com/ShaBaiTianCN) 在本软件开发过程中提供的建议和帮助。
+感谢 [安逸菌](http://anyijun.com/)、[Cyl18](https://github.com/Cyl18) 和 [安逸汉化组](https://github.com/ShaBaiTianCN) 在本软件开发过程中提供的建议和帮助。
 
 ### 使用的 API 的文档
 
