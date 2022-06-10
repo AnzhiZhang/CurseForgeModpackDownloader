@@ -1,24 +1,28 @@
-name: Release
-on:
-  workflow_dispatch:
-    inputs:
-      version:
-        description: 'Release Version'
-        required: true
-        type: string
-      pre_release:
-        description: 'This is a pre-release'
-        required: true
-        type: boolean
-        default: false
-
-env:
-  NAME: CurseForgeModpackDownloader-${{ github.event.inputs.version }}
+name: Release Please
+on: push
 
 jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    name: Release Please
+
+    outputs:
+      release_created: ${{ steps.release_please.outputs.release_created }}
+      upload_url: ${{ steps.release_please.outputs.upload_url }}
+      tag_name: ${{ steps.release_please.outputs.tag_name }}
+
+    steps:
+      - uses: google-github-actions/release-please-action@v3
+        id: release_please
+        with:
+          release-type: simple
+          pull-request-title-pattern: 'chore${scope}: 🔖 release${component} ${version}'
+
   pack:
     runs-on: windows-latest
-    name: Pack
+    name: Pack and Upload
+    needs: release-please
+    if: ${{ needs.release-please.outputs.release_created }} 
 
     steps:
       - name: Check Out
@@ -37,23 +41,12 @@ jobs:
       - name: Make
         run: pyinstaller -i curseforge.ico --clean -F main.py
 
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.event.inputs.version }}
-          release_name: ${{ env.NAME }}
-          draft: false
-          prerelease: ${{ github.event.inputs.pre_release }}
-
       - name: Upload Release Asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          upload_url: ${{ needs.release-please.outputs.upload_url }}
           asset_path: dist\main.exe
-          asset_name: ${{ env.NAME }}.exe
+          asset_name: CurseForgeModpackDownloader-${{ needs.release-please.outputs.tag_name }}.exe
           asset_content_type: application/vnd.microsoft.portable-executable
