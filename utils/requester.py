@@ -5,8 +5,10 @@
 # 发布 CurseForgeModpackDownloader 是希望它能有用，但是并无保障；甚至连可销售和符合某个特定的目的都不保证。请参看 GNU 通用公共许可证，了解详情。
 
 # 你应该随程序获得一份 GNU 通用公共许可证的复本。如果没有，请看 <https://www.gnu.org/licenses/>。
-from urllib.parse import quote
+from urllib.parse import quote, urlencode
 from urllib.request import Request, urlopen
+
+from typing import Any, Dict
 
 
 class Response:
@@ -34,8 +36,20 @@ class Requester:
     }
 
     @classmethod
-    def get(cls, url: str) -> Response:
+    def get(cls, url: str, params: Dict[str, Any] = None) -> Response:
+        """
+        Request using get method.
+        :param url: URL.
+        :param params: Parametric.
+        :return: A Response object.
+        """
         url = quote(url, safe=':/')
+
+        # add params
+        if params:
+            url = url + '?' + urlencode(params)
+
+        # send request
         request = Request(url, headers=cls.HEADERS, method='GET')
         return Response(urlopen(request))
 
