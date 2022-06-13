@@ -1,6 +1,7 @@
 {
     "conventionalCommits.scopes": [
         "requester",
-        "download"
+        "download",
+        "ui"
     ]
 }
