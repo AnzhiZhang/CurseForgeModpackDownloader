@@ -169,8 +169,13 @@ def clean_file():
     logger.close()
 
     # 删除文件夹
-    shutil.rmtree(dir_path)
+    shutil.rmtree(PATH.TEMP_DIR_PATH)
 
+
+# 清理临时文件夹
+if os.path.isdir(PATH.TEMP_DIR_PATH):
+    shutil.rmtree(PATH.TEMP_DIR_PATH)
+os.mkdir(PATH.TEMP_DIR_PATH)
 
 # 版权声明
 accept = askokcancel(
@@ -187,7 +192,8 @@ if not accept:
 file_path = askopenfilename().replace('/', os.sep)
 if file_path == '':
     exit()
-dir_path = file_path.replace('.zip', '')
+file_base_name = os.path.basename(file_path)
+dir_path = os.path.join(PATH.TEMP_DIR_PATH, file_base_name.replace('.zip', ''))
 log_file_path = os.path.join(dir_path, PATH.LOG_FILE_NAME)
 overrides_dir_path = os.path.join(dir_path, 'overrides')
 manifest_path = os.path.join(dir_path, 'manifest.json')

@@ -10,6 +10,7 @@ NAME = 'CurseForgeModpackDownloader'
 
 class PATH:
     LOG_FILE_NAME = f'{NAME}.log'
+    TEMP_DIR_PATH = f'.{NAME}'
 
 
 class SEARCH:
