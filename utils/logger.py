@@ -7,6 +7,8 @@
 # 你应该随程序获得一份 GNU 通用公共许可证的复本。如果没有，请看 <https://www.gnu.org/licenses/>。
 import logging
 
+from utils.constant import NAME
+
 
 class Logger:
     format = logging.Formatter(
@@ -16,7 +18,7 @@ class Logger:
 
     def __init__(self, file_path: str):
         # Logger
-        self.logger = logging.getLogger('CurseForgeModpackDownloader')
+        self.logger = logging.getLogger(NAME)
         self.logger.setLevel(logging.INFO)
 
         # Console Handler

@@ -14,10 +14,9 @@ from concurrent.futures import ThreadPoolExecutor
 from tkinter.filedialog import askopenfilename
 from tkinter.messagebox import showinfo, showwarning, askokcancel
 
-from utils.requester import Requester
+from utils.constant import PATH
 from utils.logger import Logger
-
-NAME = 'CurseForgeModpackDownloader'
+from utils.requester import Requester
 
 
 def unzip():
@@ -189,7 +188,7 @@ file_path = askopenfilename().replace('/', os.sep)
 if file_path == '':
     exit()
 dir_path = file_path.replace('.zip', '')
-log_file_path = os.path.join(dir_path, f'{NAME}.log')
+log_file_path = os.path.join(dir_path, PATH.LOG_FILE_NAME)
 overrides_dir_path = os.path.join(dir_path, 'overrides')
 manifest_path = os.path.join(dir_path, 'manifest.json')
 
