@@ -28,7 +28,7 @@ class Download:
         if not self.zip_file_path:
             self.zip_file_path = askopenfilename().replace('/', os.sep)
             if self.zip_file_path == '':
-                exit()
+                return
 
         # 计算路径
         self.file_base_name = os.path.basename(self.zip_file_path)
