@@ -11,7 +11,7 @@ class Buttons(Frame):
             self,
             text='导入',
             background='white',
-            command=Download().main
+            command=lambda: Download().main()
         )
         self.download_button = Button(
             self,
