@@ -39,7 +39,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Make
-        run: pyinstaller -i curseforge.ico --clean -F main.py
+        run: pyinstaller -i icon.ico --clean -F main.py
 
       - name: Upload Release Asset
         uses: actions/upload-release-asset@v1
