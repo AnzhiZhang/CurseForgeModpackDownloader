@@ -36,7 +36,7 @@ class Requester:
     @classmethod
     def get(cls, url: str) -> Response:
         url = quote(url, safe=':/')
-        request = Request(url, headers=cls.HEADERS)
+        request = Request(url, headers=cls.HEADERS, method='GET')
         return Response(urlopen(request))
 
     @classmethod
