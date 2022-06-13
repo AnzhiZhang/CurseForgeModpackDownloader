@@ -57,7 +57,3 @@ class Main(Tk):
                 '你应该随程序获得一份 GNU 通用公共许可证的复本。如果没有，请看 https://www.gnu.org/licenses/。'
         ):
             exit()
-
-
-if __name__ == '__main__':
-    Main()
