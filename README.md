@@ -8,7 +8,7 @@
 
 ## 使用方式
 
-[CurseForge 整合包下载器教程](https://blog.zhanganzhi.com/2022/06/09/b583a6838537/)
+[《CurseForge 整合包下载器教程》](https://blog.zhanganzhi.com/2022/06/b583a6838537/)
 
 ## 鸣谢
 
