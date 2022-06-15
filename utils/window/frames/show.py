@@ -85,6 +85,10 @@ class Show(Frame):
 
     def __on_listbox_select(self, event=None):
         def run():
+            # Clean filter combobox
+            self.__main_window.filters_frame.set_modpack_version([''])
+
+            # Get files
             files = Requester.files(_id).json()
 
             # Storage into data
