@@ -21,6 +21,10 @@ class Filters(Frame):
         self.modpack_version_label = Label(self, text='整合包版本：')
         self.modpack_version_combobox = Combobox(self, state='readonly')
 
+        # Update list when combobox selected
+        self.sort_combobox.bind('<<ComboboxSelected>>', self.on_select)
+        self.game_version_combobox.bind('<<ComboboxSelected>>', self.on_select)
+
         self.sort_label.pack(side='left')
         self.sort_combobox.pack(side='left')
         self.game_version_label.pack(side='left', padx=(10, 0))
@@ -51,3 +55,6 @@ class Filters(Frame):
     def set_modpack_version(self, values: List[str]):
         self.modpack_version_combobox['values'] = values
         self.modpack_version_combobox.current(0)
+
+    def on_select(self, event=None):
+        self.main_window.show_frame.update_list()
