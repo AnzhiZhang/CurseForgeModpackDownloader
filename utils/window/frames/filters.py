@@ -50,3 +50,4 @@ class Filters(Frame):
 
     def set_modpack_version(self, values: List[str]):
         self.modpack_version_combobox['values'] = values
+        self.modpack_version_combobox.current(0)
