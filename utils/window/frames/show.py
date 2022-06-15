@@ -110,3 +110,27 @@ class Show(Frame):
     def selected_index(self) -> int:
         selection = self.__list_listbox.curselection()
         return selection[0] if selection else -1
+
+    @property
+    def selected_modpack_id(self) -> int:
+        index = self.selected_index
+        return self.__data[index].get('id') if index != -1 else -1
+
+    @property
+    def selected_files(self) -> Dict:
+        if self.selected_index != -1:
+            return self.__data[self.selected_index].get('files')
+
+    @property
+    def selected_file_name(self) -> str:
+        display_name = self.__main_window.filters_frame.modpack_version
+        if display_name != '' and self.selected_files is not None:
+            return self.selected_files[display_name]['fileName']
+        return ''
+
+    @property
+    def selected_download_url(self) -> str:
+        display_name = self.__main_window.filters_frame.modpack_version
+        if display_name != '' and self.selected_files is not None:
+            return self.selected_files[display_name]['downloadUrl']
+        return ''

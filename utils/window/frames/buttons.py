@@ -1,7 +1,10 @@
+import os
 from tkinter import Frame, Button
 from typing import TYPE_CHECKING
 
+from utils.constant import PATH
 from utils.download import Download
+from utils.requester import Requester
 
 if TYPE_CHECKING:
     from utils.window.main import Main
@@ -22,7 +25,8 @@ class Buttons(Frame):
         self.__download_button = Button(
             self,
             text='下载',
-            background='white'
+            background='white',
+            command=self.download
         )
         self.__exit_button = Button(
             self,
@@ -34,3 +38,15 @@ class Buttons(Frame):
         self.__exit_button.pack(side='right')
         self.__download_button.pack(side='right', padx=10)
         self.__import_button.pack(side='right')
+
+    def download(self):
+        modpack_id = self.__main_window.show_frame.selected_modpack_id
+        file_name = self.__main_window.show_frame.selected_file_name
+
+        if modpack_id != -1 and file_name != '':
+            download_url = self.__main_window.show_frame.selected_download_url
+
+            file_path = os.path.join(os.getcwd(), PATH.TEMP_DIR_PATH, file_name)
+            with open(file_path, 'wb') as f:
+                f.write(Requester.get(download_url).content)
+            Download(file_path).main()
