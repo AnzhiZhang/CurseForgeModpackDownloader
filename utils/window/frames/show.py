@@ -53,6 +53,7 @@ class Show(Frame):
 
             # Refresh list or append
             if not append:
+                self.data = []
                 self.list_listbox.delete(0, 'end')
             else:
                 self.index += 1
