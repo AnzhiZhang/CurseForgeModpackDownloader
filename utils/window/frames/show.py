@@ -101,8 +101,12 @@ class Show(Frame):
                 list(self.__data[index]['files'].keys())
             )
 
-        selection = self.__list_listbox.curselection()
-        if selection:
-            index = selection[0]
+        index = self.selected_index
+        if index != -1:
             _id = self.__data[index].get('id')
             Thread(target=run, name=f'Get Modpack Versions ({_id})').start()
+
+    @property
+    def selected_index(self) -> int:
+        selection = self.__list_listbox.curselection()
+        return selection[0] if selection else -1
