@@ -88,3 +88,14 @@ class Requester:
             'https://addons-ecs.forgesvc.net/api/v2/addon/search',
             params=params
         )
+
+    @classmethod
+    def files(cls, _id: int):
+        """
+        Get modpack files.
+        :param _id: Modpack ID.
+        :return: Response.
+        """
+        return cls.get(
+            f'https://addons-ecs.forgesvc.net/api/v2/addon/{_id}/files'
+        )
