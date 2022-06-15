@@ -27,24 +27,25 @@ class Main(Tk):
         scale_factor = windll.shcore.GetScaleFactorForDevice(0) / 75
         self.tk.call('tk', 'scaling', scale_factor)
 
-        self.title_frame = frames.Title(self)
-        self.search_frame = frames.Search(self)
-        self.show_frame = frames.Show(self)
-        self.filters_frame = frames.Filters(self)
-        self.buttons_frame = frames.Buttons(self)
+        self.__title_frame = frames.Title(self)
+        self.__search_frame = frames.Search(self)
+        self.__show_frame = frames.Show(self)
+        self.__filters_frame = frames.Filters(self)
+        self.__buttons_frame = frames.Buttons(self)
 
-        self.title_frame.pack(**self.PACK_KWARGS)
-        self.search_frame.pack(**self.PACK_KWARGS)
-        self.show_frame.pack(**self.PACK_KWARGS, expand=True)
-        self.filters_frame.pack(**self.PACK_KWARGS)
-        self.buttons_frame.pack(**self.PACK_KWARGS)
+        self.__title_frame.pack(**self.PACK_KWARGS)
+        self.__search_frame.pack(**self.PACK_KWARGS)
+        self.__show_frame.pack(**self.PACK_KWARGS, expand=True)
+        self.__filters_frame.pack(**self.PACK_KWARGS)
+        self.__buttons_frame.pack(**self.PACK_KWARGS)
 
-        self.ask_license()
+        self.__ask_license()
+        self.show_frame.update_list()
 
         self.mainloop()
 
     @staticmethod
-    def ask_license():
+    def __ask_license():
         """
         Ask to accept license.
         :return:
@@ -57,3 +58,15 @@ class Main(Tk):
                 '你应该随程序获得一份 GNU 通用公共许可证的复本。如果没有，请看 https://www.gnu.org/licenses/。'
         ):
             exit()
+
+    @property
+    def search_frame(self):
+        return self.__search_frame
+
+    @property
+    def show_frame(self):
+        return self.__show_frame
+
+    @property
+    def filters_frame(self):
+        return self.__filters_frame
