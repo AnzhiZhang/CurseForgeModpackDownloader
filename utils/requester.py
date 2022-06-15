@@ -38,7 +38,7 @@ class Requester:
         Request using get method.
         :param url: URL.
         :param params: Parametric.
-        :return: A Response object.
+        :return: Response.
         """
         url = quote(url, safe=':/')
 
