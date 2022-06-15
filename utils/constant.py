@@ -1,5 +1,5 @@
 NAME = 'CurseForgeModpackDownloader'
-NAME_WITH_SPACE = 'CurseForge Modpack Downloader'
+NAME_WITH_SPACE = 'CurseForge Modpack Downloader (CMPDL)'
 
 
 class PATH:
