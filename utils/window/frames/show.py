@@ -134,3 +134,10 @@ class Show(Frame):
         if display_name != '' and self.selected_files is not None:
             return self.selected_files[display_name]['downloadUrl']
         return ''
+
+    @property
+    def selected_avatar_url(self) -> str:
+        display_name = self.__main_window.filters_frame.modpack_version
+        if display_name != '' and self.selected_files is not None:
+            return self.__data[self.selected_index]['attachments'][0]['url']
+        return ''

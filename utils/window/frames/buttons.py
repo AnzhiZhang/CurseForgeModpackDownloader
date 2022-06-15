@@ -45,8 +45,13 @@ class Buttons(Frame):
 
         if modpack_id != -1 and file_name != '':
             download_url = self.__main_window.show_frame.selected_download_url
+            avatar_url = self.__main_window.show_frame.selected_avatar_url
 
             file_path = os.path.join(os.getcwd(), PATH.TEMP_DIR_PATH, file_name)
             with open(file_path, 'wb') as f:
                 f.write(Requester.get(download_url).content)
-            Download(file_path).main()
+            Download(
+                name=os.path.splitext(file_name)[0],
+                zip_file_path=file_path,
+                avatar_url=avatar_url
+            ).main()

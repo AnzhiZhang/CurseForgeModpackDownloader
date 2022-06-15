@@ -13,12 +13,22 @@ from utils.requester import Requester
 
 
 class Download:
-    def __init__(self, zip_file_path: str = None):
+    def __init__(
+            self,
+            name: str = None,
+            zip_file_path: str = None,
+            avatar_url: str = None
+    ):
+        self.name = name
         self.zip_file_path = zip_file_path
+        self.avatar_url = avatar_url
+        self.avatar_name = None
+        self.avatar_base_name = None
 
         self.file_base_name = None
         self.dir_path = None
         self.log_file_path = None
+        self.avatar_path = None
         self.overrides_dir_path = None
         self.manifest_path = None
         self.logger = None
@@ -29,6 +39,12 @@ class Download:
             self.zip_file_path = askopenfilename().replace('/', os.sep)
             if self.zip_file_path == '':
                 return
+        if self.avatar_url:
+            name = os.path.basename(self.avatar_url)
+            ext = os.path.splitext(name)[1]
+            self.avatar_base_name = self.name if self.name else name
+            self.avatar_base_name = self.avatar_base_name.replace('.', '_')
+            self.avatar_name = self.avatar_base_name + ext
 
         # 计算路径
         self.file_base_name = os.path.basename(self.zip_file_path)
@@ -37,6 +53,7 @@ class Download:
             self.file_base_name.replace('.zip', '')
         )
         self.log_file_path = os.path.join(self.dir_path, PATH.LOG_FILE_NAME)
+        self.avatar_path = os.path.join(self.dir_path, self.avatar_name)
         self.overrides_dir_path = os.path.join(self.dir_path, 'overrides')
         self.manifest_path = os.path.join(self.dir_path, 'manifest.json')
 
@@ -51,6 +68,8 @@ class Download:
         self.unzip()
 
         try:
+            with open(self.avatar_path, 'wb') as f:
+                f.write(Requester.get(self.avatar_url).content)
             download_urls = self.get_download_urls()
         except:
             self.clean_file()
@@ -188,8 +207,11 @@ class Download:
 
         # 写入 instance.cfg
         instance_cfg_path = os.path.join(self.dir_path, 'instance.cfg')
+        content = 'InstanceType=OneSix\n'
+        if self.avatar_base_name:
+            content += f'iconKey={self.avatar_base_name}\n'
         with open(instance_cfg_path, 'w', encoding='utf-8') as f:
-            f.write('InstanceType=OneSix\n')
+            f.write(content)
 
     def make_zip(self):
         # 清理 CF 文件
