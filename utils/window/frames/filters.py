@@ -26,7 +26,7 @@ class Filters(Frame):
         self.game_version_label.pack(side='left', padx=(10, 0))
         self.game_version_combobox.pack(side='left')
         self.modpack_version_label.pack(side='left', padx=(10, 0))
-        self.modpack_version_combobox.pack(side='left')
+        self.modpack_version_combobox.pack(side='left', fill='x', expand=True)
 
         # Set combobox values
         self.init()
