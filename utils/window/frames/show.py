@@ -14,7 +14,7 @@ class Show(Frame):
         super().__init__(master)
 
         self.__main_window = master
-        self.__index = 0
+        self.__search_index = 0
         self.__updating = False
         self.__data: List[Dict] = []
 
@@ -56,10 +56,10 @@ class Show(Frame):
                 self.__data = []
                 self.__list_listbox.delete(0, 'end')
             else:
-                self.__index += 1
+                self.__search_index += 1
 
             # Add request results
-            for i in request(self.__index):
+            for i in request(self.__search_index):
                 self.__data.append(i)
                 self.__list_listbox.insert('end', i['name'].strip())
 
