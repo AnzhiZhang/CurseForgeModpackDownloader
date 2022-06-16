@@ -286,6 +286,10 @@ class Download:
                     )
                     z.write(zf_path, arcname=arcname)
 
+        # Move to out of temp dir
+        if PATH.TEMP_DIR_PATH in self.zip_file_path:
+            shutil.move(self.zip_file_path, '.')
+
     def clear_file(self):
         # 关闭日志
         self.logger.close()
