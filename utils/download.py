@@ -55,7 +55,6 @@ class Download:
         # 计算路径
         self.file_base_name = os.path.basename(self.zip_file_path)
         self.dir_path = os.path.join(
-            os.getcwd(),
             PATH.TEMP_DIR_PATH,
             self.file_base_name.replace('.zip', '')
         )

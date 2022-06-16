@@ -71,7 +71,7 @@ class Buttons(Frame):
         if modpack_id != -1 and file_name != '':
             download_url = self.__main_window.show_frame.selected_download_url
             avatar_url = self.__main_window.show_frame.selected_avatar_url
-            file_path = os.path.join(os.getcwd(), PATH.TEMP_DIR_PATH, file_name)
+            file_path = os.path.join(PATH.TEMP_DIR_PATH, file_name)
 
             # Start download file
             thread = Thread(target=run, name='Download')

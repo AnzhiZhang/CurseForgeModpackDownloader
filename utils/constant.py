@@ -1,11 +1,20 @@
+import os
+import sys
+
 NAME = 'CurseForgeModpackDownloader'
 NAME_WITH_SPACE = 'CurseForge Modpack Downloader (CMPDL)'
 
+if getattr(sys, 'frozen', False):
+    BASE_DIR = getattr(sys, '_MEIPASS')
+else:
+    BASE_DIR = os.getcwd()
+
 
 class PATH:
-    ICON_PATH = 'icon.ico'
+    BASE_DIR = BASE_DIR
+    ICON_PATH = os.path.join(BASE_DIR, 'icon.ico')
+    TEMP_DIR_PATH = os.path.join(BASE_DIR, f'.{NAME}')
     LOG_FILE_NAME = f'{NAME}.log'
-    TEMP_DIR_PATH = f'.{NAME}'
 
 
 class WINDOW:
