@@ -224,7 +224,7 @@ class Download:
 
         # 弹窗提示
         if warning_text:
-            showwarning('警告', warning_text + '请查看控制台或日志获取详细信息')
+            showwarning('警告', warning_text + '请查看日志获取详细信息')
 
     def write_mmc_files(self):
         # 获取版本信息
