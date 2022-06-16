@@ -18,8 +18,10 @@ else:
 
 class PATH:
     BASE_DIR = BASE_DIR
+    WORKING_DIR = os.getcwd()
+
     ICON_PATH = os.path.join(BASE_DIR, 'icon.ico')
-    TEMP_DIR_PATH = os.path.join(BASE_DIR, f'.{NAME}')
+    TEMP_DIR_PATH = os.path.join(WORKING_DIR, f'.{NAME}')
     LOG_FILE_NAME = f'{NAME}.log'
 
 
