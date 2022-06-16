@@ -100,7 +100,7 @@ class Download:
                 """
                 Clear file and destroy progressbar.
                 """
-                self.clean_file()
+                self.clear_file()
                 toplevel.destroy()
 
             try:
@@ -286,7 +286,7 @@ class Download:
                     )
                     z.write(zf_path, arcname=arcname)
 
-    def clean_file(self):
+    def clear_file(self):
         # 关闭日志
         self.logger.close()
 
