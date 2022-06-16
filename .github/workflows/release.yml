@@ -22,7 +22,7 @@ jobs:
     runs-on: windows-latest
     name: Pack and Upload
     needs: release-please
-    if: ${{ needs.release-please.outputs.release_created }} 
+    if: ${{ needs.release-please.outputs.release_created }}
 
     steps:
       - name: Check Out
