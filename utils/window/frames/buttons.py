@@ -47,6 +47,7 @@ class Buttons(Frame):
             toplevel.title('下载配置文件…………')
             toplevel.resizable(False, False)
             toplevel.protocol("WM_DELETE_WINDOW", lambda: None)
+            toplevel.iconbitmap(PATH.ICON_PATH)
             toplevel.focus_set()
 
             pb = Progressbar(toplevel, length=500)

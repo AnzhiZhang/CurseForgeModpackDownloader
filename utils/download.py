@@ -2,8 +2,12 @@ import os
 import json
 import shutil
 import hashlib
+from threading import Thread
 from zipfile import ZipFile, ZIP_STORED
 from concurrent.futures import ThreadPoolExecutor
+from typing import Callable
+from tkinter import Toplevel
+from tkinter.ttk import Progressbar
 from tkinter.filedialog import askopenfilename
 from tkinter.messagebox import showinfo, showwarning
 
@@ -67,35 +71,76 @@ class Download:
         self.logger = Logger(self.log_file_path)
         self.thread_pool = ThreadPoolExecutor(4)
 
-        # 解压文件
-        self.unzip()
+        def run():
+            toplevel = Toplevel()
+            toplevel.title('正在下载模组…………')
+            toplevel.resizable(False, False)
+            toplevel.protocol("WM_DELETE_WINDOW", lambda: None)
+            toplevel.iconbitmap(PATH.ICON_PATH)
+            toplevel.focus_set()
 
-        try:
-            if self.avatar_name:
-                with open(self.avatar_path, 'wb') as f:
-                    f.write(Requester.get(self.avatar_url).content)
-            download_urls = self.get_download_urls()
-        except:
-            self.clean_file()
-            showwarning('警告', '获取模组下载地址失败，这可能是由于网络不稳定，请重试')
-        else:
-            self.download_mods(download_urls)
-            self.write_mmc_files()
-            self.make_zip()
-            self.clean_file()
-            showinfo(
-                '下载完成',
-                '请直接导入启动器\n'
-                '下载地址及问题反馈：\n'
-                'https://github.com/AnzhiZhang/CurseForgeModpackDownloader'
-            )
+            pb = Progressbar(toplevel, length=500, mode='determinate')
+            pb.pack(padx=10, pady=20)
+
+            # 解压文件
+            self.unzip()
+
+            # 设置进度条
+            pb['maximum'] = self.mod_count * 2
+            pb['value'] = 0
+
+            def update():
+                """
+                Update progressbar.
+                """
+                pb['value'] = pb['value'] + 1
+                toplevel.update()
+
+            def clear():
+                """
+                Clear file and destroy progressbar.
+                """
+                self.clean_file()
+                toplevel.destroy()
+
+            try:
+                # 下载图标
+                if self.avatar_name:
+                    with open(self.avatar_path, 'wb') as f:
+                        f.write(Requester.get(self.avatar_url).content)
+
+                # 获取模组下载链接
+                download_urls = self.get_download_urls(update)
+            except Exception as e:
+                self.logger.exception(f'Exception: {e}')
+                clear()
+                showwarning('警告', '获取模组下载地址失败，这可能是由于网络不稳定，请重试')
+            else:
+                self.download_mods(download_urls, update)
+                self.write_mmc_files()
+                self.make_zip()
+                clear()
+                showinfo(
+                    '下载完成',
+                    '请直接导入启动器\n'
+                    '下载地址及问题反馈：\n'
+                    'https://github.com/AnzhiZhang/CurseForgeModpackDownloader'
+                )
+
+        thread = Thread(target=run, name='Download')
+        thread.start()
+
+    @property
+    def mod_count(self):
+        with open(self.manifest_path) as f:
+            return len(json.load(f)['files'])
 
     def unzip(self):
         with ZipFile(self.zip_file_path) as zf:
             for i in zf.namelist():
                 zf.extract(i, self.dir_path)
 
-    def get_download_urls(self):
+    def get_download_urls(self, update: Callable):
         # 获取下载链接 API
         with open(self.manifest_path) as f:
             data = json.load(f)
@@ -111,11 +156,12 @@ class Download:
                 ), files
         ):
             i += 1
+            update()
             self.logger.info(f'获取模组下载链接（{i}/{count}）')
             result.append(r.text)
         return result
 
-    def download_mods(self, urls):
+    def download_mods(self, urls, update: Callable):
         def download(url):
             # 计算路径
             mod_name = os.path.basename(url)
@@ -153,6 +199,7 @@ class Download:
         i = 0
         for name in self.thread_pool.map(download, urls):
             i += 1
+            update()
             self.logger.info(f'下载模组（{i}/{count}）：{name}')
 
         # 提示结果
