@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/compare/v1.1.0...v1.1.1) (2022-06-16)
+
+
+### Bug Fixes
+
+* 🚑️ use working dir for temp instead of base dir ([080bcee](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/commit/080bcee7a4d8971056d276ae847b0b3dbd42e87e))
+
 ## [1.1.0](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/compare/v1.0.0...v1.1.0) (2022-06-16)
 
 
