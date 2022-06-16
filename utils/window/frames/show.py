@@ -14,7 +14,7 @@ class Show(Frame):
         super().__init__(master)
 
         self.__main_window = master
-        self.__search_index = 0
+        self.__search_index = -1
         self.__selected_index = -1
         self.__updating = False
         self.__data: List[Dict] = []
