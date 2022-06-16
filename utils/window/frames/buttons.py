@@ -1,5 +1,7 @@
 import os
-from tkinter import Frame, Button
+from threading import Thread
+from tkinter import Frame, Button, Toplevel
+from tkinter.ttk import Progressbar
 from typing import TYPE_CHECKING
 
 from utils.constant import PATH
@@ -40,18 +42,50 @@ class Buttons(Frame):
         self.__import_button.pack(side='right')
 
     def download(self):
+        def run():
+            toplevel = Toplevel(self)
+            toplevel.title('下载配置文件…………')
+            toplevel.resizable(False, False)
+            toplevel.protocol("WM_DELETE_WINDOW", lambda: None)
+            toplevel.focus_set()
+
+            pb = Progressbar(toplevel, length=500)
+            pb.pack(padx=10, pady=20)
+
+            pb.start()
+
+            with open(file_path, 'wb') as f:
+                f.write(Requester.get(download_url).content)
+
+            pb.stop()
+            toplevel.destroy()
+
+        # Disable button
+        self.__download_button.configure(state='disabled')
+
+        # Get info
         modpack_id = self.__main_window.show_frame.selected_modpack_id
         file_name = self.__main_window.show_frame.selected_file_name
 
         if modpack_id != -1 and file_name != '':
             download_url = self.__main_window.show_frame.selected_download_url
             avatar_url = self.__main_window.show_frame.selected_avatar_url
-
             file_path = os.path.join(os.getcwd(), PATH.TEMP_DIR_PATH, file_name)
-            with open(file_path, 'wb') as f:
-                f.write(Requester.get(download_url).content)
+
+            # Start download file
+            thread = Thread(target=run, name='Download')
+            thread.start()
+
+            # Wait finish
+            while thread.is_alive():
+                self.update()
+
+            # Other files
             Download(
                 name=os.path.splitext(file_name)[0],
                 zip_file_path=file_path,
                 avatar_url=avatar_url
             ).main()
+
+        # Enable button
+        self.__download_button.configure(state='normal')
