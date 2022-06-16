@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.2](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/compare/v1.1.1...v1.1.2) (2022-06-16)
+
+
+### Bug Fixes
+
+* **ui:** 🐛 refresh search index when search ([f7c8f40](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/commit/f7c8f40ba6bc603c785bedad39978ceb09d48ea9))
+
 ## [1.1.1](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/compare/v1.1.0...v1.1.1) (2022-06-16)
 
 
