@@ -24,6 +24,10 @@ class Filters(Frame):
         # Update list when combobox selected
         self.sort_combobox.bind('<<ComboboxSelected>>', self.on_select)
         self.game_version_combobox.bind('<<ComboboxSelected>>', self.on_select)
+        self.modpack_version_combobox.bind(
+            '<<ComboboxSelected>>',
+            self.on_modpack_version_select
+        )
 
         self.sort_label.pack(side='left')
         self.sort_combobox.pack(side='left')
@@ -58,3 +62,6 @@ class Filters(Frame):
 
     def on_select(self, event=None):
         self.main_window.show_frame.update_list()
+
+    def on_modpack_version_select(self, event=None):
+        self.main_window.show_frame.reselect()

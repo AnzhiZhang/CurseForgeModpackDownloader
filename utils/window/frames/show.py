@@ -15,6 +15,7 @@ class Show(Frame):
 
         self.__main_window = master
         self.__search_index = 0
+        self.__selected_index = -1
         self.__updating = False
         self.__data: List[Dict] = []
 
@@ -53,6 +54,7 @@ class Show(Frame):
 
             # Refresh list or append
             if not append:
+                self.__selected_index = -1
                 self.__data = []
                 self.__list_listbox.delete(0, 'end')
             else:
@@ -92,24 +94,30 @@ class Show(Frame):
             files = Requester.files(_id).json()
 
             # Storage into data
-            self.__data[index]['files'] = {}
+            self.__data[self.selected_index]['files'] = {}
             for i in files:
-                self.__data[index]['files'][i['displayName']] = i
+                display_name = i['displayName']
+                self.__data[self.selected_index]['files'][display_name] = i
 
             # Set filter combobox
             self.__main_window.filters_frame.set_modpack_version(
-                list(self.__data[index]['files'].keys())
+                list(self.__data[self.selected_index]['files'].keys())
             )
 
-        index = self.selected_index
-        if index != -1:
-            _id = self.__data[index].get('id')
-            Thread(target=run, name=f'Get Modpack Versions ({_id})').start()
+        old_index = self.selected_index
+
+        selection = self.__list_listbox.curselection()
+        if selection:
+            self.__selected_index = selection[0]
+            if self.selected_index == old_index:
+                return
+            else:
+                _id = self.__data[self.selected_index].get('id')
+                Thread(target=run, name=f'Get Modpack Versions ({_id})').start()
 
     @property
     def selected_index(self) -> int:
-        selection = self.__list_listbox.curselection()
-        return selection[0] if selection else -1
+        return self.__selected_index
 
     @property
     def selected_modpack_id(self) -> int:
@@ -141,3 +149,9 @@ class Show(Frame):
         if display_name != '' and self.selected_files is not None:
             return self.__data[self.selected_index]['attachments'][0]['url']
         return ''
+
+    def reselect(self):
+        """
+        Reselect item in list.
+        """
+        self.__list_listbox.select_set(self.selected_index)
