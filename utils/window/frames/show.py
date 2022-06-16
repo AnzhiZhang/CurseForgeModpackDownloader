@@ -1,5 +1,6 @@
 from threading import Thread
 from tkinter import Frame, Listbox, Scrollbar
+from tkinter.messagebox import showwarning
 from typing import TYPE_CHECKING, List, Dict
 
 from utils.constant import SEARCH
@@ -60,8 +61,13 @@ class Show(Frame):
             else:
                 self.__search_index += 1
 
+            # Request and check result
+            result = request(self.__search_index)
+            if len(result) == 0:
+                showwarning('提示', '共搜索到 0 个结果！')
+
             # Add request results
-            for i in request(self.__search_index):
+            for i in result:
                 self.__data.append(i)
                 self.__list_listbox.insert('end', i['name'].strip())
 
