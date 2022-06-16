@@ -45,6 +45,8 @@ class Download:
             self.avatar_base_name = self.name if self.name else name
             self.avatar_base_name = self.avatar_base_name.replace('.', '_')
             self.avatar_name = self.avatar_base_name + ext
+        else:
+            self.avatar_name = ''
 
         # 计算路径
         self.file_base_name = os.path.basename(self.zip_file_path)
@@ -69,8 +71,9 @@ class Download:
         self.unzip()
 
         try:
-            with open(self.avatar_path, 'wb') as f:
-                f.write(Requester.get(self.avatar_url).content)
+            if self.avatar_name:
+                with open(self.avatar_path, 'wb') as f:
+                    f.write(Requester.get(self.avatar_url).content)
             download_urls = self.get_download_urls()
         except:
             self.clean_file()
@@ -209,7 +212,7 @@ class Download:
         # 写入 instance.cfg
         instance_cfg_path = os.path.join(self.dir_path, 'instance.cfg')
         content = 'InstanceType=OneSix\n'
-        if self.avatar_base_name:
+        if self.avatar_name:
             content += f'iconKey={self.avatar_base_name}\n'
         with open(instance_cfg_path, 'w', encoding='utf-8') as f:
             f.write(content)
