@@ -27,41 +27,41 @@ class Download:
         self.zip_file_path = zip_file_path
         self.avatar_url = avatar_url
         self.avatar_name = None
-        self.avatar_base_name = None
+        self.avatar_path = None
 
-        self.file_base_name = None
         self.dir_path = None
         self.log_file_path = None
-        self.avatar_path = None
         self.overrides_dir_path = None
         self.manifest_path = None
         self.logger = None
         self.thread_pool = None
 
     def main(self):
+        # 询问路径
         if not self.zip_file_path:
             self.zip_file_path = askopenfilename().replace('/', os.sep)
             if self.zip_file_path == '':
                 return
-        if self.avatar_url:
-            name = os.path.basename(self.avatar_url)
-            ext = os.path.splitext(name)[1]
-            self.avatar_base_name = self.name if self.name else name
-            self.avatar_base_name = self.avatar_base_name.replace('.', '_')
-            self.avatar_name = self.avatar_base_name + ext
-        else:
-            self.avatar_name = ''
+
+        # 处理名称
+        if not self.name:
+            self.name = os.path.basename(self.zip_file_path)
+        self.name = self.name.strip()
 
         # 计算路径
-        self.file_base_name = os.path.basename(self.zip_file_path)
-        self.dir_path = os.path.join(
-            PATH.TEMP_DIR_PATH,
-            self.file_base_name.replace('.zip', '')
-        )
+        self.dir_path = os.path.join(PATH.TEMP_DIR_PATH, self.name)
         self.log_file_path = os.path.join(self.dir_path, PATH.LOG_FILE_NAME)
-        self.avatar_path = os.path.join(self.dir_path, self.avatar_name)
         self.overrides_dir_path = os.path.join(self.dir_path, 'overrides')
         self.manifest_path = os.path.join(self.dir_path, 'manifest.json')
+
+        # 处理图标名称
+        if self.avatar_url:
+            ext = os.path.splitext(os.path.basename(self.avatar_url))[1]
+            self.avatar_name = self.name.replace(' ', '_').replace('.', '_')
+            self.avatar_path = os.path.join(
+                self.dir_path,
+                self.avatar_name + ext
+            )
 
         # 新建临时文件夹
         os.mkdir(self.dir_path)
@@ -104,7 +104,7 @@ class Download:
 
             try:
                 # 下载图标
-                if self.avatar_name:
+                if self.avatar_url:
                     with open(self.avatar_path, 'wb') as f:
                         f.write(Requester.get(self.avatar_url).content)
 
@@ -258,8 +258,8 @@ class Download:
         # 写入 instance.cfg
         instance_cfg_path = os.path.join(self.dir_path, 'instance.cfg')
         content = 'InstanceType=OneSix\n'
-        if self.avatar_name:
-            content += f'iconKey={self.avatar_base_name}\n'
+        if self.avatar_url:
+            content += f'iconKey={self.avatar_name}\n'
         with open(instance_cfg_path, 'w', encoding='utf-8') as f:
             f.write(content)
 
