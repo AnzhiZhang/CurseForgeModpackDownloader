@@ -55,6 +55,7 @@ class Show(Frame):
 
             # Refresh list or append
             if not append:
+                self.__search_index = 0
                 self.__selected_index = -1
                 self.__data = []
                 self.__list_listbox.delete(0, 'end')
