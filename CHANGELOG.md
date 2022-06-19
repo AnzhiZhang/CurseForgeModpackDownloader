@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.17](https://github.com/choulily/INDEV-CurseForgeModpackDownloader-LinuxPacker/compare/v1.1.16...v1.1.17) (2022-06-19)
+
+
+### Features
+
+* <INDEV> Linux Compatiple ([ba04e34](https://github.com/choulily/INDEV-CurseForgeModpackDownloader-LinuxPacker/commit/ba04e34281fad0a29985454728a217cd924b12d5))
+
 ## [1.1.16](https://github.com/choulily/INDEV-CurseForgeModpackDownloader-LinuxPacker/compare/v1.1.15...v1.1.16) (2022-06-19)
 
 
