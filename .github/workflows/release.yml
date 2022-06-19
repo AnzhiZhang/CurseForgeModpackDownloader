@@ -54,7 +54,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.release-please.outputs.upload_url }}
-          #upload_url: ${{ steps.release_please.outputs.upload_url }}
           asset_path: ./dist/main.exe
           asset_name: CurseForgeModpackDownloader-${{ needs.release-please.outputs.tag_name }}-Windows.exe
           asset_content_type: application/vnd.microsoft.portable-executable
@@ -92,7 +91,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.release-please.outputs.upload_url }}
-          #upload_url: ${{ steps.release_please.outputs.upload_url }}
           asset_path: ./dist/main
           asset_name: CurseForgeModpackDownloader-${{ needs.release-please.outputs.tag_name }}-Linux
           asset_content_type: application/octet-stream
