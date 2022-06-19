@@ -50,7 +50,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: CFMPD-Windows
-          path: dist\cfmpd.exe
+          path: dist\CurseForgeModpackDownloader-${{ needs.release-please.outputs.tag_name }}.exe
 
   linuxbuild:
     runs-on: ubuntu-latest
@@ -80,7 +80,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: CFMPD-Linux
-          path: dist/cfmpd
+          path: dist/CurseForgeModpackDownloader-${{ needs.release-please.outputs.tag_name }}
 
   publish:
     runs-on: ubuntu-latest
