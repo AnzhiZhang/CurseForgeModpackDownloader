@@ -7,8 +7,6 @@ from tkinter.messagebox import askokcancel
 from utils.constant import NAME_WITH_SPACE, LICENSE, WINDOW, PATH
 from utils.window import frames
 
-print("does it work ? window-main-first")
-
 
 class Main(Tk):
     PACK_KWARGS = {
@@ -46,8 +44,6 @@ class Main(Tk):
         Thread(target=self.__ask_license, name='Init').start()
 
         self.mainloop()
-
-    print("does it work? window-main-before-ask-license")
 
     def __ask_license(self):
         """
