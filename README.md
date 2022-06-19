@@ -1,4 +1,5 @@
-# INDEV !!! (testing) DO NOT MERGE YET
+# Basicly Work
+## I Need A Way To Add Comments to Releases But I Can't Find A Way to Do That :(
 # CurseForge Modpack Downloader (CMPDL)
 
 [![License](https://shields.io/github/license/AnzhiZhang/CurseForgeModpackDownloader?label=License)](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/blob/master/LICENSE)
