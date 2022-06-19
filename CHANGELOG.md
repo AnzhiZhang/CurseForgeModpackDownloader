@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.16](https://github.com/choulily/INDEV-CurseForgeModpackDownloader-LinuxPacker/compare/v1.1.15...v1.1.16) (2022-06-19)
+
+
+### Bug Fixes
+
+* Windows High DPI supprot For Linux ([9e37bfb](https://github.com/choulily/INDEV-CurseForgeModpackDownloader-LinuxPacker/commit/9e37bfb7a3677773db6bd9fd09e08cae0f44cf3e))
+
 ## [1.1.15](https://github.com/choulily/INDEV-CurseForgeModpackDownloader-LinuxPacker/compare/v1.1.14...v1.1.15) (2022-06-19)
 
 
