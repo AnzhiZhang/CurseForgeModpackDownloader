@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.10](https://github.com/choulily/INDEV-CurseForgeModpackDownloader-LinuxPacker/compare/v1.1.9...v1.1.10) (2022-06-19)
+
+
+### Bug Fixes
+
+* Move Linux Packer to Job 1 And Upload Files At Job2 ([dc1a93f](https://github.com/choulily/INDEV-CurseForgeModpackDownloader-LinuxPacker/commit/dc1a93f3b96dbe833723a7df72224589e36c2bbf))
+
 ## [1.1.9](https://github.com/choulily/INDEV-CurseForgeModpackDownloader-LinuxPacker/compare/v1.1.8...v1.1.9) (2022-06-19)
 
 
