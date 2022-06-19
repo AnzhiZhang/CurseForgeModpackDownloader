@@ -49,7 +49,7 @@ jobs:
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: CFMPD-Windows
+          name: CMPDL-Windows
           path: dist\CurseForgeModpackDownloader-${{ needs.release-please.outputs.tag_name }}.exe
 
   linuxbuild:
@@ -79,7 +79,7 @@ jobs:
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: CFMPD-Linux
+          name: CMPDL-Linux
           path: dist/CurseForgeModpackDownloader-${{ needs.release-please.outputs.tag_name }}
 
   publish:
@@ -101,8 +101,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          #upload_url: ${{ needs.release-please.outputs.upload_url }}
-          upload_url: ${{ steps.release_please.outputs.upload_url }}
+          upload_url: ${{ needs.release-please.outputs.upload_url }}
+          #upload_url: ${{ steps.release_please.outputs.upload_url }}
           asset_path: ./dist/cfmpd.exe
           asset_name: CurseForgeModpackDownloader-${{ needs.release-please.outputs.tag_name }}.exe
           asset_content_type: application/vnd.microsoft.portable-executable
@@ -112,8 +112,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          #upload_url: ${{ needs.release-please.outputs.upload_url }}
-          upload_url: ${{ steps.release_please.outputs.upload_url }}
+          upload_url: ${{ needs.release-please.outputs.upload_url }}
+          #upload_url: ${{ steps.release_please.outputs.upload_url }}
           asset_path: ./dist/cfmpd
           asset_name: CurseForgeModpackDownloader-${{ needs.release-please.outputs.tag_name }}
           asset_content_type: application/octet-stream
