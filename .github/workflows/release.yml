@@ -4,7 +4,7 @@ on: push
 jobs:
   release-please:
     runs-on: ubuntu-latest
-    name: Release Please & Compile Linux Package
+    name: Release Please
 
     outputs:
       release_created: ${{ steps.release_please.outputs.release_created }}
@@ -17,35 +17,6 @@ jobs:
         with:
           release-type: simple
           pull-request-title-pattern: "chore${scope}: 🔖 release${component} ${version}"
-
-      - name: Check Out
-        uses: actions/checkout@v3
-        if: ${{ needs.release-please.outputs.release_created }}
-
-      - name: Setup Python
-        uses: actions/setup-python@v3
-        if: ${{ needs.release-please.outputs.release_created }}
-        with:
-          python-version: "3.10"
-
-      - name: Install Dependencies
-        run: python -m pip install --upgrade pip && pip install -r requirements.txt
-        if: ${{ needs.release-please.outputs.release_created }}
-
-      - name: Make
-        run: pyinstaller -i icon.ico --clean --noconsole --onefile main.py
-        if: ${{ needs.release-please.outputs.release_created }}
-
-      - name: Rename dist
-        run: cd ./dist && cp main CurseForgeModpackDownloader-${{ needs.release-please.outputs.tag_name }}
-        if: ${{ needs.release-please.outputs.release_created }}
-
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v3
-        if: ${{ needs.release-please.outputs.release_created }}
-        with:
-          name: CMPDL-Linux
-          path: dist/CurseForgeModpackDownloader-${{ needs.release-please.outputs.tag_name }}
 
   windowsbuild:
     runs-on: windows-latest
@@ -75,14 +46,55 @@ jobs:
           cd dist
           copy main.exe CurseForgeModpackDownloader-${{ needs.release-please.outputs.tag_name }}.exe
 
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: CMPDL-Windows
+          path: dist\CurseForgeModpackDownloader-${{ needs.release-please.outputs.tag_name }}.exe
+
+  linuxbuild:
+    runs-on: ubuntu-latest
+    name: Pack on Linux and Upload Artifacts
+    needs: release-please
+    if: ${{ needs.release-please.outputs.release_created }}
+
+    steps:
+      - name: Check Out
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.10"
+
+      - name: Install Dependencies
+        run: python -m pip install --upgrade pip && pip install -r requirements.txt
+
+      - name: Make
+        run: pyinstaller -i icon.ico --clean --noconsole --onefile main.py
+
+      - name: Rename dist
+        run: cd ./dist && cp main CurseForgeModpackDownloader-${{ needs.release-please.outputs.tag_name }}
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: CMPDL-Linux
+          path: dist/CurseForgeModpackDownloader-${{ needs.release-please.outputs.tag_name }}
+
+  publish:
+    runs-on: ubuntu-latest
+    name: Publish Dists
+    needs: [windowsbuild, linuxbuild]
+
+    steps:
       - name: Download Dists
         uses: actions/download-artifact@v3
         with:
-          name: CMPDL-Linux
-          path: dist\
+          path: ./dist/
 
-      # - name: Where is my dists?
-      #   run: ls ./dist && ls ./
+      - name: Where is my dists?
+        run: ls ./dist && ls ./
 
       - name: Upload Windows Dist
         uses: actions/upload-release-asset@v1
@@ -91,7 +103,7 @@ jobs:
         with:
           upload_url: ${{ needs.release-please.outputs.upload_url }}
           #upload_url: ${{ steps.release_please.outputs.upload_url }}
-          asset_path: dist\cfmpd.exe
+          asset_path: ./dist/cfmpd.exe
           asset_name: CurseForgeModpackDownloader-${{ needs.release-please.outputs.tag_name }}.exe
           asset_content_type: application/vnd.microsoft.portable-executable
 
@@ -102,120 +114,6 @@ jobs:
         with:
           upload_url: ${{ needs.release-please.outputs.upload_url }}
           #upload_url: ${{ steps.release_please.outputs.upload_url }}
-          asset_path: dist\cfmpd
+          asset_path: ./dist/cfmpd
           asset_name: CurseForgeModpackDownloader-${{ needs.release-please.outputs.tag_name }}
           asset_content_type: application/octet-stream
-
-  #linuxbuild:
-  #  runs-on: ubuntu-latest
-  #  name: Pack on Linux and Upload Artifacts
-  #  needs: release-please
-  #  if: ${{ needs.release-please.outputs.release_created }}
-#steps:
-#   - name: Download Dists
-#     uses: actions/download-artifact@v3
-#     with:
-#       path: ./dist/
-
-#   - name: Where is my dists?
-#     run: ls ./dist && ls ./
-
-#   - name: Upload Windows Dist
-#     uses: actions/upload-release-asset@v1
-#     env:
-#       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#     with:
-#       upload_url: ${{ needs.release-please.outputs.upload_url }}
-#       #upload_url: ${{ steps.release_please.outputs.upload_url }}
-#       asset_path: ./dist/cfmpd.exe
-#       asset_name: CurseForgeModpackDownloader-${{ needs.release-please.outputs.tag_name }}.exe
-#       asset_content_type: application/vnd.microsoft.portable-executable
-
-#   - name: Upload Linux Dist
-#     uses: actions/upload-release-asset@v1
-#     env:
-#       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#     with:
-#       upload_url: ${{ needs.release-please.outputs.upload_url }}
-#       #upload_url: ${{ steps.release_please.outputs.upload_url }}
-#       asset_path: ./dist/cfmpd
-#       asset_name: CurseForgeModpackDownloader-${{ needs.release-please.outputs.tag_name }}
-#       asset_content_type: application/octet-stream
-
-#      uses: actions/setup-python@v3
-#      with:
-#        python-version: "3.10"
-
-#    - name: Install Dependencies
-#      run: python -m pip install --upgrade pip && pip install -r requirements.txt
-
-#    - name: Make
-#      run: pyinstaller -i icon.ico --clean --noconsole --onefile main.py
-
-#    - name: Rename dist
-#      run: cd ./dist && cp main CurseForgeModpackDownloader-${{ needs.release-please.outputs.tag_name }}
-
-#    - name: Upload Artifacts
-#      uses: actions/upload-artifact@v3
-#      with:
-#        name: CMPDL-Linux
-#        path: dist/CurseForgeModpackDownloader-${{ needs.release-please.outputs.tag_name }}
-
-# publish:
-#     - name: Check Out
-#       uses: actions/checkout@v3
-
-#     - name: Setup Python
-#       uses: actions/setup-python@v3
-#       with:
-#         python-version: "3.10"
-
-#     - name: Install Dependencies
-#       run: python -m pip install --upgrade pip && pip install -r requirements.txt
-
-#     - name: Make
-#       run: pyinstaller -i icon.ico --clean --noconsole --onefile main.py
-
-#     - name: Rename dist
-#       run: cd ./dist && cp main CurseForgeModpackDownloader-${{ needs.release-please.outputs.tag_name }}
-
-#     - name: Upload Artifacts
-#       uses: actions/upload-artifact@v3
-#       with:
-#         name: CMPDL-Linux
-#         path: dist/CurseForgeModpackDownloader-${{ needs.release-please.outputs.tag_name }}
-
-#   runs-on: ubuntu-latest
-#   name: Publish Dists
-#   needs: [windowsbuild, linuxbuild]
-
-# steps:
-#   - name: Download Dists
-#     uses: actions/download-artifact@v3
-#     with:
-#       path: ./dist/
-
-#   - name: Where is my dists?
-#     run: ls ./dist && ls ./
-
-#   - name: Upload Windows Dist
-#     uses: actions/upload-release-asset@v1
-#     env:
-#       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#     with:
-#       upload_url: ${{ needs.release-please.outputs.upload_url }}
-#       #upload_url: ${{ steps.release_please.outputs.upload_url }}
-#       asset_path: ./dist/cfmpd.exe
-#       asset_name: CurseForgeModpackDownloader-${{ needs.release-please.outputs.tag_name }}.exe
-#       asset_content_type: application/vnd.microsoft.portable-executable
-
-#   - name: Upload Linux Dist
-#     uses: actions/upload-release-asset@v1
-#     env:
-#       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#     with:
-#       upload_url: ${{ needs.release-please.outputs.upload_url }}
-#       #upload_url: ${{ steps.release_please.outputs.upload_url }}
-#       asset_path: ./dist/cfmpd
-#       asset_name: CurseForgeModpackDownloader-${{ needs.release-please.outputs.tag_name }}
-#       asset_content_type: application/octet-stream
