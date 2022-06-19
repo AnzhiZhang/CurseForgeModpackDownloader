@@ -3,6 +3,9 @@ from urllib.parse import quote, urlencode
 from urllib.request import Request, urlopen
 
 from typing import Any, Dict
+import ssl
+
+ssl._create_default_https_context = ssl._create_unverified_context
 
 
 class Response:
