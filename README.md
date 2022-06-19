@@ -1,4 +1,3 @@
-# INDEV !!! (testing) DO NOT MERGE YET
 # CurseForge Modpack Downloader (CMPDL)
 
 [![License](https://shields.io/github/license/AnzhiZhang/CurseForgeModpackDownloader?label=License)](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/blob/master/LICENSE)
@@ -10,6 +9,12 @@
 ## 使用方式
 
 [《CurseForge 整合包下载器教程》](https://blog.zhanganzhi.com/2022/06/b583a6838537/)
+
+## 下载
+
+点击右面的"Releases",在"Assets"下面的框内就是程序
+
+### 一般用户请下载后面标".exe"的版本
 
 ## 鸣谢
 
