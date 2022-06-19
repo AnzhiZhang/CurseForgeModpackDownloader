@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.13](https://github.com/choulily/INDEV-CurseForgeModpackDownloader-LinuxPacker/compare/v1.1.12...v1.1.13) (2022-06-19)
+
+
+### Bug Fixes
+
+* Upload Issue ([65f1830](https://github.com/choulily/INDEV-CurseForgeModpackDownloader-LinuxPacker/commit/65f18301ec517eb002c3be8ea3c47fb96b4f23c3))
+
 ## [1.1.12](https://github.com/choulily/INDEV-CurseForgeModpackDownloader-LinuxPacker/compare/v1.1.11...v1.1.12) (2022-06-19)
 
 
