@@ -19,19 +19,19 @@ jobs:
           release-type: simple
           pull-request-title-pattern: "chore${scope}: 🔖 release${component} ${version}"
 
-      - name: Add Comment
-        uses: djn24/add-comment-to-release@v1
-        with:
-          token: ${{secrets.GITHUB_TOKEN}}
-          comment: |-
-            CurseForgeModpackDownloader
-            CMPDL
-            一般用户请下载后面标Windows的版本
-            * 无为MAC平台构建的版本
-            * 无手机版
-            * 无手机版
-            * 无手机版
-          #手机即使跑起来也没用
+      # - name: Add Comment
+      #   uses: djn24/add-comment-to-release@v1
+      #   with:
+      #     token: ${{secrets.GITHUB_TOKEN}}
+      #     comment: |-
+      #       CurseForgeModpackDownloader
+      #       CMPDL
+      #       一般用户请下载后面标Windows的版本
+      #       * 无为MAC平台构建的版本
+      #       * 无手机版
+      #       * 无手机版
+      #       * 无手机版
+      #     #手机即使跑起来也没用
   windowsbuild:
     runs-on: windows-latest
     name: Pack on Windows and Upload Artifacts
