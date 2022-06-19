@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.3](https://github.com/choulily/INDEV-CurseForgeModpackDownloader-LinuxPacker/compare/v1.1.2...v1.1.3) (2022-06-19)
+
+
+### Bug Fixes
+
+* **download:** 🐛 resolve special characters error ([7935939](https://github.com/choulily/INDEV-CurseForgeModpackDownloader-LinuxPacker/commit/79359398c1c12cfa48a20be1bc9ba6f65544798f))
+
 ## [1.1.2](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/compare/v1.1.1...v1.1.2) (2022-06-16)
 
 
