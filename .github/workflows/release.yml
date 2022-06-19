@@ -12,12 +12,26 @@ jobs:
       tag_name: ${{ steps.release_please.outputs.tag_name }}
 
     steps:
-      - uses: google-github-actions/release-please-action@v3
+      - name: Release Please
+        uses: google-github-actions/release-please-action@v3
         id: release_please
         with:
           release-type: simple
           pull-request-title-pattern: "chore${scope}: 🔖 release${component} ${version}"
 
+      - name: Add Comment
+        uses: djn24/add-comment-to-release@v1
+        with:
+          token: ${{secrets.GITHUB_TOKEN}}
+          comment: |-
+            CurseForgeModpackDownloader
+            CMPDL
+            一般用户请下载后面标Windows的版本
+            * 无为MAC平台构建的版本
+            * 无手机版
+            * 无手机版
+            * 无手机版
+          #手机即使跑起来也没用
   windowsbuild:
     runs-on: windows-latest
     name: Pack on Windows and Upload Artifacts
@@ -52,6 +66,18 @@ jobs:
           name: CMPDL-Windows
           path: dist\CurseForgeModpackDownloader-${{ needs.release-please.outputs.tag_name }}.exe
 
+      - name: Upload Windows Dist
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.release-please.outputs.upload_url }}
+          #upload_url: ${{ steps.release_please.outputs.upload_url }}
+          asset_path: ./dist/cfmpd.exe
+          asset_name: CurseForgeModpackDownloader-${{ needs.release-please.outputs.tag_name }}-Windows.exe
+          asset_content_type: application/vnd.microsoft.portable-executable
+        #  comment: 一般用户请下载后面标WINDOWS的版本，暂不考虑为MAC平台构建，请源码运行。无手机版
+        # Worng Place to Put It Even Not The Same Script
   linuxbuild:
     runs-on: ubuntu-latest
     name: Pack on Linux and Upload Artifacts
@@ -82,31 +108,6 @@ jobs:
           name: CMPDL-Linux
           path: dist/CurseForgeModpackDownloader-${{ needs.release-please.outputs.tag_name }}
 
-  publish:
-    runs-on: ubuntu-latest
-    name: Publish Dists
-    needs: [windowsbuild, linuxbuild]
-
-    steps:
-      - name: Download Dists
-        uses: actions/download-artifact@v3
-        with:
-          path: ./dist/
-
-      - name: Where is my dists?
-        run: ls ./dist && ls ./
-
-      - name: Upload Windows Dist
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ needs.release-please.outputs.upload_url }}
-          #upload_url: ${{ steps.release_please.outputs.upload_url }}
-          asset_path: ./dist/cfmpd.exe
-          asset_name: CurseForgeModpackDownloader-${{ needs.release-please.outputs.tag_name }}.exe
-          asset_content_type: application/vnd.microsoft.portable-executable
-
       - name: Upload Linux Dist
         uses: actions/upload-release-asset@v1
         env:
@@ -115,5 +116,44 @@ jobs:
           upload_url: ${{ needs.release-please.outputs.upload_url }}
           #upload_url: ${{ steps.release_please.outputs.upload_url }}
           asset_path: ./dist/cfmpd
-          asset_name: CurseForgeModpackDownloader-${{ needs.release-please.outputs.tag_name }}
+          asset_name: CurseForgeModpackDownloader-${{ needs.release-please.outputs.tag_name }}-Linux
           asset_content_type: application/octet-stream
+
+  #I AM A IDIOT WHY I PUT THESE DISTS ALL TOGETHOR TO UPLOAD ? I JUST CAN UPLOAD THEM SEPARATLY?
+  #FK MYSELF
+  #HOPE THIS WILL WORK AT ONCE
+  # publish:
+  #   runs-on: ubuntu-latest
+  #   name: Publish Dists
+  #   needs: [windowsbuild, linuxbuild]
+
+  #   steps:
+  #     - name: Download Dists
+  #       uses: actions/download-artifact@v3
+  #       with:
+  #         path: ./dist/
+
+  #     - name: Where is my dists?
+  #       run: ls ./dist && ls ./
+
+  #     - name: Upload Windows Dist
+  #       uses: actions/upload-release-asset@v1
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #       with:
+  #         upload_url: ${{ needs.release-please.outputs.upload_url }}
+  #         #upload_url: ${{ steps.release_please.outputs.upload_url }}
+  #         asset_path: ./dist/cfmpd.exe
+  #         asset_name: CurseForgeModpackDownloader-${{ needs.release-please.outputs.tag_name }}.exe
+  #         asset_content_type: application/vnd.microsoft.portable-executable
+
+  #     - name: Upload Linux Dist
+  #       uses: actions/upload-release-asset@v1
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #       with:
+  #         upload_url: ${{ needs.release-please.outputs.upload_url }}
+  #         #upload_url: ${{ steps.release_please.outputs.upload_url }}
+  #         asset_path: ./dist/cfmpd
+  #         asset_name: CurseForgeModpackDownloader-${{ needs.release-please.outputs.tag_name }}
+  #         asset_content_type: application/octet-stream
