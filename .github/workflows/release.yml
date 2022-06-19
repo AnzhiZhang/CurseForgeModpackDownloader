@@ -94,7 +94,7 @@ jobs:
           path: ./
 
       - name: Where is my dists?
-        run: ls ./dists/ && ls ./dist && ls ./
+        run: ls ./dist && ls ./
 
       - name: Upload Windows Dist
         uses: actions/upload-release-asset@v1
