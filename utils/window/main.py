@@ -43,7 +43,7 @@ class Main(Tk):
     #    Thread(target=self.__ask_license, name='Init').start()
 
     #    self.mainloop()
-
+    #
     def __ask_license(self):
         """
         Ask to accept license.
