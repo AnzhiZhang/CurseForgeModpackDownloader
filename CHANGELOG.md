@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.7](https://github.com/choulily/INDEV-CurseForgeModpackDownloader-LinuxPacker/compare/v1.1.6...v1.1.7) (2022-06-19)
+
+
+### Bug Fixes
+
+* Worng Download Spot ([313d5f3](https://github.com/choulily/INDEV-CurseForgeModpackDownloader-LinuxPacker/commit/313d5f3ee45ff0c6d6725d1af00c2b046bfd0728))
+
 ## [1.1.6](https://github.com/choulily/INDEV-CurseForgeModpackDownloader-LinuxPacker/compare/v1.1.5...v1.1.6) (2022-06-19)
 
 
