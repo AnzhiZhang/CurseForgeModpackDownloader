@@ -91,7 +91,7 @@ jobs:
       - name: Download Dists
         uses: actions/download-artifact@v3
         with:
-          path: ./
+          path: ./dist/
 
       - name: Where is my dists?
         run: ls ./dist && ls ./
