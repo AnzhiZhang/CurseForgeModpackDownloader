@@ -10,7 +10,9 @@
 
 [《CurseForge 整合包下载器教程》](https://blog.zhanganzhi.com/2022/06/b583a6838537/)
 
-## 下载
+## 下载   
+
+# 未完成-INDEV-此项目需要改源码才可以在linux上运行，此项目正在做这件事情，等linux完事后，此项目会恢复对windows的兼容性
 
 点击右面的"Releases",在"Assets"下面的框内就是程序
 
