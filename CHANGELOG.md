@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.6](https://github.com/choulily/INDEV-CurseForgeModpackDownloader-LinuxPacker/compare/v1.1.5...v1.1.6) (2022-06-19)
+
+
+### Bug Fixes
+
+* Dists are Not In ./dists ([f5dff3e](https://github.com/choulily/INDEV-CurseForgeModpackDownloader-LinuxPacker/commit/f5dff3e7c99c0a0ae0483ef51cdb052dfac17a67))
+
 ## [1.1.5](https://github.com/choulily/INDEV-CurseForgeModpackDownloader-LinuxPacker/compare/v1.1.4...v1.1.5) (2022-06-19)
 
 
