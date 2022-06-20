@@ -1,21 +1,5 @@
 # Changelog
 
-## [1.1.22](https://github.com/choulily/CurseForgeModpackDownloader-Linux/compare/v1.1.21...v1.1.22) (2022-06-20)
-
-
-### Bug Fixes
-
-* Use ' Instead of " at PR Title & Same Script to Install Dependencies ([ffc904b](https://github.com/choulily/CurseForgeModpackDownloader-Linux/commit/ffc904b6ed446b4fb488fcea1a886e9b9e2e0ebc))
-
-## [1.1.21](https://github.com/choulily/CurseForgeModpackDownloader-Linux/compare/v1.1.20...v1.1.21) (2022-06-20)
-
-
-### Bug Fixes
-
-* High DPI & No Module Named 'regex' Issue ([3b292d0](https://github.com/choulily/CurseForgeModpackDownloader-Linux/commit/3b292d0b706c08e3961411fc577fc8636f83e083))
-* Use ' Instead of " at Python Version ([7dc7c77](https://github.com/choulily/CurseForgeModpackDownloader-Linux/commit/7dc7c776325065c98a9c7af0c1ed594a9ef4160a))
-* Windll Module Not Imported Issue ([7571bec](https://github.com/choulily/CurseForgeModpackDownloader-Linux/commit/7571bec4527fc81a93c2f0df3c771d92cd4f4be7))
-
 ## [1.1.2](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/compare/v1.1.1...v1.1.2) (2022-06-16)
 
 

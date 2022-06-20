@@ -18,9 +18,10 @@ jobs:
         with:
           release-type: simple
           pull-request-title-pattern: 'chore${scope}: 🔖 release${component} ${version}'
+
   windowsbuild:
     runs-on: windows-latest
-    name: Pack on Windows and Upload Release
+    name: Pack on Windows and Upload
     needs: release-please
     if: ${{ needs.release-please.outputs.release_created }}
 
@@ -41,7 +42,7 @@ jobs:
       - name: Make
         run: pyinstaller -i icon.ico --clean --noconsole --add-binary "icon.ico;." --onefile main.py
 
-      - name: Upload to Release
+      - name: Upload Release Asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -53,7 +54,7 @@ jobs:
 
   linuxbuild:
     runs-on: ubuntu-latest
-    name: Pack on Linux and Upload Release
+    name: Pack on Linux and Upload
     needs: release-please
     if: ${{ needs.release-please.outputs.release_created }}
 
@@ -80,7 +81,7 @@ jobs:
       - name: Compress Application
         run: cd dist && tar -cvf pack.tar.gz start.sh main
 
-      - name: Upload to Release
+      - name: Upload Release Asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -88,4 +89,4 @@ jobs:
           upload_url: ${{ needs.release-please.outputs.upload_url }}
           asset_path: ./dist/pack.tar.gz
           asset_name: CurseForgeModpackDownloader-${{ needs.release-please.outputs.tag_name }}-Linux.tar.gz
-          asset_content_type: application/x-compressed-tar
+          asset_content_type: application/x-gtar
