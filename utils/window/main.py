@@ -30,8 +30,6 @@ class Main(Tk):
             windll.shcore.SetProcessDpiAwareness(2)
             scale_factor = windll.shcore.GetScaleFactorForDevice(0) / 75
             self.tk.call('tk', 'scaling', scale_factor)
-        else:
-            ()
 
         self.__title_frame = frames.Title(self)
         self.__search_frame = frames.Search(self)
