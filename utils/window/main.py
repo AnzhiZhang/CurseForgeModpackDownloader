@@ -20,9 +20,13 @@ class Main(Tk):
         self.geometry(WINDOW.SIZE)
         self.minsize(WINDOW.WIDTH, WINDOW.HEIGHT)
         self.title(NAME_WITH_SPACE)
+        # For Windows
         # self.iconbitmap(PATH.ICON_PATH)
-        self.iconbitmap()
-        print("does it work? window-main-before DPI")
+        # For Linux , Leave It Blank
+        # self.iconbitmap()
+
+        # For Windows Uncomment This
+        # For Linux , Make A Way To Skip This
         # # High DPI
         # # https://stackoverflow.com/questions/62794931/high-dpi-tkinter-re-scaling-when-i-run-it-in-spyder-and-when-i-run-it-direct-in
         #    windll.shcore.SetProcessDpiAwareness(2)

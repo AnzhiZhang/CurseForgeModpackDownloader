@@ -20,8 +20,12 @@ class PATH:
     BASE_DIR = BASE_DIR
     WORKING_DIR = os.getcwd()
 
-    ICON_PATH = os.path.join(BASE_DIR, 'icon.xbm')
+    # For Linux You Can Make It Blank In Some Way
+    # But I Did Not Think A Way to Make It Work
+    # ICON_PATH = os.path.join(BASE_DIR, 'icon.xbm')
+
     TEMP_DIR_PATH = os.path.join(WORKING_DIR, f'.{NAME}')
+    # Actually Temp Dir Works ,But The Floder Is Not There, A Little Bit Confusing
     LOG_FILE_NAME = f'{NAME}.log'
 
 
