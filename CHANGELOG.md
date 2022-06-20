@@ -1,3 +1,4 @@
+# Changelog
 
 ## [1.1.2](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/compare/v1.1.1...v1.1.2) (2022-06-16)
 
