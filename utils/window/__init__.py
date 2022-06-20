@@ -1,5 +1,5 @@
 from .main import Main
 
-__ALL__ = [
-    Main
+__all__ = [
+    'Main',
 ]
