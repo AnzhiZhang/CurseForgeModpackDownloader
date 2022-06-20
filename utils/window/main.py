@@ -1,6 +1,6 @@
 import sys
 from threading import Thread
-# from ctypes import windll
+from ctypes import windll
 from tkinter import Tk
 from tkinter.messagebox import askokcancel
 

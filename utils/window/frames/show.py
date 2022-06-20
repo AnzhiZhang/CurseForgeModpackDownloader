@@ -3,7 +3,7 @@ from tkinter import Frame, Listbox, Scrollbar
 from tkinter.messagebox import showwarning
 from typing import TYPE_CHECKING, List, Dict
 
-from regex import F
+#from regex import F
 
 from utils.constant import SEARCH
 from utils.requester import Requester
@@ -34,7 +34,7 @@ class Show(Frame):
 
         self.__list_listbox.pack(side='left', fill='both', expand=True)
         self.__list_listbox_scrollbar.pack(side='left', fill='y')
-    
+
     def __init__(self, master: 'linux'):
         super().__init__(master)
 
@@ -144,7 +144,8 @@ class Show(Frame):
                 return
             else:
                 _id = self.__data[self.selected_index].get('id')
-                Thread(target=run, name=f'Get Modpack Versions ({_id})').start()
+                Thread(
+                    target=run, name=f'Get Modpack Versions ({_id})').start()
 
     @property
     def selected_index(self) -> int:
