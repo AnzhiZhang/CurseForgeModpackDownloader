@@ -1,7 +1,6 @@
 import sys
 import platform
 from threading import Thread
-
 from tkinter import Tk
 from tkinter.messagebox import askokcancel
 
