@@ -1,11 +1,17 @@
 import sys
 from threading import Thread
-from ctypes import windll
+
 from tkinter import Tk
 from tkinter.messagebox import askokcancel
 
 from utils.constant import NAME_WITH_SPACE, LICENSE, WINDOW, PATH
 from utils.window import frames
+import platform
+
+if(platform.system() == 'Windows'):
+    from ctypes import windll
+else:
+    ()
 
 
 class windows(Tk):
