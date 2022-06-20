@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.20](https://github.com/choulily/INDEV-CurseForgeModpackDownloader-LinuxPacker/compare/v1.1.19...v1.1.20) (2022-06-20)
+
+
+### Features
+
+* Now it Can Run On Windows With Windows-only Featrues ([682de79](https://github.com/choulily/INDEV-CurseForgeModpackDownloader-LinuxPacker/commit/682de79e322ffcf0a3d281c5c5fe720312930306))
+
 ## [1.1.19](https://github.com/choulily/INDEV-CurseForgeModpackDownloader-LinuxPacker/compare/v1.1.18...v1.1.19) (2022-06-20)
 
 
