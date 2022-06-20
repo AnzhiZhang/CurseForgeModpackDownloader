@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.19](https://github.com/choulily/INDEV-CurseForgeModpackDownloader-LinuxPacker/compare/v1.1.18...v1.1.19) (2022-06-20)
+
+
+### Features
+
+* Add Start Up Script For Linux ([eeec5c0](https://github.com/choulily/INDEV-CurseForgeModpackDownloader-LinuxPacker/commit/eeec5c0d173bab459965e9b3e96ee4b2af7a43dc))
+
 ## [1.1.18](https://github.com/choulily/INDEV-CurseForgeModpackDownloader-LinuxPacker/compare/v1.1.17...v1.1.18) (2022-06-20)
 
 
