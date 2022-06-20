@@ -1,5 +1,6 @@
 import os
 import sys
+import platform
 
 NAME = 'CurseForgeModpackDownloader'
 NAME_WITH_SPACE = 'CurseForge Modpack Downloader (CMPDL)'
@@ -20,7 +21,11 @@ class PATH:
     BASE_DIR = BASE_DIR
     WORKING_DIR = os.getcwd()
 
-    ICON_PATH = os.path.join(BASE_DIR, 'icon.ico')
+    if platform.system() == 'Windows':
+        ICON_PATH = os.path.join(BASE_DIR, 'icon.ico')
+    else:
+        ICON_PATH = None
+
     TEMP_DIR_PATH = os.path.join(WORKING_DIR, f'.{NAME}')
     LOG_FILE_NAME = f'{NAME}.log'
 

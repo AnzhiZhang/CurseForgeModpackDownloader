@@ -1,6 +1,6 @@
 import sys
+import platform
 from threading import Thread
-from ctypes import windll
 from tkinter import Tk
 from tkinter.messagebox import askokcancel
 
@@ -22,11 +22,13 @@ class Main(Tk):
         self.title(NAME_WITH_SPACE)
         self.iconbitmap(PATH.ICON_PATH)
 
-        # High DPI
+        # High DPI on Windows
         # https://stackoverflow.com/questions/62794931/high-dpi-tkinter-re-scaling-when-i-run-it-in-spyder-and-when-i-run-it-direct-in
-        windll.shcore.SetProcessDpiAwareness(2)
-        scale_factor = windll.shcore.GetScaleFactorForDevice(0) / 75
-        self.tk.call('tk', 'scaling', scale_factor)
+        if platform.system() == 'Windows':
+            from ctypes import windll
+            windll.shcore.SetProcessDpiAwareness(2)
+            scale_factor = windll.shcore.GetScaleFactorForDevice(0) / 75
+            self.tk.call('tk', 'scaling', scale_factor)
 
         self.__title_frame = frames.Title(self)
         self.__search_frame = frames.Search(self)
