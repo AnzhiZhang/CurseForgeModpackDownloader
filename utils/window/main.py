@@ -28,7 +28,7 @@ class Main(Tk):
         self.title(NAME_WITH_SPACE)
         self.iconbitmap(PATH.ICON_PATH)
 
-        # High DPI On Windows
+        # High DPI on Windows
         # https://stackoverflow.com/questions/62794931/high-dpi-tkinter-re-scaling-when-i-run-it-in-spyder-and-when-i-run-it-direct-in
         if (platform.system() == 'Windows'):
             windll.shcore.SetProcessDpiAwareness(2)
