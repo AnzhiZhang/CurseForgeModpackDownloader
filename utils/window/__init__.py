@@ -1,5 +1,8 @@
-from .main import Main
+from .main import windows
+from .main import linux
+import platform
 
-__all__ = [
-    'Main',
-]
+if(platform.system() == 'Windows'):
+    __ALL__ = [windows]
+else:
+    __ALL__ = [linux]

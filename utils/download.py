@@ -14,6 +14,7 @@ from tkinter.messagebox import showinfo, showwarning
 from utils.constant import PATH
 from utils.logger import Logger
 from utils.requester import Requester
+import platform
 
 
 class Download:
@@ -76,11 +77,10 @@ class Download:
             toplevel.resizable(False, False)
             toplevel.protocol("WM_DELETE_WINDOW", lambda: None)
 
-            # For Windows
-            # toplevel.iconbitmap(PATH.ICON_PATH)
-
-            # For Linux Just leave It Blank
-            # toplevel.iconbitmap()
+            if (platform.system() == 'Windows'):
+                toplevel.iconbitmap(PATH.ICON_PATH)
+            else:
+                toplevel.iconbitmap()
 
             toplevel.focus_set()
 

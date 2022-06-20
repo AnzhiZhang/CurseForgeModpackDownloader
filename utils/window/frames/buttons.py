@@ -7,13 +7,43 @@ from typing import TYPE_CHECKING
 from utils.constant import PATH
 from utils.download import Download
 from utils.requester import Requester
+import platform
 
 if TYPE_CHECKING:
-    from utils.window.main import Main
+    from utils.window.main import windows
+    from utils.window.main import linux
 
 
 class Buttons(Frame):
-    def __init__(self, master: 'Main'):
+    def __init__(self, master: 'windows'):
+        super().__init__(master, height=50)
+
+        self.__main_window = master
+
+        self.__import_button = Button(
+            self,
+            text='导入',
+            background='white',
+            command=lambda: Download().main()
+        )
+        self.__download_button = Button(
+            self,
+            text='下载',
+            background='white',
+            command=self.download
+        )
+        self.__exit_button = Button(
+            self,
+            text='退出',
+            background='white',
+            command=master.quit
+        )
+
+        self.__exit_button.pack(side='right')
+        self.__download_button.pack(side='right', padx=10)
+        self.__import_button.pack(side='right')
+
+    def __init__(self, master: 'linux'):
         super().__init__(master, height=50)
 
         self.__main_window = master
@@ -47,7 +77,10 @@ class Buttons(Frame):
             toplevel.title('下载配置文件…………')
             toplevel.resizable(False, False)
             toplevel.protocol("WM_DELETE_WINDOW", lambda: None)
-            # toplevel.iconbitmap(PATH.ICON_PATH)
+            if (platform.system() == 'Windows'):
+                toplevel.iconbitmap(PATH.ICON_PATH)
+            else:
+                toplevel.iconbitmap()
             toplevel.iconbitmap()
             toplevel.focus_set()
 

@@ -1,3 +1,4 @@
+from re import I
 from tkinter import Frame, Label
 from tkinter.ttk import Combobox
 from typing import TYPE_CHECKING, List
@@ -5,11 +6,42 @@ from typing import TYPE_CHECKING, List
 from utils.constant import SEARCH
 
 if TYPE_CHECKING:
-    from utils.window.main import Main
+    from utils.window.main import windows
+    from utils.window.main import linux
 
 
 class Filters(Frame):
-    def __init__(self, master: 'Main'):
+    def __init__(self, master: 'windows'):
+        super().__init__(master, height=50)
+
+        self.main_window = master
+
+        self.sort_label = Label(self, text='排序方式：')
+        self.sort_combobox = Combobox(self, state='readonly')
+        self.game_version_label = Label(self, text='游戏版本：')
+        self.game_version_combobox = Combobox(self, state='readonly')
+        self.modpack_version_label = Label(self, text='整合包版本：')
+        self.modpack_version_combobox = Combobox(self, state='readonly')
+
+        # Update list when combobox selected
+        self.sort_combobox.bind('<<ComboboxSelected>>', self.on_select)
+        self.game_version_combobox.bind('<<ComboboxSelected>>', self.on_select)
+        self.modpack_version_combobox.bind(
+            '<<ComboboxSelected>>',
+            self.on_modpack_version_select
+        )
+
+        self.sort_label.pack(side='left')
+        self.sort_combobox.pack(side='left')
+        self.game_version_label.pack(side='left', padx=(10, 0))
+        self.game_version_combobox.pack(side='left')
+        self.modpack_version_label.pack(side='left', padx=(10, 0))
+        self.modpack_version_combobox.pack(side='left', fill='x', expand=True)
+
+        # Set combobox values
+        self.init()
+    
+    def __init__(self, master: 'linux'):
         super().__init__(master, height=50)
 
         self.main_window = master
