@@ -14,7 +14,6 @@ from tkinter.messagebox import showinfo, showwarning
 from utils.constant import PATH
 from utils.logger import Logger
 from utils.requester import Requester
-import platform
 
 
 class Download:
@@ -76,11 +75,7 @@ class Download:
             toplevel.title('正在下载模组…………')
             toplevel.resizable(False, False)
             toplevel.protocol("WM_DELETE_WINDOW", lambda: None)
-
-            if (platform.system() == 'Windows'):
-                toplevel.iconbitmap(PATH.ICON_PATH)
-            else:
-                toplevel.iconbitmap()
+            toplevel.iconbitmap(PATH.ICON_PATH)
 
             toplevel.focus_set()
 

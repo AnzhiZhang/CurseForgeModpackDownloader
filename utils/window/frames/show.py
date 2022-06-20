@@ -3,39 +3,16 @@ from tkinter import Frame, Listbox, Scrollbar
 from tkinter.messagebox import showwarning
 from typing import TYPE_CHECKING, List, Dict
 
-#from regex import F
 
 from utils.constant import SEARCH
 from utils.requester import Requester
 
 if TYPE_CHECKING:
-    from utils.window.main import windows
-    from utils.window.main import linux
+    from utils.window.main import Main
 
 
 class Show(Frame):
-    def __init__(self, master: 'windows'):
-        super().__init__(master)
-
-        self.__main_window = master
-        self.__search_index = -1
-        self.__selected_index = -1
-        self.__updating = False
-        self.__data: List[Dict] = []
-
-        self.__list_listbox = Listbox(self, font=('Arial', 12))
-        self.__list_listbox_scrollbar = Scrollbar(self)
-
-        # Scrollbar setting
-        self.__list_listbox.config(yscrollcommand=self.__on_scroll)
-        self.__list_listbox_scrollbar.config(command=self.__list_listbox.yview)
-
-        self.__list_listbox.bind("<<ListboxSelect>>", self.__on_listbox_select)
-
-        self.__list_listbox.pack(side='left', fill='both', expand=True)
-        self.__list_listbox_scrollbar.pack(side='left', fill='y')
-
-    def __init__(self, master: 'linux'):
+    def __init__(self, master: 'Main'):
         super().__init__(master)
 
         self.__main_window = master
