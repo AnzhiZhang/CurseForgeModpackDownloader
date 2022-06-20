@@ -89,4 +89,4 @@ jobs:
           upload_url: ${{ needs.release-please.outputs.upload_url }}
           asset_path: ./dist/pack.tar.gz
           asset_name: CurseForgeModpackDownloader-${{ needs.release-please.outputs.tag_name }}-Linux.tar.gz
-          asset_content_type: application/x-compressed-tar
+          asset_content_type: application/x-gtar
