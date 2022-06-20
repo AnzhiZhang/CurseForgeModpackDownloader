@@ -1,0 +1,10 @@
+# Idea
+/.idea/
+
+# Python
+/venv/
+__pycache__
+
+/.CurseForgeModpackDownloader/
+
+/dist/
