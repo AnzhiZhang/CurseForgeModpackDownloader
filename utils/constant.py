@@ -21,7 +21,7 @@ class PATH:
     BASE_DIR = BASE_DIR
     WORKING_DIR = os.getcwd()
 
-    if(platform.system() == 'Windows'):
+    if platform.system() == 'Windows'：
         ICON_PATH = os.path.join(BASE_DIR, 'icon.ico')
     else:
         ICON_PATH = None
