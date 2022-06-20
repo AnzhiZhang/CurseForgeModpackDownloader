@@ -21,7 +21,7 @@ jobs:
 
   windowsbuild:
     runs-on: windows-latest
-    name: Pack on Windows and Upload Artifact&Release
+    name: Pack on Windows and Upload Release
     needs: release-please
     if: ${{ needs.release-please.outputs.release_created }}
 
@@ -54,7 +54,7 @@ jobs:
 
   linuxbuild:
     runs-on: ubuntu-latest
-    name: Pack on Linux and Upload Artifact&Release
+    name: Pack on Linux and Upload Release
     needs: release-please
     if: ${{ needs.release-please.outputs.release_created }}
 
