@@ -1,4 +1,5 @@
 import sys
+import platform
 from threading import Thread
 
 from tkinter import Tk
@@ -6,12 +7,6 @@ from tkinter.messagebox import askokcancel
 
 from utils.constant import NAME_WITH_SPACE, LICENSE, WINDOW, PATH
 from utils.window import frames
-import platform
-
-if(platform.system() == 'Windows'):
-    from ctypes import windll
-else:
-    ()
 
 
 class Main(Tk):
@@ -31,6 +26,7 @@ class Main(Tk):
         # High DPI on Windows
         # https://stackoverflow.com/questions/62794931/high-dpi-tkinter-re-scaling-when-i-run-it-in-spyder-and-when-i-run-it-direct-in
         if (platform.system() == 'Windows'):
+            from ctypes import windll
             windll.shcore.SetProcessDpiAwareness(2)
             scale_factor = windll.shcore.GetScaleFactorForDevice(0) / 75
             self.tk.call('tk', 'scaling', scale_factor)
