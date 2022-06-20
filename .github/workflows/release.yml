@@ -32,7 +32,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v3
         with:
-          python-version: "3.10"
+          python-version: '3.10'
 
       - name: Install Dependencies
         run: |
@@ -41,12 +41,6 @@ jobs:
 
       - name: Make
         run: pyinstaller -i icon.ico --clean --noconsole --add-binary "icon.ico;." --onefile main.py
-
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: CMPDL-Windows
-          path: dist\main.exe
 
       - name: Upload to Release
         uses: actions/upload-release-asset@v1
@@ -71,7 +65,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v3
         with:
-          python-version: "3.10"
+          python-version: '3.10'
 
       - name: Install Dependencies
         run: python -m pip install --upgrade pip && pip install -r requirements.txt
@@ -84,12 +78,6 @@ jobs:
 
       - name: Compress Application
         run: cd dist && tar -cvf pack.tar.gz start.sh main
-
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: CMPDL-Linux
-          path: dist/pack.tar.gz
 
       - name: Upload to Release
         uses: actions/upload-release-asset@v1
