@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.2.0](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/compare/v1.1.2...v1.2.0) (2022-06-20)
+
+
+### Features
+
+* 🐧 add linux compatibility ([#22](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/issues/22)) ([085de93](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/commit/085de93b5741e8847d54d9039df4257f1acdbec7))
+
+
+### Bug Fixes
+
+* **download:** 🐛 resolve special characters error ([7935939](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/commit/79359398c1c12cfa48a20be1bc9ba6f65544798f))
+
 ## [1.1.2](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/compare/v1.1.1...v1.1.2) (2022-06-16)
 
 
