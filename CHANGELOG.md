@@ -1,12 +1,5 @@
 # Changelog
 
-## [1.1.23](https://github.com/choulily/CurseForgeModpackDownloader-Linux/compare/v1.1.22...v1.1.23) (2022-06-20)
-
-
-### Bug Fixes
-
-* Syntax Error ([fdb90d8](https://github.com/choulily/CurseForgeModpackDownloader-Linux/commit/fdb90d8f29759e784d99ae51a8f6a6178e7ff6ed))
-
 ## [1.1.2](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/compare/v1.1.1...v1.1.2) (2022-06-16)
 
 
