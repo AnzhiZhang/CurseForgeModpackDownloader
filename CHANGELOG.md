@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.1.18](https://github.com/choulily/INDEV-CurseForgeModpackDownloader-LinuxPacker/compare/v1.1.17...v1.1.18) (2022-06-20)
+
+
+### Features
+
+* Suggests To Make It Work On Linux ([476f4e0](https://github.com/choulily/INDEV-CurseForgeModpackDownloader-LinuxPacker/commit/476f4e0575cceca67b706a070fc0e901968d173c))
+
+
+### Bug Fixes
+
+* HTTP SSL 'Local Issuer Cert' Issue ([490e709](https://github.com/choulily/INDEV-CurseForgeModpackDownloader-LinuxPacker/commit/490e709b2aeb10a21494345cc7350fb69835c24b))
+* It Seems You Realy Don't Need To Change Code To Let SSL Work ([e5d5c14](https://github.com/choulily/INDEV-CurseForgeModpackDownloader-LinuxPacker/commit/e5d5c147813069011cc7075157fb194c589bc246))
+
 ## [1.1.17](https://github.com/choulily/INDEV-CurseForgeModpackDownloader-LinuxPacker/compare/v1.1.16...v1.1.17) (2022-06-19)
 
 
