@@ -76,7 +76,6 @@ class Download:
             toplevel.resizable(False, False)
             toplevel.protocol("WM_DELETE_WINDOW", lambda: None)
             toplevel.iconbitmap(PATH.ICON_PATH)
-
             toplevel.focus_set()
 
             pb = Progressbar(toplevel, length=500, mode='determinate')
