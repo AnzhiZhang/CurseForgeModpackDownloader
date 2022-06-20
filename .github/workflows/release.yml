@@ -41,7 +41,7 @@ jobs:
       - name: Make
         run: pyinstaller -i icon.ico --clean --noconsole --add-binary "icon.ico;." --onefile main.py
 
-      - name: Upload to Release
+      - name: Upload to Release Asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
