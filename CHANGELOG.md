@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.22](https://github.com/choulily/CurseForgeModpackDownloader-Linux/compare/v1.1.21...v1.1.22) (2022-06-20)
+
+
+### Bug Fixes
+
+* Use ' Instead of " at PR Title & Same Script to Install Dependencies ([ffc904b](https://github.com/choulily/CurseForgeModpackDownloader-Linux/commit/ffc904b6ed446b4fb488fcea1a886e9b9e2e0ebc))
+
 ## [1.1.21](https://github.com/choulily/CurseForgeModpackDownloader-Linux/compare/v1.1.20...v1.1.21) (2022-06-20)
 
 
