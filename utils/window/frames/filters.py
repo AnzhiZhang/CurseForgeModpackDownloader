@@ -1,4 +1,3 @@
-from re import I
 from tkinter import Frame, Label
 from tkinter.ttk import Combobox
 from typing import TYPE_CHECKING, List
