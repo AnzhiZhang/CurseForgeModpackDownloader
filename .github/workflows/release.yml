@@ -18,7 +18,7 @@ jobs:
         with:
           release-type: simple
           pull-request-title-pattern: 'chore${scope}: 🔖 release${component} ${version}'
-  
+
   windowsbuild:
     runs-on: windows-latest
     name: Pack on Windows and Upload
