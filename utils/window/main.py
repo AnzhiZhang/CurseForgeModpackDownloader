@@ -24,7 +24,7 @@ class Main(Tk):
 
         # High DPI on Windows
         # https://stackoverflow.com/questions/62794931/high-dpi-tkinter-re-scaling-when-i-run-it-in-spyder-and-when-i-run-it-direct-in
-        if (platform.system() == 'Windows'):
+        if platform.system() == 'Windows':
             from ctypes import windll
             windll.shcore.SetProcessDpiAwareness(2)
             scale_factor = windll.shcore.GetScaleFactorForDevice(0) / 75
