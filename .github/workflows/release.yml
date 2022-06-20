@@ -54,7 +54,7 @@ jobs:
 
   linuxbuild:
     runs-on: ubuntu-latest
-    name: Pack on Linux and Upload Release
+    name: Pack on Linux and Upload
     needs: release-please
     if: ${{ needs.release-please.outputs.release_created }}
 
