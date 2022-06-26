@@ -14,12 +14,6 @@
 
 感谢 [安逸菌](http://anyijun.com/)、[Cyl18](https://github.com/Cyl18) 和 [安逸汉化组](https://github.com/ShaBaiTianCN) 在本软件开发过程中提供的建议和帮助。
 
-### 使用的 API 的文档
-
-[Curse API](https://gist.github.com/crapStone/9a423f7e97e64a301e88a2f6a0f3e4d9)
-
-[CurseforgeAPI/apiary.apib](https://github.com/Gaz492/CurseforgeAPI/blob/master/apiary.apib)
-
 ## 许可
 
 Copyright © 2022 Andy Zhang and contributors

@@ -35,18 +35,18 @@ class Show(Frame):
     def update_list(self, append=False):
         def request(index):
             # Get filters
-            keyword = sort = game_version = None
+            keyword = sorting = game_version = None
             if self.__main_window.search_frame.keyword:
                 keyword = self.__main_window.search_frame.keyword
             if self.__main_window.filters_frame.sort:
-                sort = SEARCH.SORT[self.__main_window.filters_frame.sort]
+                sorting = SEARCH.SORTING[self.__main_window.filters_frame.sort]
             if self.__main_window.filters_frame.game_version:
                 game_version = self.__main_window.filters_frame.game_version
 
             return Requester.search_modpack(
                 game_version=game_version,
                 search_filter=keyword,
-                sort=sort,
+                sorting=sorting,
                 index=index
             ).json()
 
@@ -63,7 +63,7 @@ class Show(Frame):
                 self.__search_index += 1
 
             # Request and check result
-            result = request(self.__search_index)
+            result = request(self.__search_index)['data']
             if len(result) == 0:
                 showwarning('提示', '共搜索到 0 个结果！')
 
@@ -98,7 +98,7 @@ class Show(Frame):
             self.__main_window.filters_frame.set_modpack_version([''])
 
             # Get files
-            files = Requester.files(_id).json()
+            files = Requester.files(project_id).json()['data']
 
             # Storage into data
             self.__data[self.selected_index]['files'] = {}
@@ -119,8 +119,11 @@ class Show(Frame):
             if self.selected_index == old_index:
                 return
             else:
-                _id = self.__data[self.selected_index].get('id')
-                Thread(target=run, name=f'Get Modpack Versions ({_id})').start()
+                project_id = self.__data[self.selected_index].get('id')
+                Thread(
+                    target=run,
+                    name=f'Get Modpack Files ({project_id})'
+                ).start()
 
     @property
     def selected_index(self) -> int:
@@ -147,14 +150,19 @@ class Show(Frame):
     def selected_download_url(self) -> str:
         display_name = self.__main_window.filters_frame.modpack_version
         if display_name != '' and self.selected_files is not None:
-            return self.selected_files[display_name]['downloadUrl']
+            selected_file_id = self.selected_files[display_name]['id']
+            return 'https://edge.forgecdn.net/files/{}/{}/{}'.format(
+                int(selected_file_id / 1000),
+                selected_file_id % 1000,
+                self.selected_file_name
+            )
         return ''
 
     @property
     def selected_avatar_url(self) -> str:
         display_name = self.__main_window.filters_frame.modpack_version
         if display_name != '' and self.selected_files is not None:
-            return self.__data[self.selected_index]['attachments'][0]['url']
+            return self.__data[self.selected_index]['logo']['url']
         return ''
 
     def reselect(self):

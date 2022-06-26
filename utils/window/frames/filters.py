@@ -52,7 +52,7 @@ class Filters(Frame):
         return self.modpack_version_combobox.get()
 
     def init(self):
-        self.sort_combobox['values'] = list(SEARCH.SORT.keys())
+        self.sort_combobox['values'] = list(SEARCH.SORTING.keys())
         self.sort_combobox.current(1)
         self.game_version_combobox['values'] = SEARCH.VERSIONS
 

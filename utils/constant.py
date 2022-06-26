@@ -38,8 +38,8 @@ class WINDOW:
 
 class SEARCH:
     VERSIONS = ['', '1.10.2', '1.12.2', '1.16.5', '1.18.2']
-    SORT = {
-        'Name': 3,
-        'Popularity': 1,
-        'Total Downloads': 5
+    SORTING = {
+        'Name': [4, 'asc'],
+        'Popularity': [2, 'desc'],
+        'Total Downloads': [6, 'desc']
     }

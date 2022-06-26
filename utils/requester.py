@@ -2,7 +2,7 @@ import json
 from urllib.parse import quote, urlencode
 from urllib.request import Request, urlopen
 
-from typing import Any, Dict
+from typing import Any, Dict, List
 
 
 class Response:
@@ -29,8 +29,10 @@ class Response:
 
 class Requester:
     HEADERS = {
-        'user-agent': ''
+        'Accept': 'application/json',
+        'x-api-key': '*'
     }
+    BASE_URL = 'https://api.curseforge.com'
 
     @classmethod
     def get(cls, url: str, params: Dict[str, Any] = None) -> Response:
@@ -51,43 +53,39 @@ class Requester:
         return Response(urlopen(request))
 
     @classmethod
-    def download_url(cls, project_id, file_id):
-        return cls.get(
-            f'https://addons-ecs.forgesvc.net/api/v2/addon/'
-            f'{project_id}/file/{file_id}/download-url'
-        )
+    def get_mod_file(cls, project_id, file_id):
+        return cls.get(f'{cls.BASE_URL}/v1/mods/{project_id}/files/{file_id}')
 
     @classmethod
     def search_modpack(
             cls,
             game_version: str = None,
             search_filter: str = None,
-            sort: int = None,
+            sorting: List = None,
             index: int = 0
     ):
         """
         Search modpacks.
         :param game_version: Game version string.
-        :param sort: Sorting rule.
         :param search_filter: Filter to search, a string.
+        :param sorting: Sorting rule, a list. First number is sort field and
+            second string is order.
         :param index: Page index.
         :return: Response.
         """
         params = {
             'gameId': 432,
-            'sectionId': 4471,
+            'classId': 4471,
             'index': index
         }
         if game_version:
             params['gameVersion'] = game_version
         if search_filter:
             params['searchFilter'] = search_filter
-        if sort:
-            params['sort'] = sort
-        return cls.get(
-            'https://addons-ecs.forgesvc.net/api/v2/addon/search',
-            params=params
-        )
+        if sorting:
+            params['sortField'] = sorting[0]
+            params['sortOrder'] = sorting[1]
+        return cls.get(f'{cls.BASE_URL}/v1/mods/search', params=params)
 
     @classmethod
     def files(cls, _id: int):
@@ -96,6 +94,4 @@ class Requester:
         :param _id: Modpack ID.
         :return: Response.
         """
-        return cls.get(
-            f'https://addons-ecs.forgesvc.net/api/v2/addon/{_id}/files'
-        )
+        return cls.get(f'{cls.BASE_URL}/v1/mods/{_id}/files')

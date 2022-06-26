@@ -149,15 +149,20 @@ class Download:
         result = []
         i = 0
         for r in self.thread_pool.map(
-                lambda file: Requester.download_url(
-                    file["projectID"],
-                    file["fileID"]
+                lambda file: Requester.get_mod_file(
+                    file['projectID'],
+                    file['fileID']
                 ), files
         ):
             i += 1
             update()
             self.logger.info(f'获取模组下载链接（{i}/{count}）')
-            result.append(r.text)
+            data = r.json()['data']
+            result.append('https://edge.forgecdn.net/files/{}/{}/{}'.format(
+                int(data['id'] / 1000),
+                data['id'] % 1000,
+                data['fileName']
+            ))
         return result
 
     def download_mods(self, urls, update: Callable):
