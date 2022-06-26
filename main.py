@@ -9,8 +9,9 @@ from utils.window.main import Main
 def main():
     if not os.path.isdir(PATH.DATA_DIR):
         os.mkdir(PATH.DATA_DIR)
-    if not os.path.isdir(PATH.DOWNLOADING_DIR_PATH):
-        os.mkdir(PATH.DOWNLOADING_DIR_PATH)
+    if os.path.isdir(PATH.DOWNLOADING_DIR_PATH):
+        shutil.rmtree(PATH.DOWNLOADING_DIR_PATH)
+    os.mkdir(PATH.DOWNLOADING_DIR_PATH)
 
     factory = Factory()
     Main(factory).main()
