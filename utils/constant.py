@@ -27,7 +27,7 @@ class PATH:
     else:
         ICON_PATH = None
 
-    TEMP_DIR_PATH = os.path.join(WORKING_DIR, f'.{NAME}')
+    DOWNLOADING_DIR_PATH = os.path.join(DATA_DIR, 'downloading')
     LOG_FILE_NAME = f'{NAME}.log'
 
 

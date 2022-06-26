@@ -46,7 +46,7 @@ class Download:
         self.name = self.name.strip()
 
         # 计算路径
-        self.dir_path = os.path.join(PATH.TEMP_DIR_PATH, self.name)
+        self.dir_path = os.path.join(PATH.DOWNLOADING_DIR_PATH, self.name)
         self.log_file_path = os.path.join(self.dir_path, PATH.LOG_FILE_NAME)
         self.overrides_dir_path = os.path.join(self.dir_path, 'overrides')
         self.manifest_path = os.path.join(self.dir_path, 'manifest.json')
@@ -288,7 +288,7 @@ class Download:
                     z.write(zf_path, arcname=arcname)
 
         # Move to out of temp dir
-        if PATH.TEMP_DIR_PATH in self.zip_file_path:
+        if PATH.DOWNLOADING_DIR_PATH in self.zip_file_path:
             shutil.move(self.zip_file_path, '.')
 
     def clear_file(self):
