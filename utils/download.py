@@ -217,14 +217,13 @@ class Download:
         # 验证失败日志
         failed_verify_count = len(failed_mods['verify'])
         if failed_verify_count > 0:
-            warning_text += f'{failed_verify_count} 个模组校验失败，可能存在问题\n'
             self.logger.warning(
                 f'{failed_verify_count} 个模组校验失败，一般无需手动下载：\n' +
                 '\n'.join(failed_mods['verify'])
             )
 
         # 弹窗提示
-        if warning_text:
+        if warning_text != '':
             showwarning('警告', warning_text + '请查看日志获取详细信息')
 
     def write_mmc_files(self):
