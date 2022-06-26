@@ -1,5 +1,25 @@
 # Changelog
 
+## [1.3.0](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/compare/v1.2.0...v1.3.0) (2022-06-26)
+
+
+### Features
+
+* **config:** ✨ add config file to storage api key ([a3ecd95](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/commit/a3ecd956b37e81063556b642c857d8fcc5ce476b))
+* **download:** 🔇 remove verify failed warning ([c22014b](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/commit/c22014babb6295af1e787bbfe37a2752a4bdc14e))
+
+
+### Bug Fixes
+
+* 🔥 remove downloading dir at startup ([e68d228](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/commit/e68d228e92502b3d8289c596d8013c23546e039c))
+* 🚑️ move api to api.curseforge.com (fix [#23](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/issues/23)) ([047ab1c](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/commit/047ab1cd922c84bb01caf937ff400f3a97261d1b))
+
+
+### Performance Improvements
+
+* **download:** ⚡️ remove variable of thread in downloading ([693ebcc](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/commit/693ebccd8f865b1d82c35d9b24158c8a9b1155ad))
+* **ui:** ⚡️ save a thread while initialization ([269134e](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/commit/269134e76d7fd6052b8f182f59bef503a969d417))
+
 ## [1.2.0](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/compare/v1.1.2...v1.2.0) (2022-06-20)
 
 
