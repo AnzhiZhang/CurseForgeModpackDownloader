@@ -4,7 +4,6 @@ from tkinter.messagebox import showwarning
 from typing import TYPE_CHECKING, List, Dict
 
 from utils.constant import SEARCH
-from utils.requester import Requester
 
 if TYPE_CHECKING:
     from utils.window.main import Main
@@ -43,7 +42,7 @@ class Show(Frame):
             if self.__main_window.filters_frame.game_version:
                 game_version = self.__main_window.filters_frame.game_version
 
-            return Requester.search_modpack(
+            return self.__main_window.factory.requester.search_modpack(
                 game_version=game_version,
                 search_filter=keyword,
                 sorting=sorting,
@@ -98,7 +97,9 @@ class Show(Frame):
             self.__main_window.filters_frame.set_modpack_version([''])
 
             # Get files
-            files = Requester.files(project_id).json()['data']
+            files = self.__main_window.factory.requester.files(
+                project_id
+            ).json()['data']
 
             # Storage into data
             self.__data[self.selected_index]['files'] = {}

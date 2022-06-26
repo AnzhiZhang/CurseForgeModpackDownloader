@@ -28,14 +28,10 @@ class Response:
 
 
 class Requester:
-    HEADERS = {
-        'Accept': 'application/json',
-        'x-api-key': '*'
-    }
     BASE_URL = 'https://api.curseforge.com'
 
-    @classmethod
-    def get(cls, url: str, params: Dict[str, Any] = None) -> Response:
+    @staticmethod
+    def get(url: str, params: Dict[str, Any] = None) -> Response:
         """
         Request using get method.
         :param url: URL.
@@ -49,16 +45,18 @@ class Requester:
             url = url + '?' + urlencode(params)
 
         # send request
-        request = Request(url, headers=cls.HEADERS, method='GET')
+        headers = {
+            'Accept': 'application/json',
+            'x-api-key': '*'
+        }
+        request = Request(url, headers=headers, method='GET')
         return Response(urlopen(request))
 
-    @classmethod
-    def get_mod_file(cls, project_id, file_id):
-        return cls.get(f'{cls.BASE_URL}/v1/mods/{project_id}/files/{file_id}')
+    def get_mod_file(self, project_id, file_id):
+        return self.get(f'{self.BASE_URL}/v1/mods/{project_id}/files/{file_id}')
 
-    @classmethod
     def search_modpack(
-            cls,
+            self,
             game_version: str = None,
             search_filter: str = None,
             sorting: List = None,
@@ -85,13 +83,12 @@ class Requester:
         if sorting:
             params['sortField'] = sorting[0]
             params['sortOrder'] = sorting[1]
-        return cls.get(f'{cls.BASE_URL}/v1/mods/search', params=params)
+        return self.get(f'{self.BASE_URL}/v1/mods/search', params=params)
 
-    @classmethod
-    def files(cls, _id: int):
+    def files(self, _id: int):
         """
         Get modpack files.
         :param _id: Modpack ID.
         :return: Response.
         """
-        return cls.get(f'{cls.BASE_URL}/v1/mods/{_id}/files')
+        return self.get(f'{self.BASE_URL}/v1/mods/{_id}/files')

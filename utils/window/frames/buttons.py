@@ -7,7 +7,6 @@ from typing import TYPE_CHECKING
 
 from utils.constant import PATH
 from utils.download import Download
-from utils.requester import Requester
 
 if TYPE_CHECKING:
     from utils.window.main import Main
@@ -23,7 +22,11 @@ class Buttons(Frame):
             self,
             text='导入',
             background='white',
-            command=lambda: Download(zip_file_path=askopenfilename()).main()
+            command=lambda:
+            Download(
+                self.__main_window.factory.requester,
+                zip_file_path=askopenfilename()
+            ).main()
         )
         self.__download_button = Button(
             self,
@@ -57,7 +60,11 @@ class Buttons(Frame):
             pb.start()
 
             with open(file_path, 'wb') as f:
-                f.write(Requester.get(download_url).content)
+                f.write(
+                    self.__main_window.factory.requester.get(
+                        download_url
+                    ).content
+                )
 
             pb.stop()
             toplevel.destroy()
@@ -84,6 +91,7 @@ class Buttons(Frame):
 
             # Other files
             Download(
+                self.__main_window.factory.requester,
                 name=os.path.splitext(file_name)[0],
                 zip_file_path=file_path,
                 avatar_url=avatar_url

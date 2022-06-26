@@ -4,6 +4,7 @@ from tkinter import Tk
 from tkinter.messagebox import askokcancel
 
 from utils.constant import NAME_WITH_SPACE, LICENSE, WINDOW, PATH
+from utils.factory import Factory
 from utils.window import frames
 
 
@@ -14,8 +15,10 @@ class Main(Tk):
         'pady': 15
     }
 
-    def __init__(self):
+    def __init__(self, factory: Factory):
         super().__init__()
+        self.__factory = factory
+
         self.geometry(WINDOW.SIZE)
         self.minsize(WINDOW.WIDTH, WINDOW.HEIGHT)
         self.title(NAME_WITH_SPACE)
@@ -51,6 +54,10 @@ class Main(Tk):
 
         # main loop
         self.mainloop()
+
+    @property
+    def factory(self):
+        return self.__factory
 
     @property
     def search_frame(self):

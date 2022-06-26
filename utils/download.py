@@ -5,23 +5,27 @@ import hashlib
 from threading import Thread
 from zipfile import ZipFile, ZIP_STORED
 from concurrent.futures import ThreadPoolExecutor
-from typing import Callable
+from typing import TYPE_CHECKING, Callable
 from tkinter import Toplevel
 from tkinter.ttk import Progressbar
 from tkinter.messagebox import showinfo, showwarning
 
 from utils.constant import PATH
 from utils.logger import Logger
-from utils.requester import Requester
+
+if TYPE_CHECKING:
+    from utils.requester import Requester
 
 
 class Download:
     def __init__(
             self,
+            requester: 'Requester',
             name: str = None,
             zip_file_path: str = None,
             avatar_url: str = None
     ):
+        self.requester = requester
         self.name = name
         self.zip_file_path = zip_file_path
         self.avatar_url = avatar_url
@@ -99,7 +103,7 @@ class Download:
                 # 下载图标
                 if self.avatar_url:
                     with open(self.avatar_path, 'wb') as f:
-                        f.write(Requester.get(self.avatar_url).content)
+                        f.write(self.requester.get(self.avatar_url).content)
 
                 # 获取模组下载链接
                 download_urls = self.get_download_urls(update)
@@ -142,7 +146,7 @@ class Download:
         result = []
         i = 0
         for r in self.thread_pool.map(
-                lambda file: Requester.get_mod_file(
+                lambda file: self.requester.get_mod_file(
                     file['projectID'],
                     file['fileID']
                 ), files
@@ -166,7 +170,7 @@ class Download:
 
             try:
                 # 下载
-                response = Requester.get(url)
+                response = self.requester.get(url)
 
                 # 校验
                 md5 = hashlib.md5(response.content).hexdigest()

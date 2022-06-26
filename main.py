@@ -2,6 +2,7 @@ import os
 import shutil
 
 from utils.constant import PATH
+from utils.factory import Factory
 from utils.window.main import Main
 
 
@@ -11,7 +12,8 @@ def main():
         shutil.rmtree(PATH.TEMP_DIR_PATH)
     os.mkdir(PATH.TEMP_DIR_PATH)
 
-    Main().main()
+    factory = Factory()
+    Main(factory).main()
 
     shutil.rmtree(PATH.TEMP_DIR_PATH)
 
