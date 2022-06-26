@@ -30,8 +30,10 @@ class Response:
 class Requester:
     BASE_URL = 'https://api.curseforge.com'
 
-    @staticmethod
-    def get(url: str, params: Dict[str, Any] = None) -> Response:
+    def __init__(self, factory: 'Factory'):
+        self.__factory = factory
+
+    def get(self, url: str, params: Dict[str, Any] = None) -> Response:
         """
         Request using get method.
         :param url: URL.
@@ -47,7 +49,7 @@ class Requester:
         # send request
         headers = {
             'Accept': 'application/json',
-            'x-api-key': '*'
+            'x-api-key': self.__factory.config['curseForgeAPIKey']
         }
         request = Request(url, headers=headers, method='GET')
         return Response(urlopen(request))

@@ -2,6 +2,7 @@ import sys
 import platform
 from tkinter import Tk
 from tkinter.messagebox import askokcancel
+from tkinter.simpledialog import askstring
 
 from utils.constant import NAME_WITH_SPACE, LICENSE, WINDOW, PATH
 from utils.factory import Factory
@@ -48,6 +49,21 @@ class Main(Tk):
         # ask license
         if not ('--no-license' in sys.argv or askokcancel('版权声明', LICENSE)):
             return
+
+        # ask api key
+        if self.factory.config.get('curseForgeAPIKey') == '':
+            result = askstring(
+                'Configuration',
+                '请输入 CurseForge API Key',
+                show='*',
+                parent=self
+            )
+            if result is None:
+                self.quit()
+            else:
+                self.factory.requester.api_key = result
+                self.factory.config['curseForgeAPIKey'] = result
+                self.factory.config.save()
 
         # update list
         self.show_frame.update_list(force=True)

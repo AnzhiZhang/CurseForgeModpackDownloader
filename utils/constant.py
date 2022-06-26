@@ -20,6 +20,7 @@ else:
 class PATH:
     BASE_DIR = BASE_DIR
     WORKING_DIR = os.getcwd()
+    DATA_DIR = os.path.join(WORKING_DIR, f'.{NAME}')
 
     if platform.system() == 'Windows':
         ICON_PATH = os.path.join(BASE_DIR, 'icon.ico')
@@ -34,6 +35,13 @@ class WINDOW:
     WIDTH = 1200
     HEIGHT = 600
     SIZE = f'{WIDTH}x{HEIGHT}'
+
+
+class CONFIG:
+    FILE_PATH = os.path.join(PATH.DATA_DIR, 'config.yml')
+    DEFAULT = {
+        'curseForgeAPIKey': ''
+    }
 
 
 class SEARCH:
