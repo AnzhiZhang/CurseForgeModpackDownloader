@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.1](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/compare/v1.3.0...v1.3.1) (2022-06-26)
+
+
+### Bug Fixes
+
+* ➕ add PyYAML to requirements.txt for CI ([fca7cd1](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/commit/fca7cd19723f1c8df6f395df4a6dd4d1f9d04bc0))
+
 ## [1.3.0](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/compare/v1.2.0...v1.3.0) (2022-06-26)
 
 
