@@ -123,8 +123,7 @@ class Download:
                     'https://github.com/AnzhiZhang/CurseForgeModpackDownloader'
                 )
 
-        thread = Thread(target=run, name='Download')
-        thread.start()
+        Thread(target=run, name='Download').start()
 
     @property
     def mod_count(self):
