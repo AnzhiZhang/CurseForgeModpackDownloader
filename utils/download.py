@@ -8,7 +8,6 @@ from concurrent.futures import ThreadPoolExecutor
 from typing import Callable
 from tkinter import Toplevel
 from tkinter.ttk import Progressbar
-from tkinter.filedialog import askopenfilename
 from tkinter.messagebox import showinfo, showwarning
 
 from utils.constant import PATH
@@ -37,12 +36,6 @@ class Download:
         self.thread_pool = None
 
     def main(self):
-        # 询问路径
-        if not self.zip_file_path:
-            self.zip_file_path = askopenfilename().replace('/', os.sep)
-            if self.zip_file_path == '':
-                return
-
         # 处理名称
         if not self.name:
             self.name = os.path.basename(self.zip_file_path)

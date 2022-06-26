@@ -2,6 +2,7 @@ import os
 from threading import Thread
 from tkinter import Frame, Button, Toplevel
 from tkinter.ttk import Progressbar
+from tkinter.filedialog import askopenfilename
 from typing import TYPE_CHECKING
 
 from utils.constant import PATH
@@ -22,7 +23,7 @@ class Buttons(Frame):
             self,
             text='导入',
             background='white',
-            command=lambda: Download().main()
+            command=lambda: Download(zip_file_path=askopenfilename()).main()
         )
         self.__download_button = Button(
             self,
