@@ -17,7 +17,7 @@ class Show(Frame):
         self.__main_window = master
         self.__search_index = -1
         self.__selected_index = -1
-        self.__updating = False
+        self.__updating = True
         self.__data: List[Dict] = []
 
         self.__list_listbox = Listbox(self, font=('Arial', 12))
@@ -32,7 +32,7 @@ class Show(Frame):
         self.__list_listbox.pack(side='left', fill='both', expand=True)
         self.__list_listbox_scrollbar.pack(side='left', fill='y')
 
-    def update_list(self, append=False):
+    def update_list(self, append=False, force=False):
         def request(index):
             # Get filters
             keyword = sorting = game_version = None
@@ -78,7 +78,7 @@ class Show(Frame):
             self.__updating = False
 
         # Protection
-        if not self.__updating:
+        if force or not self.__updating:
             Thread(
                 target=run,
                 name='Update List Data'

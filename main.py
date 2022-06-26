@@ -11,7 +11,7 @@ def main():
         shutil.rmtree(PATH.TEMP_DIR_PATH)
     os.mkdir(PATH.TEMP_DIR_PATH)
 
-    Main()
+    Main().main()
 
     shutil.rmtree(PATH.TEMP_DIR_PATH)
 

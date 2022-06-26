@@ -1,6 +1,5 @@
 import sys
 import platform
-from threading import Thread
 from tkinter import Tk
 from tkinter.messagebox import askokcancel
 
@@ -42,16 +41,16 @@ class Main(Tk):
         self.__filters_frame.pack(**self.PACK_KWARGS)
         self.__buttons_frame.pack(**self.PACK_KWARGS)
 
-        Thread(target=self.__ask_license, name='Init').start()
-
-        self.mainloop()
-
-    def __ask_license(self):
-        """
-        Ask to accept license.
-        """
+    def main(self):
+        # ask license
         if not ('--no-license' in sys.argv or askokcancel('版权声明', LICENSE)):
-            self.quit()
+            return
+
+        # update list
+        self.show_frame.update_list(force=True)
+
+        # main loop
+        self.mainloop()
 
     @property
     def search_frame(self):
