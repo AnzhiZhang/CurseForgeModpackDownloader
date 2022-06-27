@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.2](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/compare/v1.3.1...v1.3.2) (2022-06-27)
+
+
+### Bug Fixes
+
+* **ui:** 🐛 fix modpack version filter sorting ([b7cb871](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/commit/b7cb8711309e768cc1e861d52dc116d37ea8ea90))
+
 ## [1.3.1](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/compare/v1.3.0...v1.3.1) (2022-06-26)
 
 
