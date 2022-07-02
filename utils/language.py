@@ -22,14 +22,16 @@ class Language:
             with open(path, encoding='utf-8') as f:
                 self.__data[os.path.splitext(i)[0]] = yaml.safe_load(f)
 
-    def translate(self, key: str,  *args) -> str:
+    def translate(self, key: str, *args, lang=None) -> str:
         """
         Translate words from key.
         :param key: Key of words.
         :param lang: Language name.
         :return: Words.
         """
-        return self.__data.get(self.__lang).get(key).format(*args)
+        if lang is None:
+            lang = self.__lang
+        return self.__data.get(lang).get(key).format(*args)
 
     def get_languages_list(self) -> List[str]:
         """
