@@ -40,7 +40,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Make
-        run: pyinstaller -i icon.ico --clean --noconsole --add-binary "icon.ico;." --add-data="lang;." --onefile main.py
+        run: pyinstaller -i icon.ico --clean --noconsole --add-binary "icon.ico;." --add-data="lang;lang" --onefile main.py
 
       - name: Upload Release Asset
         uses: actions/upload-release-asset@v1
@@ -73,7 +73,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Make
-        run: pyinstaller -i icon.ico --clean --noconsole --onefile main.py
+        run: pyinstaller -i icon.ico --clean --noconsole --add-data="lang;lang" --onefile main.py
 
       - name: Generate Start Up Script
         run: cd dist && echo "#!/bin/sh" >> start.sh && echo "export SSL_CERT_DIR=/etc/ssl/certs" >> start.sh && echo "./main" >> start.sh
