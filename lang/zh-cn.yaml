@@ -27,4 +27,4 @@ download.downloadFail: '{0} 个模组下载失败，请手动下载！'
 download.getModWarning.title: 警告
 download.getModWarning.content: |
   {0}
-  请查看日志获取详细信息
+  请查看日志获取详细信息。
