@@ -24,7 +24,7 @@ class Buttons(Frame):
             background='white',
             command=lambda:
             Download(
-                self.__main_window.factory.requester,
+                self.__main_window.factory,
                 zip_file_path=askopenfilename()
             ).main()
         )
@@ -81,6 +81,11 @@ class Buttons(Frame):
             avatar_url = self.__main_window.show_frame.selected_avatar_url
             file_path = os.path.join(PATH.DOWNLOADING_DIR_PATH, file_name)
 
+            self.__main_window.factory.logger.debug(
+                'Downloading modpack %s',
+                file_name
+            )
+
             # Start download file
             thread = Thread(target=run, name='Download')
             thread.start()
@@ -91,7 +96,7 @@ class Buttons(Frame):
 
             # Other files
             Download(
-                self.__main_window.factory.requester,
+                self.__main_window.factory,
                 name=os.path.splitext(file_name)[0],
                 zip_file_path=file_path,
                 avatar_url=avatar_url

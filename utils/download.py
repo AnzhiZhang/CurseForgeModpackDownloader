@@ -1,4 +1,5 @@
 import os
+import sys
 import json
 import shutil
 import hashlib
@@ -14,18 +15,19 @@ from utils.constant import NAME, PATH
 from utils.logger import Logger
 
 if TYPE_CHECKING:
-    from utils.requester import Requester
+    from utils.factory import Factory
 
 
 class Download:
     def __init__(
             self,
-            requester: 'Requester',
+            factory: 'Factory',
             name: str = None,
             zip_file_path: str = None,
             avatar_url: str = None
     ):
-        self.requester = requester
+        self.factory = factory
+        self.requester = self.factory.requester
         self.name = name
         self.zip_file_path = zip_file_path
         self.avatar_url = avatar_url
@@ -62,10 +64,18 @@ class Download:
 
         # 新建临时文件夹
         os.mkdir(self.dir_path)
+        self.factory.logger.debug(
+            'Successfully created temp dir %s for modpack %s',
+            self.dir_path,
+            self.name
+        )
 
         # 工具
         self.logger = Logger(self.name, self.log_file_path)
         self.thread_pool = ThreadPoolExecutor(4)
+
+        if '--debug' in sys.argv:
+            self.logger.set_debug(True)
 
         def run():
             toplevel = Toplevel()
@@ -80,6 +90,7 @@ class Download:
 
             # 解压文件
             self.unzip()
+            self.logger.info('Unzipped files')
 
             # 设置进度条
             pb['maximum'] = self.mod_count * 2
@@ -104,6 +115,11 @@ class Download:
                 if self.avatar_url:
                     with open(self.avatar_path, 'wb') as f:
                         f.write(self.requester.get(self.avatar_url).content)
+                    self.logger.debug(
+                        'Downloaded avatar from %s and saved to %s',
+                        self.avatar_url,
+                        self.avatar_path
+                    )
 
                 # 获取模组下载链接
                 download_urls = self.get_download_urls(update)
@@ -122,6 +138,10 @@ class Download:
                     '下载地址及问题反馈：\n'
                     'https://github.com/AnzhiZhang/CurseForgeModpackDownloader'
                 )
+                self.factory.logger.info(
+                    'Successfully downloaded %s',
+                    self.name
+                )
 
         Thread(target=run, name='Download').start()
 
@@ -136,12 +156,12 @@ class Download:
                 zf.extract(i, self.dir_path)
 
     def get_download_urls(self, update: Callable):
-        # 获取下载链接 API
         with open(self.manifest_path) as f:
             data = json.load(f)
             files = data['files']
 
         count = len(files)
+        self.logger.info('%d mods were found', count)
         result = []
         i = 0
         for r in self.thread_pool.map(
@@ -152,13 +172,15 @@ class Download:
         ):
             i += 1
             update()
-            self.logger.info(f'获取模组下载链接（{i}/{count}）')
             data = r.json()['data']
-            result.append('https://edge.forgecdn.net/files/{}/{}/{}'.format(
+            url = 'https://edge.forgecdn.net/files/{}/{}/{}'.format(
                 int(data['id'] / 1000),
                 data['id'] % 1000,
                 data['fileName']
-            ))
+            )
+            result.append(url)
+            self.logger.info(f'获取模组下载链接（{i}/{count}）')
+            self.logger.debug(f'Got mod download url: %s', url)
         return result
 
     def download_mods(self, urls, update: Callable):
@@ -172,9 +194,17 @@ class Download:
                 response = self.requester.get(url)
 
                 # 校验
-                md5 = hashlib.md5(response.content).hexdigest()
-                if md5 != response.headers['ETag'].replace('"', ''):
+                calculated_md5 = hashlib.md5(response.content).hexdigest()
+                server_md5 = response.headers['ETag'].replace('"', '')
+                if calculated_md5 != server_md5:
                     failed_mods['verify'].append(f'{mod_name}（{url}）')
+                    self.logger.debug(
+                        'Mod %s\'s calculated md5 value %s '
+                        'is difference with server provided md5 value %s!',
+                        mod_name,
+                        calculated_md5,
+                        server_md5
+                    )
 
                 # 写入文件
                 with open(mod_path, 'wb') as f:
@@ -240,20 +270,26 @@ class Download:
 
         # 写入 mmc-pack.json
         mmc_pack_path = os.path.join(self.dir_path, 'mmc-pack.json')
+        data = {
+            'components': [
+                {
+                    'uid': 'net.minecraft',
+                    'version': minecraft_version
+                },
+                {
+                    'uid': mod_loader_uid,
+                    'version': mod_loader_version
+                }
+            ],
+            'formatVersion': 1
+        }
         with open(mmc_pack_path, 'w', encoding='utf-8') as f:
-            json.dump({
-                'components': [
-                    {
-                        'uid': 'net.minecraft',
-                        'version': minecraft_version
-                    },
-                    {
-                        'uid': mod_loader_uid,
-                        'version': mod_loader_version
-                    }
-                ],
-                'formatVersion': 1
-            }, f, indent=4)
+            json.dump(data, f, indent=4)
+        self.logger.debug(
+            'Saved following data into %s:\n%s',
+            mmc_pack_path,
+            data
+        )
 
         # 写入 instance.cfg
         instance_cfg_path = os.path.join(self.dir_path, 'instance.cfg')
@@ -262,17 +298,25 @@ class Download:
             content += f'iconKey={self.avatar_name}\n'
         with open(instance_cfg_path, 'w', encoding='utf-8') as f:
             f.write(content)
+        self.logger.debug(
+            'Saved following data into %s:\n%s',
+            instance_cfg_path,
+            content
+        )
 
     def make_zip(self):
         # 清理 CF 文件
         modlist_path = os.path.join(self.dir_path, 'modlist.html')
         if os.path.isfile(modlist_path):
             os.remove(modlist_path)
+            self.logger.debug('Deleted file %s', modlist_path)
         os.remove(self.manifest_path)
+        self.logger.debug('Deleted file %s', self.manifest_path)
         os.rename(
             self.overrides_dir_path,
             os.path.join(self.dir_path, '.minecraft')
         )
+        self.logger.debug('Renamed overrides to .minecraft')
 
         # 压缩
         with ZipFile(self.zip_file_path, mode='w', compression=ZIP_STORED) as z:
@@ -284,6 +328,7 @@ class Download:
                         self.dir_path.split(os.sep)[-1]
                     )
                     z.write(zf_path, arcname=arcname)
+        self.logger.debug('Made zip %s', self.zip_file_path)
 
         # Move to out of temp dir
         if PATH.DOWNLOADING_DIR_PATH in self.zip_file_path:
