@@ -10,7 +10,7 @@ from tkinter import Toplevel
 from tkinter.ttk import Progressbar
 from tkinter.messagebox import showinfo, showwarning
 
-from utils.constant import PATH
+from utils.constant import NAME, PATH
 from utils.logger import Logger
 
 if TYPE_CHECKING:
@@ -47,7 +47,7 @@ class Download:
 
         # 计算路径
         self.dir_path = os.path.join(PATH.DOWNLOADING_DIR_PATH, self.name)
-        self.log_file_path = os.path.join(self.dir_path, PATH.LOG_FILE_NAME)
+        self.log_file_path = os.path.join(self.dir_path, f'{NAME}.log')
         self.overrides_dir_path = os.path.join(self.dir_path, 'overrides')
         self.manifest_path = os.path.join(self.dir_path, 'manifest.json')
 
@@ -64,7 +64,7 @@ class Download:
         os.mkdir(self.dir_path)
 
         # 工具
-        self.logger = Logger(self.log_file_path)
+        self.logger = Logger(self.name, self.log_file_path)
         self.thread_pool = ThreadPoolExecutor(4)
 
         def run():

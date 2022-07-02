@@ -1,5 +1,6 @@
 import os
 import sys
+import time
 import platform
 
 NAME = 'CurseForgeModpackDownloader'
@@ -28,7 +29,10 @@ class PATH:
         ICON_PATH = None
 
     DOWNLOADING_DIR_PATH = os.path.join(DATA_DIR, 'downloading')
-    LOG_FILE_NAME = f'{NAME}.log'
+    LOG_FILE_PATH = os.path.join(
+        DATA_DIR,
+        time.strftime('%Y-%m.log', time.localtime())
+    )
 
 
 class WINDOW:

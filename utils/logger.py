@@ -1,7 +1,5 @@
 import logging
 
-from utils.constant import NAME
-
 
 class Logger:
     format = logging.Formatter(
@@ -9,9 +7,9 @@ class Logger:
         datefmt='%Y-%m-%d %H:%M:%S'
     )
 
-    def __init__(self, file_path: str):
+    def __init__(self, name: str, file_path: str):
         # Logger
-        self.logger = logging.getLogger(NAME)
+        self.logger = logging.getLogger(name)
         self.logger.setLevel(logging.INFO)
 
         # Console Handler
