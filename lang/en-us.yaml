@@ -28,3 +28,14 @@ download.getModWarning.title: Warning
 download.getModWarning.content: |
   {0}
   Please get more info in log.
+download.logging.unzipped: Unzipped files
+download.logging.foundMods: '{0} mods were found'
+download.logging.gotDownloadURL: 'Got mod download URL ({0}/{1}): {2}'
+download.logging.gotMod: 'Got mod ({0}/{1}): {2}'
+download.logging.success: Successfully downloaded {0}
+download.logging.downloadFail: |
+  {0} mods download failed, please download them manually:
+  {1}
+download.logging.verifyFail: |
+  {0} mods verify failed, generally not manually download required:
+  {1}

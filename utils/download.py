@@ -93,7 +93,9 @@ class Download:
 
             # 解压文件
             self.unzip()
-            self.logger.info('Unzipped files')
+            self.logger.info(
+                self.factory.language.translate('download.logging.unzipped')
+            )
 
             # 设置进度条
             pb['maximum'] = self.mod_count * 2
@@ -148,8 +150,10 @@ class Download:
                     self.factory.language.translate('download.finish.content')
                 )
                 self.factory.logger.info(
-                    'Successfully downloaded %s',
-                    self.name
+                    self.factory.language.translate(
+                        'download.logging.success',
+                        self.name
+                    )
                 )
 
         Thread(target=run, name='Download').start()
@@ -170,7 +174,9 @@ class Download:
             files = data['files']
 
         count = len(files)
-        self.logger.info('%d mods were found', count)
+        self.logger.info(
+            self.factory.language.translate('download.logging.foundMods', count)
+        )
         result = []
         i = 0
         for r in self.thread_pool.map(
@@ -188,9 +194,12 @@ class Download:
                 data['fileName']
             )
             result.append(url)
-            self.logger.info(f'获取模组下载链接（{i}/{count}）')
-            if self.logger.debug_mode:
-                self.logger.debug(f'Got mod download url: %s', url)
+            self.logger.info(
+                self.factory.language.translate(
+                    'download.logging.gotDownloadURL',
+                    i, count, url
+                )
+            )
         return result
 
     def download_mods(self, urls, update: Callable):
@@ -241,7 +250,12 @@ class Download:
         for name in self.thread_pool.map(download, urls):
             i += 1
             update()
-            self.logger.info(f'下载模组（{i}/{count}）：{name}')
+            self.logger.info(
+                self.factory.language.translate(
+                    'download.logging.gotMod',
+                    i, count, name
+                )
+            )
 
         # 提示结果
         warning_text = ''
@@ -254,16 +268,20 @@ class Download:
                 failed_download_count
             )
             self.logger.error(
-                f'{failed_download_count} 个模组下载失败，请手动下载：\n' +
-                '\n'.join(failed_mods['download'])
+                self.factory.language.translate(
+                    'download.logging.downloadFail',
+                    failed_download_count, '\n'.join(failed_mods['download'])
+                )
             )
 
         # 验证失败日志
         failed_verify_count = len(failed_mods['verify'])
         if failed_verify_count > 0:
             self.logger.warning(
-                f'{failed_verify_count} 个模组校验失败，一般无需手动下载：\n' +
-                '\n'.join(failed_mods['verify'])
+                self.factory.language.translate(
+                    'download.logging.verifyFail',
+                    failed_verify_count, '\n'.join(failed_mods['verify'])
+                )
             )
 
         # 弹窗提示

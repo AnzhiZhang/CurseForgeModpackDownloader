@@ -28,3 +28,14 @@ download.getModWarning.title: 警告
 download.getModWarning.content: |
   {0}
   请查看日志获取详细信息。
+download.logging.unzipped: 文件已解压
+download.logging.foundMods: 已找到 {0} 个模组
+download.logging.gotDownloadURL: 获取模组下载链接（{0}/{1}）：{2}
+download.logging.gotMod: 下载模组（{0}/{1}）：{2}
+download.logging.success: 成功下载 {0}
+download.logging.downloadFail: |
+  {0} 个模组下载失败，请手动下载：
+  {1}
+download.logging.verifyFail: |
+  {0} 个模组校验失败，一般无需手动下载：
+  {1}
