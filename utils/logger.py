@@ -9,6 +9,7 @@ class Logger:
 
     def __init__(self, name: str, file_path: str):
         # Logger
+        self.debug_mode = False
         self.logger = logging.getLogger(name)
         self.logger.setLevel(logging.INFO)
 
@@ -30,6 +31,18 @@ class Logger:
         self.error = self.logger.error
         self.critical = self.logger.critical
         self.exception = self.logger.exception
+
+    def set_debug(self, debug: bool = False):
+        if debug:
+            self.debug_mode = True
+            self.logger.setLevel(logging.DEBUG)
+            self.ch.setLevel(logging.DEBUG)
+            self.fh.setLevel(logging.DEBUG)
+        else:
+            self.debug_mode = False
+            self.logger.setLevel(logging.INFO)
+            self.ch.setLevel(logging.INFO)
+            self.fh.setLevel(logging.INFO)
 
     def close(self):
         self.fh.close()

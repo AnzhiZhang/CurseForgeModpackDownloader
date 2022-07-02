@@ -1,4 +1,5 @@
 import os
+import sys
 import shutil
 
 from utils.constant import PATH
@@ -14,6 +15,10 @@ def main():
     os.mkdir(PATH.DOWNLOADING_DIR_PATH)
 
     factory = Factory()
+
+    if '--debug' in sys.argv:
+        factory.logger.set_debug(True)
+
     Main(factory).main()
 
     shutil.rmtree(PATH.DOWNLOADING_DIR_PATH)
