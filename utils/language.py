@@ -33,9 +33,9 @@ class Language:
             lang = self.__lang
         return self.__data.get(lang).get(key).format(*args)
 
-    def get_languages_list(self) -> List[str]:
+    def get_languages(self) -> Dict[str, str]:
         """
-        Get languages list.
-        :return: Language name list.
+        Get languages data.
+        :return: A dict which key is language key and value is the name.
         """
-        return list(self.__data.keys())
+        return {key: value['langName'] for key, value in self.__data.items()}
