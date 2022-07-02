@@ -1,5 +1,32 @@
 # Changelog
 
+## [1.4.0](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/compare/v1.3.2...v1.4.0) (2022-07-02)
+
+
+### Features
+
+* ✨ add debug loggings ([10452ef](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/commit/10452efefa19f10993f721f15c7bd5feb7fa9023))
+* ✨ add logger debug setting ([fbc648f](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/commit/fbc648f735cc16920b46c1bc9302bf5b2fdaf312))
+* ✨ add logger name to message ([73aef83](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/commit/73aef8341c6a1e876240feb254a6c4a86d6e4230))
+* ✨ add logger to factory ([b631662](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/commit/b63166220a3de48b51b833b7d7eed1534577a77c))
+* **config:** ✨ add config file check ([23bb19e](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/commit/23bb19e44052507554dace3f25feb39f5d90e35d))
+* **i18n:** ✨ add lang specific param in translate method ([45d89e2](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/commit/45d89e20e1d753d2da853c0c815e1cf037e78bb8))
+* **i18n:** 🌐 add i18n for logs ([571923e](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/commit/571923e5921b0ccfe34ddf308a7ff697e094b631))
+* **i18n:** 🌐 add multilanguage (resolve [#18](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/issues/18)) ([6a5ffd9](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/commit/6a5ffd977f62e1fa7a77e4ee4ca73aa51b41446c))
+* **ui:** ✨ add language switch combobox ([d35b407](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/commit/d35b407448d55e8bc895d44b310a2e4fe92d3690))
+
+
+### Bug Fixes
+
+* **i18n:** 🌐 fix chinese download.getModWarning.content ([c76cd4e](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/commit/c76cd4e09069c84301c496af3d33a88031d39a1f))
+* **i18n:** 🐛 return a better structure of get languages ([8f42def](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/commit/8f42deffb3aa175a1568e812d02b1ed2b63bfde4))
+* **ui:** 🐛 give more space for modpack version in filters ([b2ed963](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/commit/b2ed963a088d278498aa6b98e617100de21d11f5))
+
+
+### Performance Improvements
+
+* ⚡️ add debug logging estimate ([9d16b09](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/commit/9d16b09c62021d4be1d3d19d2b885225c72e6dee))
+
 ## [1.3.2](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/compare/v1.3.1...v1.3.2) (2022-06-27)
 
 
