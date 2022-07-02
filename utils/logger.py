@@ -3,7 +3,7 @@ import logging
 
 class Logger:
     format = logging.Formatter(
-        '[%(asctime)s] [%(levelname)s]: %(message)s',
+        '[%(asctime)s] [%(levelname)s]: [%(name)s] %(message)s',
         datefmt='%Y-%m-%d %H:%M:%S'
     )
 
