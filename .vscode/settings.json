@@ -2,6 +2,7 @@
     "conventionalCommits.scopes": [
         "ui",
         "download",
-        "config"
+        "config",
+        "i18n"
     ]
 }

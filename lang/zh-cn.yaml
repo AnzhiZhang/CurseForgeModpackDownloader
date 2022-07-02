@@ -1,0 +1,30 @@
+langName: 简体中文
+license.title: 版权声明
+license.content: |
+  Copyright © 2022 Andy Zhang and contributors
+  本程序是自由软件：你可以再分发之和/或依照由自由软件基金会发布的 GNU 通用公共许可证修改之，无论是版本 3 许可证，还是（按你的决定）任何以后版都可以。
+  发布该程序是希望它能有用，但是并无保障；甚至连可销售和符合某个特定的目的都不保证。请参看 GNU 通用公共许可证，了解详情。
+  你应该随程序获得一份 GNU 通用公共许可证的复本。如果没有，请看 https://www.gnu.org/licenses/。
+window.search.search: 搜索
+window.show.resultWarning.title: 警告
+window.show.resultWarning.content: 共搜索到 0 个结果！
+window.filters.sort: 排序：
+window.filters.gameVersion: 游戏版本：
+window.filters.modpackVersion: 整合包版本：
+window.buttons.import: 导入
+window.buttons.download: 下载
+window.buttons.exit: 退出
+download.file.title: 下载配置文件…………
+download.mods.title: 正在下载模组…………
+download.getURLFail.title: 警告
+download.getURLFail.content: 获取模组下载地址失败，这可能是由于网络不稳定，请重试
+download.finish.title: 下载完成
+download.finish.content: |
+  请直接导入启动器
+  问题反馈：
+  https://github.com/AnzhiZhang/CurseForgeModpackDownloader
+download.downloadFail: '{0} 个模组下载失败，请手动下载！'
+download.getModWarning.title: 警告
+download.getModWarning.content: |
+  {0}
+  请查看日志获取详细信息

@@ -4,7 +4,7 @@ from tkinter import Tk
 from tkinter.messagebox import askokcancel
 from tkinter.simpledialog import askstring
 
-from utils.constant import NAME_WITH_SPACE, LICENSE, WINDOW, PATH
+from utils.constant import NAME_WITH_SPACE, WINDOW, PATH
 from utils.factory import Factory
 from utils.window import frames
 
@@ -47,7 +47,13 @@ class Main(Tk):
 
     def main(self):
         # ask license
-        if not ('--no-license' in sys.argv or askokcancel('版权声明', LICENSE)):
+        if not (
+                '--no-license' in sys.argv or
+                askokcancel(
+                    self.factory.language.translate('license.title'),
+                    self.factory.language.translate('license.content')
+                )
+        ):
             return
 
         # ask api key

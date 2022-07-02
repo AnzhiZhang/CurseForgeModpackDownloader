@@ -79,7 +79,9 @@ class Download:
 
         def run():
             toplevel = Toplevel()
-            toplevel.title('正在下载模组…………')
+            toplevel.title(
+                self.factory.language.translate('download.mods.title')
+            )
             toplevel.resizable(False, False)
             toplevel.protocol("WM_DELETE_WINDOW", lambda: None)
             toplevel.iconbitmap(PATH.ICON_PATH)
@@ -126,17 +128,22 @@ class Download:
             except Exception as e:
                 self.logger.exception(f'Exception: {e}')
                 clear()
-                showwarning('警告', '获取模组下载地址失败，这可能是由于网络不稳定，请重试')
+                showwarning(
+                    self.factory.language.translate(
+                        'download.getURLFail.title'
+                    ),
+                    self.factory.language.translate(
+                        'download.getURLFail.content'
+                    )
+                )
             else:
                 self.download_mods(download_urls, update)
                 self.write_mmc_files()
                 self.make_zip()
                 clear()
                 showinfo(
-                    '下载完成',
-                    '请直接导入启动器\n'
-                    '下载地址及问题反馈：\n'
-                    'https://github.com/AnzhiZhang/CurseForgeModpackDownloader'
+                    self.factory.language.translate('download.finish.title'),
+                    self.factory.language.translate('download.finish.content')
                 )
                 self.factory.logger.info(
                     'Successfully downloaded %s',
@@ -238,7 +245,10 @@ class Download:
         # 下载失败日志
         failed_download_count = len(failed_mods['download'])
         if failed_download_count > 0:
-            warning_text += f'{failed_download_count} 个模组下载失败，请手动下载！\n'
+            warning_text += self.factory.language.translate(
+                'download.downloadFail',
+                failed_download_count
+            )
             self.logger.error(
                 f'{failed_download_count} 个模组下载失败，请手动下载：\n' +
                 '\n'.join(failed_mods['download'])
@@ -254,7 +264,13 @@ class Download:
 
         # 弹窗提示
         if warning_text != '':
-            showwarning('警告', warning_text + '请查看日志获取详细信息')
+            showwarning(
+                self.factory.language.translate('download.getModWarning.title'),
+                self.factory.language.translate(
+                    'download.getModWarning.content',
+                    warning_text
+                ),
+            )
 
     def write_mmc_files(self):
         # 获取版本信息

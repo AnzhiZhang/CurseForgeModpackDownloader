@@ -20,7 +20,9 @@ class Buttons(Frame):
 
         self.__import_button = Button(
             self,
-            text='导入',
+            text=self.__main_window.factory.language.translate(
+                'window.buttons.import'
+            ),
             background='white',
             command=lambda:
             Download(
@@ -30,13 +32,17 @@ class Buttons(Frame):
         )
         self.__download_button = Button(
             self,
-            text='下载',
+            text=self.__main_window.factory.language.translate(
+                'window.buttons.download'
+            ),
             background='white',
             command=self.download
         )
         self.__exit_button = Button(
             self,
-            text='退出',
+            text=self.__main_window.factory.language.translate(
+                'window.buttons.exit'
+            ),
             background='white',
             command=master.quit
         )
@@ -48,7 +54,11 @@ class Buttons(Frame):
     def download(self):
         def run():
             toplevel = Toplevel(self)
-            toplevel.title('下载配置文件…………')
+            toplevel.title(
+                self.__main_window.factory.language.translate(
+                    'download.file.title'
+                )
+            )
             toplevel.resizable(False, False)
             toplevel.protocol("WM_DELETE_WINDOW", lambda: None)
             toplevel.iconbitmap(PATH.ICON_PATH)

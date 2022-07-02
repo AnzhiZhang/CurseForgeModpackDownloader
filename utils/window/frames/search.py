@@ -14,7 +14,9 @@ class Search(Frame):
         self.search_entry = Entry(self)
         self.search_button = Button(
             self,
-            text='搜索',
+            text=self.main_window.factory.language.translate(
+                'window.search.search'
+            ),
             background='white',
             command=self.on_search
         )

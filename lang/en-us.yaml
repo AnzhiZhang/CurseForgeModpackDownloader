@@ -1,0 +1,30 @@
+langName: English
+license.title: License Notice
+license.content: |
+  Copyright © 2022 Andy Zhang and contributors
+  This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+  This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+  You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.
+window.search.search: Search
+window.show.resultWarning.title: Warning
+window.show.resultWarning.content: Got 0 results!
+window.filters.sort: 'Sort: '
+window.filters.gameVersion: 'Game Version: '
+window.filters.modpackVersion: 'Modpack Version: '
+window.buttons.import: Import
+window.buttons.download: Download
+window.buttons.exit: Exit
+download.file.title: Downloading Configuration...
+download.mods.title: Downloading Mods...
+download.getURLFail.title: Warning
+download.getURLFail.content: Fail to get mod download URLs, this may caused by a network issue, please try again.
+download.finish.title: Finished
+download.finish.content: |
+  Please import to launcher
+  Issues:
+  https://github.com/AnzhiZhang/CurseForgeModpackDownloader
+download.downloadFail: '{0} mods download fail, please download them manually!'
+download.getModWarning.title: Warning
+download.getModWarning.content: |
+  {0}
+  Please get more info in log.

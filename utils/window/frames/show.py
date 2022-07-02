@@ -64,7 +64,14 @@ class Show(Frame):
             # Request and check result
             result = request(self.__search_index)['data']
             if len(result) == 0:
-                showwarning('提示', '共搜索到 0 个结果！')
+                showwarning(
+                    self.__main_window.factory.language.translate(
+                        'window.show.resultWarning.title'
+                    ),
+                    self.__main_window.factory.language.translate(
+                        'window.show.resultWarning.content'
+                    )
+                )
 
             # Add request results
             for i in result:

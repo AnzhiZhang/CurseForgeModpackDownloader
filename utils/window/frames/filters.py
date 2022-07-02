@@ -14,11 +14,26 @@ class Filters(Frame):
 
         self.main_window = master
 
-        self.sort_label = Label(self, text='排序方式：')
+        self.sort_label = Label(
+            self,
+            text=self.main_window.factory.language.translate(
+                'window.filters.sort'
+            )
+        )
         self.sort_combobox = Combobox(self, width=15, state='readonly')
-        self.game_version_label = Label(self, text='游戏版本：')
+        self.game_version_label = Label(
+            self,
+            text=self.main_window.factory.language.translate(
+                'window.filters.gameVersion'
+            )
+        )
         self.game_version_combobox = Combobox(self, width=10, state='readonly')
-        self.modpack_version_label = Label(self, text='整合包版本：')
+        self.modpack_version_label = Label(
+            self,
+            text=self.main_window.factory.language.translate(
+                'window.filters.modpackVersion'
+            )
+        )
         self.modpack_version_combobox = Combobox(self, state='readonly')
 
         # Update list when combobox selected
