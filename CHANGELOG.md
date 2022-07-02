@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.2](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/compare/v1.4.1...v1.4.2) (2022-07-02)
+
+
+### Continuous Integration
+
+* **i18n:** 💚 fix lang pack on linux ([442f00b](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/commit/442f00b0ae9e3e1a2bb655933837d06552a1388c))
+
 ## [1.4.1](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/compare/v1.4.0...v1.4.1) (2022-07-02)
 
 
