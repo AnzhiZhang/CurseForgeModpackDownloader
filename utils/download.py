@@ -64,11 +64,12 @@ class Download:
 
         # 新建临时文件夹
         os.mkdir(self.dir_path)
-        self.factory.logger.debug(
-            'Successfully created temp dir %s for modpack %s',
-            self.dir_path,
-            self.name
-        )
+        if self.factory.logger.debug_mode:
+            self.factory.logger.debug(
+                'Successfully created temp dir %s for modpack %s',
+                self.dir_path,
+                self.name
+            )
 
         # 工具
         self.logger = Logger(self.name, self.log_file_path)
@@ -117,11 +118,12 @@ class Download:
                 if self.avatar_url:
                     with open(self.avatar_path, 'wb') as f:
                         f.write(self.requester.get(self.avatar_url).content)
-                    self.logger.debug(
-                        'Downloaded avatar from %s and saved to %s',
-                        self.avatar_url,
-                        self.avatar_path
-                    )
+                    if self.logger.debug_mode:
+                        self.logger.debug(
+                            'Downloaded avatar from %s and saved to %s',
+                            self.avatar_url,
+                            self.avatar_path
+                        )
 
                 # 获取模组下载链接
                 download_urls = self.get_download_urls(update)
@@ -187,7 +189,8 @@ class Download:
             )
             result.append(url)
             self.logger.info(f'获取模组下载链接（{i}/{count}）')
-            self.logger.debug(f'Got mod download url: %s', url)
+            if self.logger.debug_mode:
+                self.logger.debug(f'Got mod download url: %s', url)
         return result
 
     def download_mods(self, urls, update: Callable):
@@ -205,13 +208,14 @@ class Download:
                 server_md5 = response.headers['ETag'].replace('"', '')
                 if calculated_md5 != server_md5:
                     failed_mods['verify'].append(f'{mod_name}（{url}）')
-                    self.logger.debug(
-                        'Mod %s\'s calculated md5 value %s '
-                        'is difference with server provided md5 value %s!',
-                        mod_name,
-                        calculated_md5,
-                        server_md5
-                    )
+                    if self.logger.debug_mode:
+                        self.logger.debug(
+                            'Mod %s\'s calculated md5 value %s '
+                            'is difference with server provided md5 value %s!',
+                            mod_name,
+                            calculated_md5,
+                            server_md5
+                        )
 
                 # 写入文件
                 with open(mod_path, 'wb') as f:
@@ -301,11 +305,12 @@ class Download:
         }
         with open(mmc_pack_path, 'w', encoding='utf-8') as f:
             json.dump(data, f, indent=4)
-        self.logger.debug(
-            'Saved following data into %s:\n%s',
-            mmc_pack_path,
-            data
-        )
+        if self.logger.debug_mode:
+            self.logger.debug(
+                'Saved following data into %s:\n%s',
+                mmc_pack_path,
+                data
+            )
 
         # 写入 instance.cfg
         instance_cfg_path = os.path.join(self.dir_path, 'instance.cfg')
@@ -314,25 +319,29 @@ class Download:
             content += f'iconKey={self.avatar_name}\n'
         with open(instance_cfg_path, 'w', encoding='utf-8') as f:
             f.write(content)
-        self.logger.debug(
-            'Saved following data into %s:\n%s',
-            instance_cfg_path,
-            content
-        )
+        if self.logger.debug_mode:
+            self.logger.debug(
+                'Saved following data into %s:\n%s',
+                instance_cfg_path,
+                content
+            )
 
     def make_zip(self):
         # 清理 CF 文件
         modlist_path = os.path.join(self.dir_path, 'modlist.html')
         if os.path.isfile(modlist_path):
             os.remove(modlist_path)
-            self.logger.debug('Deleted file %s', modlist_path)
+            if self.logger.debug_mode:
+                self.logger.debug('Deleted file %s', modlist_path)
         os.remove(self.manifest_path)
-        self.logger.debug('Deleted file %s', self.manifest_path)
+        if self.logger.debug_mode:
+            self.logger.debug('Deleted file %s', self.manifest_path)
         os.rename(
             self.overrides_dir_path,
             os.path.join(self.dir_path, '.minecraft')
         )
-        self.logger.debug('Renamed overrides to .minecraft')
+        if self.logger.debug_mode:
+            self.logger.debug('Renamed overrides to .minecraft')
 
         # 压缩
         with ZipFile(self.zip_file_path, mode='w', compression=ZIP_STORED) as z:
@@ -344,7 +353,8 @@ class Download:
                         self.dir_path.split(os.sep)[-1]
                     )
                     z.write(zf_path, arcname=arcname)
-        self.logger.debug('Made zip %s', self.zip_file_path)
+        if self.logger.debug_mode:
+            self.logger.debug('Made zip %s', self.zip_file_path)
 
         # Move to out of temp dir
         if PATH.DOWNLOADING_DIR_PATH in self.zip_file_path:

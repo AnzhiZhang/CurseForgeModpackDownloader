@@ -91,10 +91,11 @@ class Buttons(Frame):
             avatar_url = self.__main_window.show_frame.selected_avatar_url
             file_path = os.path.join(PATH.DOWNLOADING_DIR_PATH, file_name)
 
-            self.__main_window.factory.logger.debug(
-                'Downloading modpack %s',
-                file_name
-            )
+            if self.__main_window.factory.logger.debug_mode:
+                self.__main_window.factory.logger.debug(
+                    'Downloading modpack %s',
+                    file_name
+                )
 
             # Start download file
             thread = Thread(target=run, name='Download')

@@ -44,9 +44,10 @@ class Requester:
         :return: Response.
         """
         url = quote(url, safe=':/')
-        self.__factory.logger.debug(
-            'Sending GET request to %s with params %s', url, params
-        )
+        if self.__factory.logger.debug_mode:
+            self.__factory.logger.debug(
+                'Sending GET request to %s with params %s', url, params
+            )
 
         # add params
         if params:
