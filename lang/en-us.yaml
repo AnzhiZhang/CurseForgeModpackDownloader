@@ -11,6 +11,9 @@ window.show.resultWarning.content: Got 0 results!
 window.filters.sort: 'Sort: '
 window.filters.gameVersion: 'Game Version: '
 window.filters.modpackVersion: 'Modpack Version: '
+window.buttons.languageSwitch.title: Confirmation
+window.buttons.languageSwitch.content: |
+  Are you sure to switch the language to English? Please restart the program after clicking ok.
 window.buttons.import: Import
 window.buttons.download: Download
 window.buttons.exit: Exit

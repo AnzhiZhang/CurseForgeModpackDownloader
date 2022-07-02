@@ -11,6 +11,9 @@ window.show.resultWarning.content: 共搜索到 0 个结果！
 window.filters.sort: 排序：
 window.filters.gameVersion: 游戏版本：
 window.filters.modpackVersion: 整合包版本：
+window.buttons.languageSwitch.title: 确认
+window.buttons.languageSwitch.content: |
+  您是否确认要切换为简体中文？请在确定后重新启动程序。
 window.buttons.import: 导入
 window.buttons.download: 下载
 window.buttons.exit: 退出

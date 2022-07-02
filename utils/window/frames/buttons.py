@@ -1,7 +1,8 @@
 import os
 from threading import Thread
 from tkinter import Frame, Button, Toplevel
-from tkinter.ttk import Progressbar
+from tkinter.ttk import Combobox, Progressbar
+from tkinter.messagebox import askokcancel
 from tkinter.filedialog import askopenfilename
 from typing import TYPE_CHECKING
 
@@ -18,6 +19,7 @@ class Buttons(Frame):
 
         self.__main_window = master
 
+        self.__language_combobox = Combobox(self, state='readonly')
         self.__import_button = Button(
             self,
             text=self.__main_window.factory.language.translate(
@@ -47,9 +49,41 @@ class Buttons(Frame):
             command=master.quit
         )
 
+        # Language
+        self.__languages = {
+            value: key for key, value in
+            self.__main_window.factory.language.get_languages().items()
+        }
+        self.__language_combobox.bind(
+            '<<ComboboxSelected>>',
+            self.on_select_language
+        )
+        self.__language_combobox['values'] = list(self.__languages.keys())
+        current_index = list(self.__languages.values()).index(
+            self.__main_window.factory.config.get('language')
+        )
+        self.__language_combobox.current(current_index)
+
+        self.__language_combobox.pack(side='left')
         self.__exit_button.pack(side='right')
         self.__download_button.pack(side='right', padx=10)
         self.__import_button.pack(side='right')
+
+    def on_select_language(self, event=None):
+        language_key = self.__languages[self.__language_combobox.get()]
+        if askokcancel(
+                self.__main_window.factory.language.translate(
+                    'window.buttons.languageSwitch.title',
+                    lang=language_key
+                ),
+                self.__main_window.factory.language.translate(
+                    'window.buttons.languageSwitch.content',
+                    lang=language_key
+                ),
+        ):
+            self.__main_window.factory.config['language'] = language_key
+            self.__main_window.factory.config.save()
+            self.__main_window.quit()
 
     def download(self):
         def run():
