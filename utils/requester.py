@@ -2,7 +2,10 @@ import json
 from urllib.parse import quote, urlencode
 from urllib.request import Request, urlopen
 
-from typing import Any, Dict, List
+from typing import TYPE_CHECKING, Any, Dict, List
+
+if TYPE_CHECKING:
+    from utils.factory import Factory
 
 
 class Response:
