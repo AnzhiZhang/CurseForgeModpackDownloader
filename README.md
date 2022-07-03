@@ -5,6 +5,16 @@
 [![Release](https://shields.io/github/v/release/AnzhiZhang/CurseForgeModpackDownloader?display_name=tag&include_prereleases&label=Release)](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/releases/latest)
 [![Gitmoji](https://img.shields.io/badge/gitmoji-%20😜%20😍-FFDD67.svg)](https://gitmoji.dev/)
 
+> On May 16, 2022, CurseForge released the official API. This result in third-party launchers no longer to download modpacks, like MultiMC and PCL2. More info can be found in ["The CurseForge Official API is Now Live"](https://medium.com/overwolf/the-curseforge-official-api-is-now-live-d314606355c2).
+>
+> This program could download mods for modpack downloaded from CurseForge, an pack to the format that is supported by launchers like MultiMC, HMCL, and PCL2.
+
+---
+
+> 2022年5月16日，CurseForge 发布了官方 API，同时弃用了旧的 API，这导致第三方启动器无法下载，如 MultiMC 和 PCL2。具体原因和详细情况在 [《The CurseForge Official API is Now Live》](https://medium.com/overwolf/the-curseforge-official-api-is-now-live-d314606355c2) 中有详细说明。
+>
+> 该程序可以将 CurseForge 的整合包补全文件，制作为启动器支持的格式。目前已测试支持的启动器列表为：MultiMC，HMCL 和 PCL2。
+
 ## Usage | 使用方式
 
 [CurseForge Modpack Downloader Tutorial](https://blog.zhanganzhi.com/en/2022/06/7b049d0aa9ff/) | [《CurseForge 整合包下载器教程》](https://blog.zhanganzhi.com/zh-CN/2022/06/7b049d0aa9ff/)
