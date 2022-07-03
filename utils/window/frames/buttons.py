@@ -69,7 +69,10 @@ class Buttons(Frame):
         self.__download_button.pack(side='right', padx=10)
         self.__import_button.pack(side='right')
 
-    def on_select_language(self, event=None):
+    def on_select_language(self, event=None) -> None:
+        """
+        Event handler for select a language.
+        """
         language_key = self.__languages[self.__language_combobox.get()]
         if askokcancel(
                 self.__main_window.factory.language.translate(
@@ -85,8 +88,16 @@ class Buttons(Frame):
             self.__main_window.factory.config.save()
             self.__main_window.quit()
 
-    def download(self):
+    def download(self) -> None:
+        """
+        Event handler for click download button.
+        It will start to download a modpack.
+        """
         def run():
+            """
+            Download modpack file.
+            """
+            # Progressbar
             toplevel = Toplevel(self)
             toplevel.title(
                 self.__main_window.factory.language.translate(
@@ -103,6 +114,7 @@ class Buttons(Frame):
 
             pb.start()
 
+            # Download
             with open(file_path, 'wb') as f:
                 f.write(
                     self.__main_window.factory.requester.get(
@@ -120,6 +132,7 @@ class Buttons(Frame):
         modpack_id = self.__main_window.show_frame.selected_modpack_id
         file_name = self.__main_window.show_frame.selected_file_name
 
+        # Check selected
         if modpack_id != -1 and file_name != '':
             download_url = self.__main_window.show_frame.selected_download_url
             avatar_url = self.__main_window.show_frame.selected_avatar_url

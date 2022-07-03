@@ -6,6 +6,7 @@ import platform
 NAME = 'CurseForgeModpackDownloader'
 NAME_WITH_SPACE = 'CurseForge Modpack Downloader (CMPDL)'
 
+# Program and other files dir
 if getattr(sys, 'frozen', False):
     BASE_DIR = getattr(sys, '_MEIPASS')
 else:
@@ -19,6 +20,7 @@ class PATH:
 
     LANG_DIR_PATH = os.path.join(BASE_DIR, 'lang')
 
+    # Icon is not supported on linux
     if platform.system() == 'Windows':
         ICON_PATH = os.path.join(BASE_DIR, 'icon.ico')
     else:
@@ -45,6 +47,7 @@ class CONFIG:
     }
 
 
+# Available search params
 class SEARCH:
     VERSIONS = ['', '1.10.2', '1.12.2', '1.16.5', '1.18.2']
     SORTING = {

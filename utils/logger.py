@@ -32,7 +32,11 @@ class Logger:
         self.critical = self.logger.critical
         self.exception = self.logger.exception
 
-    def set_debug(self, debug: bool = False):
+    def set_debug(self, debug: bool = False) -> None:
+        """
+        Set debug mode to on or off.
+        :param debug: Turn on debug mode if it is True, off otherwise.
+        """
         if debug:
             self.debug_mode = True
             self.logger.setLevel(logging.DEBUG)
@@ -44,6 +48,9 @@ class Logger:
             self.ch.setLevel(logging.INFO)
             self.fh.setLevel(logging.INFO)
 
-    def close(self):
+    def close(self) -> None:
+        """
+        Close log file for clean logger.
+        """
         self.fh.close()
         self.logger.removeHandler(self.fh)

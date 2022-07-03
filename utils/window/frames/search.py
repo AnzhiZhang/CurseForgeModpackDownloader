@@ -28,8 +28,14 @@ class Search(Frame):
         self.search_button.pack(side='left', fill='y', padx=(10, 0))
 
     @property
-    def keyword(self):
+    def keyword(self) -> str:
+        """
+        Get the keyword in the entry.
+        """
         return self.search_entry.get()
 
-    def on_search(self, event=None):
+    def on_search(self, event=None) -> None:
+        """
+        Event handler for click search button.
+        """
         self.main_window.show_frame.update_list()

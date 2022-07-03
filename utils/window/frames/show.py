@@ -31,8 +31,19 @@ class Show(Frame):
         self.__list_listbox.pack(side='left', fill='both', expand=True)
         self.__list_listbox_scrollbar.pack(side='left', fill='y')
 
-    def update_list(self, append=False, force=False):
-        def request(index):
+    def update_list(self, append=False, force=False) -> None:
+        """
+        Get filters and search modpacks, then update the list.
+        :param append: Append new modpacks to end.
+        :param force: It will ignore list is updating if it is True.
+        """
+
+        def request(index: int) -> dict:
+            """
+            Get filters and search modpacks from API.
+            :param index: Search index.
+            :return: API requested result.
+            """
             # Get filters
             keyword = sorting = game_version = None
             if self.__main_window.search_frame.keyword:
@@ -49,7 +60,7 @@ class Show(Frame):
                 index=index
             ).json()
 
-        def run():
+        def run() -> None:
             self.__updating = True
 
             # Refresh list or append
@@ -90,7 +101,12 @@ class Show(Frame):
                 name='Update List Data'
             ).start()
 
-    def __on_scroll(self, first, last):
+    def __on_scroll(self, first: float, last: float) -> None:
+        """
+        List scroll event, to search and append more modpacks to the end.
+        :param first: Top of listbox in percentage, provided from tkinter.
+        :param last: Bottom of listbox in percentage, provided from tkinter.
+        """
         # Call origin function
         self.__list_listbox_scrollbar.set(first, last)
 
@@ -98,7 +114,10 @@ class Show(Frame):
         if float(last) == 1.0 and not self.__updating:
             self.update_list(append=True)
 
-    def __on_listbox_select(self, event=None):
+    def __on_listbox_select(self, event=None) -> None:
+        """
+        Event handler of listbox selected to update modpack versions.
+        """
         def run():
             # Clean filter combobox
             self.__main_window.filters_frame.set_modpack_version([''])
@@ -173,7 +192,7 @@ class Show(Frame):
             return self.__data[self.selected_index]['logo']['url']
         return ''
 
-    def reselect(self):
+    def reselect(self) -> None:
         """
         Reselect item in list.
         """

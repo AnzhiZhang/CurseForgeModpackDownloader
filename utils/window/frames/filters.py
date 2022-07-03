@@ -66,17 +66,30 @@ class Filters(Frame):
     def modpack_version(self):
         return self.modpack_version_combobox.get()
 
-    def init(self):
+    def init(self) -> None:
+        """
+        Set values of comboboxex.
+        """
         self.sort_combobox['values'] = list(SEARCH.SORTING.keys())
         self.sort_combobox.current(1)
         self.game_version_combobox['values'] = SEARCH.VERSIONS
 
-    def set_modpack_version(self, values: List[str]):
+    def set_modpack_version(self, values: List[str]) -> None:
+        """
+        Function to update modpack version combobox.
+        :param values: A string list contains all values.
+        """
         self.modpack_version_combobox['values'] = values
         self.modpack_version_combobox.current(0)
 
-    def on_select(self, event=None):
+    def on_select(self, event=None) -> None:
+        """
+        Select a filter event handler. It will update nodpack list.
+        """
         self.main_window.show_frame.update_list()
 
-    def on_modpack_version_select(self, event=None):
+    def on_modpack_version_select(self, event=None) -> None:
+        """
+        Select a modpack version filter handler.
+        """
         self.main_window.show_frame.reselect()

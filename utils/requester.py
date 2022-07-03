@@ -61,7 +61,7 @@ class Requester:
         request = Request(url, headers=headers, method='GET')
         return Response(urlopen(request))
 
-    def get_mod_file(self, project_id, file_id):
+    def get_mod_file(self, project_id, file_id) -> Response:
         return self.get(f'{self.BASE_URL}/v1/mods/{project_id}/files/{file_id}')
 
     def search_modpack(
@@ -70,7 +70,7 @@ class Requester:
             search_filter: str = None,
             sorting: List = None,
             index: int = 0
-    ):
+    ) -> Response:
         """
         Search modpacks.
         :param game_version: Game version string.
@@ -94,7 +94,7 @@ class Requester:
             params['sortOrder'] = sorting[1]
         return self.get(f'{self.BASE_URL}/v1/mods/search', params=params)
 
-    def files(self, _id: int):
+    def files(self, _id: int) -> Response:
         """
         Get modpack files.
         :param _id: Modpack ID.
