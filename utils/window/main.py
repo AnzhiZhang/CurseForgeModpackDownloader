@@ -59,8 +59,8 @@ class Main(Tk):
         # ask api key
         if self.factory.config.get('curseForgeAPIKey') == '':
             result = askstring(
-                'Configuration',
-                '请输入 CurseForge API Key',
+                self.factory.language.translate(config.apiKey.title),
+                self.factory.language.translate(config.apiKey.content),
                 show='*',
                 parent=self
             )
