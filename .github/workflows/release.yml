@@ -81,6 +81,9 @@ jobs:
       - name: Rename Application
         run: mv ./dist/main ./dist/cmpdl
 
+      - name: Add Executable Mark to Binarys
+        run: chmod +x ./dist/cmpdl && chmod +x ./dist/start.sh
+
       - name: Compress Application
         run: cd dist && tar -zcvf pack.tar.gz start.sh cmpdl
 
