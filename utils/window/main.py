@@ -64,7 +64,7 @@ class Main(Tk):
                 show='*',
                 parent=self
             )
-            if result is None:
+            if result is None: # This Doesn't work
                 self.quit()
             else:
                 self.factory.requester.api_key = result
