@@ -42,3 +42,7 @@ download.logging.downloadFail: |
 download.logging.verifyFail: |
   {0} mods verify failed, generally not manually download required:
   {1}
+config.apiKey.title: Configuration
+config.apiKey.content: |
+  Please enter a Curseforge API key
+  If you don't have one, please get one or use someone's key

@@ -42,3 +42,7 @@ download.logging.downloadFail: |
 download.logging.verifyFail: |
   {0} 个模组校验失败，一般无需手动下载：
   {1}
+config.apiKey.title: 配置
+config.apiKey.content: |
+  请输入 Curseforge API key
+  如果你没有，请获取一个或使用他人的密钥
