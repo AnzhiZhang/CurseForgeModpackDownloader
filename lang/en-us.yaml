@@ -8,9 +8,9 @@ license.content: |
 window.search.search: Search
 window.show.resultWarning.title: Warning
 window.show.resultWarning.content: Got 0 results!
-window.filters.sort: "Sort: "
-window.filters.gameVersion: "Game Version: "
-window.filters.modpackVersion: "Modpack Version: "
+window.filters.sort: 'Sort: '
+window.filters.gameVersion: 'Game Version: '
+window.filters.modpackVersion: 'Modpack Version: '
 window.buttons.languageSwitch.title: Confirmation
 window.buttons.languageSwitch.content: |
   Are you sure to switch the language to English? Please restart the program after clicking ok.
@@ -26,15 +26,15 @@ download.finish.content: |
   Please import to launcher
   Issues:
   https://github.com/AnzhiZhang/CurseForgeModpackDownloader
-download.downloadFail: "{0} mods download fail, please download them manually!"
+download.downloadFail: '{0} mods download fail, please download them manually!'
 download.getModWarning.title: Warning
 download.getModWarning.content: |
   {0}
   Please get more info in log.
 download.logging.unzipped: Unzipped files
-download.logging.foundMods: "{0} mods were found"
-download.logging.gotDownloadURL: "Got mod download URL ({0}/{1}): {2}"
-download.logging.gotMod: "Got mod ({0}/{1}): {2}"
+download.logging.foundMods: '{0} mods were found'
+download.logging.gotDownloadURL: 'Got mod download URL ({0}/{1}): {2}'
+download.logging.gotMod: 'Got mod ({0}/{1}): {2}'
 download.logging.success: Successfully downloaded {0}
 download.logging.downloadFail: |
   {0} mods download failed, please download them manually:
