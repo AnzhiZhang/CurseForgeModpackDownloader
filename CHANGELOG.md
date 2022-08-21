@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.0](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/compare/v1.4.2...v1.5.0) (2022-08-21)
+
+
+### Features
+
+* 🌐 Translation for CurseAPIkey massage box ([#34](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/issues/34)) ([bbd66bb](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/commit/bbd66bb95eb037b45d0dedee68babc5fcd6f3a52))
+
 ## [1.4.2](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/compare/v1.4.1...v1.4.2) (2022-07-02)
 
 
