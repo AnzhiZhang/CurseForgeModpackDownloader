@@ -26,7 +26,7 @@ download.finish.content: |
   请直接导入启动器
   问题反馈：
   https://github.com/AnzhiZhang/CurseForgeModpackDownloader
-download.downloadFail: "{0} 个模组下载失败，请手动下载！"
+download.downloadFail: '{0} 个模组下载失败，请手动下载！'
 download.getModWarning.title: 警告
 download.getModWarning.content: |
   {0}
