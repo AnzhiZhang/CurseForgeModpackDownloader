@@ -76,7 +76,7 @@ jobs:
         run: pyinstaller -i icon.ico --clean --noconsole --add-data="lang:lang" --onefile main.py
 
       - name: Generate Start Up Script
-        run: cd dist && echo "#!/bin/sh" >> start.sh && echo "export SSL_CERT_DIR=/etc/ssl/certs" >> start.sh && echo "./main" >> start.sh
+        run: cd dist && echo "#!/bin/sh" >> start.sh && echo "export SSL_CERT_DIR=/etc/ssl/certs" >> start.sh && echo "./cmpdl" >> start.sh
 
       - name: Rename Application
         run: mv ./dist/main ./dist/cmpdl
