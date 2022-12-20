@@ -1,8 +1,8 @@
 import json
+from typing import TYPE_CHECKING, Any, Dict, List
+
 from urllib.parse import quote, urlencode
 from urllib.request import Request, urlopen
-
-from typing import TYPE_CHECKING, Any, Dict, List
 
 if TYPE_CHECKING:
     from utils.factory import Factory
@@ -62,7 +62,9 @@ class Requester:
         return Response(urlopen(request))
 
     def get_mod_file(self, project_id, file_id) -> Response:
-        return self.get(f'{self.BASE_URL}/v1/mods/{project_id}/files/{file_id}')
+        return self.get(
+            f'{self.BASE_URL}/v1/mods/{project_id}/files/{file_id}'
+        )
 
     def search_modpack(
             self,
