@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.0](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/compare/v1.5.0...v1.6.0) (2022-12-20)
+
+
+### Features
+
+* **download:** ✨ add request retry ([6cb3f42](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/commit/6cb3f428459f0cc8f444d16e54aea4cd1186fd7b))
+
 ## [1.5.0](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/compare/v1.4.2...v1.5.0) (2022-08-21)
 
 
