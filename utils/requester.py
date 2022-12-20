@@ -59,7 +59,14 @@ class Requester:
             'x-api-key': self.__factory.config['curseForgeAPIKey']
         }
         request = Request(url, headers=headers, method='GET')
-        return Response(urlopen(request))
+        i = 0
+        while i := i + 1:
+            try:
+                return Response(urlopen(request))
+            except Exception as e:
+                self.__factory.logger.exception(e)
+                if i == 3:
+                    raise e
 
     def get_mod_file(self, project_id, file_id) -> Response:
         return self.get(
