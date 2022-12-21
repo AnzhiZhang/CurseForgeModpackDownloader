@@ -1,6 +1,7 @@
 # CurseForge Modpack Downloader (CMPDL)
 
 [![License](https://shields.io/github/license/AnzhiZhang/CurseForgeModpackDownloader?label=License)](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/blob/master/LICENSE)
+[![Build](https://img.shields.io/github/actions/workflow/status/AnzhiZhang/CurseForgeModpackDownloader/release.yml?label=Build&branch=master)](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/actions/workflows/release.yml)
 [![Downloads](https://shields.io/github/downloads/AnzhiZhang/CurseForgeModpackDownloader/total?label=Downloads)](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/releases)
 [![Release](https://shields.io/github/v/release/AnzhiZhang/CurseForgeModpackDownloader?display_name=tag&include_prereleases&label=Release)](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/releases/latest)
 [![Gitmoji](https://img.shields.io/badge/gitmoji-%20😜%20😍-FFDD67.svg)](https://gitmoji.dev/)
