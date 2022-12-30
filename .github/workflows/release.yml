@@ -30,7 +30,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Setup Python
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v4
         with:
           python-version: '3.10'
 
@@ -43,14 +43,10 @@ jobs:
         run: pyinstaller -i icon.ico --clean --noconsole --add-binary "icon.ico;." --add-data="lang;lang" --onefile main.py
 
       - name: Upload Release Asset
-        uses: actions/upload-release-asset@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ needs.release-please.outputs.upload_url }}
-          asset_path: ./dist/main.exe
-          asset_name: CurseForgeModpackDownloader-${{ needs.release-please.outputs.tag_name }}-Windows.exe
-          asset_content_type: application/vnd.microsoft.portable-executable
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release upload ${{ needs.release-please.outputs.tag_name }} ./dist/main.exe#CurseForgeModpackDownloader-${{ needs.release-please.outputs.tag_name }}-Windows.exe
 
   linuxbuild:
     runs-on: ubuntu-latest
@@ -63,7 +59,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Setup Python
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v4
         with:
           python-version: '3.10'
 
@@ -88,11 +84,7 @@ jobs:
         run: cd dist && tar -zcvf pack.tar.gz start.sh cmpdl
 
       - name: Upload Release Asset
-        uses: actions/upload-release-asset@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ needs.release-please.outputs.upload_url }}
-          asset_path: ./dist/pack.tar.gz
-          asset_name: CurseForgeModpackDownloader-${{ needs.release-please.outputs.tag_name }}-Linux.tar.gz
-          asset_content_type: application/x-gtar
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release upload ${{ needs.release-please.outputs.tag_name }} ./dist/pack.tar.gz#CurseForgeModpackDownloader-${{ needs.release-please.outputs.tag_name }}-Linux.tar.gz
