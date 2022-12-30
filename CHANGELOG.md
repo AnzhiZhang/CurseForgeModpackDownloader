@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.1](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/compare/v1.6.0...v1.6.1) (2022-12-30)
+
+
+### Continuous Integration
+
+* 👷 update ci ([2740a12](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/commit/2740a12297478ac2f43a888d757d64d914c6570e))
+
 ## [1.6.0](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/compare/v1.5.0...v1.6.0) (2022-12-20)
 
 
