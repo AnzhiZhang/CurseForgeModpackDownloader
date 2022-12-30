@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.1](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/compare/v1.6.0...v1.6.1) (2022-12-30)
+
+
+### Continuous Integration
+
+* 👷 use github cli to upload release assets ([0624c56](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/commit/0624c5650fbeaa86502caa644816b3d801d6fa55))
+
 ## [1.6.0](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/compare/v1.5.0...v1.6.0) (2022-12-20)
 
 
