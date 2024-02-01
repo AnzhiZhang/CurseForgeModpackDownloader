@@ -6,11 +6,16 @@
 [![Release](https://shields.io/github/v/release/AnzhiZhang/CurseForgeModpackDownloader?display_name=tag&include_prereleases&label=Release)](https://github.com/AnzhiZhang/CurseForgeModpackDownloader/releases/latest)
 [![Gitmoji](https://img.shields.io/badge/gitmoji-%20😜%20😍-FFDD67.svg)](https://gitmoji.dev/)
 
+> [!TIP]
+> It is suggested to use [Prism Launcher](https://prismlauncher.org/) to replace MultiMC, it can download modpacks and mods from multiple sources now.
+>
+> 建议使用 [Prism Launcher](https://prismlauncher.org/) 替代 MultiMC，现在它可以从多个来源下载整合包和模组。
+
+## Introduction | 引言
+
 > On May 16, 2022, CurseForge released the official API. This result in third-party launchers no longer to download modpacks, like MultiMC and PCL2. More info can be found in ["The CurseForge Official API is Now Live"](https://medium.com/overwolf/the-curseforge-official-api-is-now-live-d314606355c2).
 >
 > This program could download mods for modpack downloaded from CurseForge, an pack to the format that is supported by launchers like MultiMC, HMCL, and PCL2.
-
----
 
 > 2022年5月16日，CurseForge 发布了官方 API，同时弃用了旧的 API，这导致第三方启动器无法下载，如 MultiMC 和 PCL2。具体原因和详细情况在 [《The CurseForge Official API is Now Live》](https://medium.com/overwolf/the-curseforge-official-api-is-now-live-d314606355c2) 中有详细说明。
 >
